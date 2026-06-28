@@ -1,0 +1,14 @@
+[
+  {
+    "key": "API",
+    "server": "http://localhost:1100/",
+    "username": "neodata2",
+    "password": "hN8k0C7LoJ2bKZ",
+    "id_app": "11",
+    "id_app_external": "7",
+    "version": "1",
+    "fileLoader": "/js/loader.js",
+    "fileEvents": "/js/events.js",
+    "fileFunctions": "/js/functions.js"
+  }
+]
