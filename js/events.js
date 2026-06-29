@@ -22,7 +22,7 @@ $("body").off("click", ".btn-AuthenticateExternal").on("click", ".btn-Authentica
     var data = {
         "id_user": _API.authentication.id,
         "token_authentication": _API.authentication.token_authentication,
-        "id_app": _API.authentication.id_app_external,
+        "id_app": _API.id_app_external,
         "username": $(".Username").val(),
         "password": $(".Password").val(),
         "external_operator": _API.externalUserMode
