@@ -362,23 +362,23 @@ var _API = {
                     });
             });
     },
-    setBranch: function (_root, _subsystem, _loginRequired, _imageLogin, _externalUserMode, _id_app_external) {
-        if (_root == null || _root == "") {
+    setBranch: function (_branchConfig) {
+        if (_branchConfig._root == null || _branchConfig._root == "") {
             alert("¡Debe especificar un valor válidos para el parámetro _root!");
             return false;
         }
         /* subdirectorio de la implementacion en cuestión */
-        _API._ROOT = _root;
+        _API._ROOT = _branchConfig._root;
         /* Identificado de texto de subsystem para mostrar en formulario de login */
-        _API.subsystem = _subsystem;
+        _API.subsystem = _branchConfig._subsystem;
         /* flag de auth de usuario externo requiriendo login */
-        _API.loginRequired = _loginRequired;
+        _API.loginRequired = _branchConfig._loginRequired;
         /* imagen del encabeado de la pantalla de login */
-        if (_loginRequired && _imageLogin != null && _imageLogin != "") { _API.imageLogin = (_imageLogin + "?" + _API._TS); }
+        if (_branchConfig._loginRequired && _branchConfig._imageLogin != null && _branchConfig._imageLogin != "") { _API.imageLogin = (_branchConfig._imageLogin + "?" + _API._TS); }
         /* modo del user a autenticar 0 - LDAP / 1 - EXTERNAL */
-        _API.externalUserMode = _externalUserMode;
+        _API.externalUserMode = _branchConfig._externalUserMode;
         /* valor del id de app a la cual el usuario externo debe tener permiso de acceso */
-        _API.id_app_external = _id_app_external;
+        _API.id_app_external = _branchConfig._id_app_external;
     },
     loaderFile: function (_file) {
         return new Promise(
