@@ -21,16 +21,30 @@ $(document).ready(function () {
                     _externalUserMode = 0 para LDAP / 1 para EXTERNO - null si _loginRequired=false
                     _id_app_external = valor del id de app a la cual el usuario externo debe tener permiso de acceso, segun valores en mod_backend_applications */
                     switch (window.location.host) {
+                        case "apidoc.mediya.com.ar": //Documentación API Mediya - producción
+                        case "localhost:4439": //Documentación API Mediya - dev daniel
+                            _API.setBranch("Credipaz.ApiDoc", "Documentacion API", true, "./img/mediya.png", 1, 11);
+                            break;
+                        case "apidoc.credipaz.com": //Documentación API Credipaz - producción
+                        case "localhost:4440": //Documentación API Credipaz - dev daniel
+                            _API.setBranch("Credipaz.ApiDoc", "Documentacion API", true, "./img/credipaz.png", 1, 11);
+                            break;
+                        case "deuda.credipaz.com": //Gestión externa de deuda - producción
                         case "localhost:4441": //Gestión externa de deuda - dev daniel
                             _API.setBranch("Credipaz.GestionExternaDeuda", "Acceso a la gestión externa de deuda", true, "./img/credipaz.png", 1, 13);
                             break;
+                        case "cesiones.credipaz.com": //Cesiones - producción
                         case "localhost:4442": //Cesiones - dev daniel
                             _API.setBranch("Credipaz.Cesiones", "Acceso a información de cesiones", true, "./img/credipaz.png", 1, 12);
                             break;
+                        case "sia.credipaz.com": //SIA - producción
                         case "localhost:4443": //SIA - dev daniel
                             _API.setBranch("Credipaz.SIA", null, false, null, null, null);
                             break;
-                        case "localhost:4444": //Botón de pago - dev daniel
+                        case "pagos.credipaz.com": //Botón de pago credipaz- producción
+                        case "pagos.mediya.com.ar": //Botón de pago - producción
+                        case "localhost:4444": //Botón de pago Credipaz - dev daniel
+                        case "localhost:4445": //Botón de pago Mediya - dev daniel
                             _API.setBranch("Credipaz.Pagos", null, false, null, null, null);
                             break;
                     }
