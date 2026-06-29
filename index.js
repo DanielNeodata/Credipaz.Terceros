@@ -21,6 +21,7 @@ $(document).ready(function () {
                     _externalUserMode = 0 para LDAP / 1 para EXTERNO - null si _loginRequired=false
                     _id_app_external = valor del id de app a la cual el usuario externo debe tener permiso de acceso, segun valores en mod_backend_applications */
                     switch (window.location.host) {
+                        case "localhost:54441": //Gestión externa de deuda - dev ruben
                         case "localhost:4441": //Gestión externa de deuda - dev daniel
                             _API.setBranch("Credipaz.GestionExternaDeuda", "Acceso a la gestión externa de deuda", true, "./img/credipaz.png", 1, 13);
                             break;
