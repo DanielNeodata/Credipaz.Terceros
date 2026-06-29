@@ -25,6 +25,7 @@ $(document).ready(function () {
                     switch (window.location.host) {
                         case "apidoc.mediya.com.ar": //Documentación API Mediya - producción
                         case "localhost:4439": //Documentación API Mediya - dev daniel
+                        case "localhost:54439": //Documentación API Mediya - dev ruben
                             _branchConfig._root = "Credipaz.ApiDoc";
                             _branchConfig._subsystem = "Documentacion API";
                             _branchConfig._loginRequired = true;
@@ -34,6 +35,7 @@ $(document).ready(function () {
                             break;
                         case "apidoc.credipaz.com": //Documentación API Credipaz - producción
                         case "localhost:4440": //Documentación API Credipaz - dev daniel
+                        case "localhost:54440": //Documentación API Credipaz - dev ruben
                             _branchConfig._root = "Credipaz.ApiDoc";
                             _branchConfig._subsystem = "Documentacion API";
                             _branchConfig._loginRequired = true;
@@ -43,6 +45,7 @@ $(document).ready(function () {
                             break;
                         case "deuda.credipaz.com": //Gestión externa de deuda - producción
                         case "localhost:4441": //Gestión externa de deuda - dev daniel
+                        case "localhost:54441": //Gestión externa de deuda - dev ruben
                             _branchConfig._root = "Credipaz.GestionExternaDeuda";
                             _branchConfig._subsystem = "Gestión externa de deuda";
                             _branchConfig._loginRequired = true;
@@ -52,6 +55,7 @@ $(document).ready(function () {
                             break;
                         case "cesiones.credipaz.com": //Cesiones - producción
                         case "localhost:4442": //Cesiones - dev daniel
+                        case "localhost:54442": //Cesiones - dev ruben
                             _branchConfig._root = "Credipaz.Cesiones";
                             _branchConfig._subsystem = "Información de cesiones";
                             _branchConfig._loginRequired = true;
@@ -61,12 +65,15 @@ $(document).ready(function () {
                             break;
                         case "sia.credipaz.com": //SIA - producción
                         case "localhost:4443": //SIA - dev daniel
+                        case "localhost:54443": //SIA - dev ruben
                             _branchConfig._root = "Credipaz.SIA";
                             break;
                         case "pagos.credipaz.com": //Botón de pago credipaz- producción
                         case "pagos.mediya.com.ar": //Botón de pago - producción
                         case "localhost:4444": //Botón de pago Credipaz - dev daniel
                         case "localhost:4445": //Botón de pago Mediya - dev daniel
+                        case "localhost:54444": //Botón de pago Credipaz - dev ruben
+                        case "localhost:54445": //Botón de pago Mediya - dev ruben
                             _branchConfig._root = "Credipaz.Pagos";
                             break;
                     }
