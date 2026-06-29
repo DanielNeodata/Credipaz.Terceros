@@ -1,6 +1,7 @@
 var _API = {
     _TS: 0,
     _ROOT: "",
+    tools:null,
     id_app_external:0,
     loginRequired: false,
     externalUserMode: 0,
@@ -11,7 +12,7 @@ var _API = {
     urlParameters: null,
     inited: false,
     verbose: false,
-    _scrollY: 0,
+    scrollY: 0,
     log: function (key, data) {
         /* 
         Función para escribir log en consola.
@@ -55,154 +56,6 @@ var _API = {
         }
         return obj;
     },
-    isValidDate: function (dateString) {
-        var timestamp = Date.parse(dateString);
-        return !isNaN(timestamp);
-    },
-    isValidEmail: function (email) {
-        var em = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-        return em.test(email);
-    },
-    onlyNumbers: function (_this) {
-        _this.val(_this.val().replace(/[^0-9]/g, ''));
-    },
-    dateCompareGreaterThan: function (_dateGreater, _dateBase) {
-        const date1 = new Date(_dateGreater);
-        const date2 = new Date(_dateBase);
-        if (date1 > date2) {
-            return true;
-        } else if (date1 < date2) {
-            return false;
-        } else {
-            return true;
-        }
-    },
-    validate: function (_selector, _seeAlert) {
-        if (_seeAlert == undefined) { _seeAlert = false; }
-        var _ret = true;
-        $(_selector).each(function () { _ret = _API.formatValidation($(this)) && _ret; });
-        if (!_ret && _seeAlert) { alert("Faltan datos."); }
-        return _ret;
-    },
-    formatValidation: function (_obj) {
-        var _ret = true;
-        var _value = _obj.val();
-        var property = _obj.attr('name');
-        switch (_obj.prop("tagName")) {
-            case "TEXTAREA":
-            case "INPUT":
-                var _min = _obj.attr('data-min');
-                var _max = _obj.attr('data-max');
-                switch (_obj.attr("type")) {
-                    case "number":
-                        if (_value == "") { _ret = false; }
-                        if (isNaN(_value)) { _ret = false; }
-                        if (_min !== undefined) {
-                            if (isNaN(_min)) {
-                                _min = $(_min).val();
-                                if (_min != undefined) { if (isNaN(_min)) { _ret = false; } }
-                            }
-                            if (_ret) { _ret = (parseDouble(_value) > parseDouble(_min)); }
-                        }
-                        if (_ret) {
-                            if (_max !== undefined) {
-                                if (isNaN(_max)) {
-                                    _max = $(_max).val();
-                                    if (_max != undefined) { if (isNaN(_max)) { _ret = false; } }
-                                }
-                                if (_ret) { _ret = (parseDouble(_value) < parseDouble(_max)); }
-                            }
-                        }
-                        break;
-                    case "date":
-                    case "datetime-local":
-                        if (!_API.isValidDate(_value)) { _ret = false; }
-                        if (_min !== undefined) {
-                            if (!_API.isValidDate(_min)) {
-                                _min = $(_min).val();
-                                if (_min != undefined) { if (!_API.isValidDate(_min)) { _ret = false; } }
-                            }
-                            if (_ret) { _ret = _API.dateCompareGreaterThan(_value, _min); }
-                        }
-                        if (_ret) {
-                            if (_max !== undefined) {
-                                if (!_API.isValidDate(_max)) {
-                                    _max = $(_max).val();
-                                    if (_max != undefined) { if (!_API.isValidDate(_max)) { _ret = false; } }
-                                }
-                                if (_ret) { _ret = _API.dateCompareGreaterThan(_max, _value); }
-                            }
-                        }
-                        break;
-                    case "email":
-                        if (!_API.isValidEmail(_value)) { _ret = false; }
-                        break;
-                    case "radio":
-                        _ret = ($("input[name='" + property + "']:checked").val() != undefined);
-                        if (!_ret) {
-                            _obj.parent().css("border", "solid 1px red");
-                        } else {
-                            _obj.parent().css("border", "solid 0px transparent");
-                        }
-                        break;
-                    case "checkbox":
-                        var _checked = _obj.is(":checked");
-                        if (!_checked) { _ret = false; }
-                        break;
-                    default:
-                        if (_obj.hasClass("data-list")) {
-                            if (_obj.attr("data-selected-id") == "" || _obj.attr("data-selected-id") == undefined) { _ret = false; }
-                        } else {
-                            if (_value == "") { _ret = false; }
-                        }
-                        break;
-                }
-                break;
-            case "SELECT":
-                if (_value == "0" || _value == "-1" || _value == undefined || _value == null || _value == "") { _ret = false; }
-                break;
-        }
-        if (_ret) {
-            _obj.removeClass("is-invalid").addClass("is-valid");
-            $(".invalid-" + _obj.prop("name")).html("").addClass("d-none");
-        } else {
-            _obj.removeClass("is-valid").addClass("is-invalid");
-        }
-        if (!_ret) { _API.log("formatValidation, elemento en FALSE", property); }
-        return _ret;
-    },
-    getFormValues: function (_selector, _this) {
-        try {
-            var _jsonSave = {};
-            $(_selector).each(function () {
-                var property = $(this).attr('name');
-                var value = "";
-                switch ($(this).attr("data-type")) {
-                    case "select":
-                        if ($(this).length == 0) { value = ""; } else { value = $(this).val(); }
-                        if (value == null || value == "-1" || value == "0") { value = ""; }
-                        break;
-                    case "radio":
-                        value = $("input[name='" + property + "']:checked").val();
-                        if (value == undefined) { value = ""; }
-                        break;
-                    case "checkbox":
-                        if ($(this).prop("checked")) {
-                            value = $(this).val();
-                            if (parseInt(value) == 0 || value == '') { value = 1; }
-                        } else {
-                            value = 0;
-                        }
-                        break;
-                    default:
-                        value = $(this).val();
-                        break;
-                }
-                _jsonSave[property] = value;
-            });
-        } catch (rex) { };
-        return _jsonSave;
-    },
     getNow: function () {
         var currentDate = new Date();
         var second = currentDate.getSeconds();
@@ -241,7 +94,7 @@ var _API = {
             return false;
         }
     },
-    UUID: function () {
+    uuid: function () {
         var s = [];
         var hexDigits = "0123456789abcdef";
         for (var i = 0; i < 36; i++) { s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1); }
@@ -250,10 +103,6 @@ var _API = {
         s[8] = s[13] = s[18] = s[23] = "-";
         var uuid = s.join("");
         return uuid;
-    },
-    formatChargeTotal: function (str) {
-        var part = str.toString().split(".");
-        return (part[0] + "." + part[1].slice(0, 2));
     },
     isset: function (_val) {
         return (typeof _val !== undefined);
@@ -278,17 +127,13 @@ var _API = {
         str = str.replace(/\s/g, '');
         return decodeURIComponent(escape(window.atob(str)));
     },
-    formatMoney: function (_val, _dec = 2) {
-        if (isNaN(_val)) { _val = 0; }
-        return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: _dec, maximumFractionDigits: _dec }).format(_val);
-    },
 
     onShowModal: function (_name, _title, _body) {
         return new Promise(
             function (resolve, reject) {
                 try {
                     var _id = ("#" + _name);
-                    _API._scrollY = window.scrollY;
+                    _API.scrollY = window.scrollY;
                     _API.onDestroyModal(_id);
                     $.get(("html/modalDefault.html?" + _API._TS), function (_html) {
                         $("body").append(_html);
@@ -341,6 +186,11 @@ var _API = {
                 fetch("./Recursos/configServers.json?" + _API._TS)
                     .then(response => {
                         if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
+                        $.getScript(("js/events.js?" + _API._TS), function () {
+                            $.getScript(("js/tools.js?" + _API._TS), function () {
+                                _API.tools = _T;
+                            });
+                        });
                         /* Almacena los parámetros de la url de acceso */
                         _API.urlParameters = _API.getUrlParams();
                         /* Setea verbose, para activar o no la escritura en la consola del navegador de los mensajes de log */
@@ -446,7 +296,7 @@ var _API = {
         return new Promise(
             function (resolve, reject) {
                 /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
-                if (!_API.validate(".validateLogin", false)) { return false; }
+                if (!_API.tools.validate(".validateLogin", false)) { return false; }
                 var data = {
                     "id_user": _API.authentication.id,
                     "token_authentication": _API.authentication.token_authentication,

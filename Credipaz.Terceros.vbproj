@@ -167,11 +167,13 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <Content Include="js\API.js" />
+    <Content Include="js\tools.js" />
     <Content Include="js\events.js" />
     <Content Include="verificationQR.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="web.config" />
+    <Content Include="Recursos\configServers.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -179,9 +181,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Recursos\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

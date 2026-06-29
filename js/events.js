@@ -13,7 +13,7 @@ $("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", fun
 
 /*Evento para máscara de numeros en inputs*/
 $("body").off("keyup", ".onlyNumbers").on("keyup", ".onlyNumbers", function () {
-    _API.onlyNumbers($(this));
+    _API.tools.onlyNumbers($(this));
 });
 
 $("body").off("click", ".btn-AuthenticateExternal").on("click", ".btn-AuthenticateExternal", function () {

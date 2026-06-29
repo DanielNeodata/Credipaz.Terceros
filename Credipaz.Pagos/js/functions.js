@@ -89,7 +89,7 @@ var _F = {
 		return new Promise(
 			function (resolve, reject) {
 				try {
-					if (!_API.validate(".validateFirst", false)) { throw null; }
+					if (!_API.tools.validate(".validateFirst", false)) { throw null; }
 					_this.fadeOut("fast");
 					_F.DNI = $(".Documento").val();
 					var data = { "NroDocumento": _F.DNI };
@@ -210,9 +210,9 @@ var _F = {
 		var _total_consolidado = 0;
 		for (var item of _F._itemsPagos) { _total_consolidado += (item.Importe * 1); }
 		_total = _total_consolidado;
-		$(".coinTotal").html(_API.formatMoney(_total, 2));
+		$(".coinTotal").html(_API.tools.formatMoney(_total, 2));
 		if (_total.toString().indexOf(".") == -1) { _total += ".00"; }
-		var chargetotal = _API.formatChargeTotal(_total.toString());
+		var chargetotal = _API.tools.formatChargeTotal(_total.toString());
 		if (_total_consolidado > 0) {
 			var data = { "total": _total, "itemsPagos": JSON.stringify(_F._itemsPagos) };
 			_F.onBuildFormFiserv(data).then(function (html) {
@@ -232,7 +232,7 @@ var _F = {
 					var transactionNotificationURL = _F.URL_NOTIFY;
 					var txndatetime = _API.getToday();
 					var currency = "032";
-					var chargetotal = _API.formatChargeTotal(values.total.toString());
+					var chargetotal = _API.tools.formatChargeTotal(values.total.toString());
 					if (values.itemsPagos == undefined || values.itemsPagos == null || values.itemsPagos.length == 0) {
 						values.itemsPagos = [];
 						var _rec = { "Tipo": "TAR", "Identificacion": (_F.DNI + " Pago tarjeta"), "Importe": chargetotal, "idTransfer": 0 };
@@ -246,7 +246,7 @@ var _F = {
 						.catch(function (err) {reject(err);})
 						.then(function (extendedHash) {
 							var html = "";
-							html += "<form id='checkoutform' method='post' action='" + (_F.FISERV_URL + "?" + _API.UUID()) + "' target='iframe_fiserv'>";
+							html += "<form id='checkoutform' method='post' action='" + (_F.FISERV_URL + "?" + _API.uuid()) + "' target='iframe_fiserv'>";
 							html += "   <table class='tbl-fiserv d-none'>";
 							html += "    <tr><td>hostURI</td><td><input class='dataPost' type='text' id='hostURI' name='hostURI' value='" + _F.URL_NOTIFY + "'/></td></tr>";
 							html += "    <tr><td>parentUri</td><td><input class='dataPost' type='text' id='parentUri' name='parentUri' value='" + window.location.href + "'/></td></tr>";
@@ -289,7 +289,7 @@ var _F = {
 			"Moneda": $("#currency").val(),
 			"NroDocumento": _F.DNI,
 			"Monto": $("#chargetotal").val(),
-			"Raw_request": JSON.stringify(_API.getFormValues(".dataPost", $(this))),
+			"Raw_request": JSON.stringify(_API.tools.getFormValues(".dataPost", $(this))),
 			"Channel": "FSRV"
 		};
 		_API.method("credipaz/iniciarTransaccionPago", data).then(function (response) {
@@ -336,7 +336,7 @@ var _F = {
 		_html += "<input type='hidden' id='code' name='code' value='" + _fulldata.dni + "' class='code dbaseComprobante'/>";
 		_html += "<input type='hidden' id='description' name='description' value='comprobanteCOIN' class='description dbaseComprobante'/>";
 		_html += "<input type='hidden' id='base64' name='base64' value='' class='base64 dbaseComprobante'/>";
-		_html += "<input type='hidden' id='filename' name='filename' value='Comprobante de pago " + _API.UUID() + ".pdf' class='filename dbaseComprobante'/>";
+		_html += "<input type='hidden' id='filename' name='filename' value='Comprobante de pago " + _API.uuid() + ".pdf' class='filename dbaseComprobante'/>";
 		_html += "<input type='hidden' id='extension' name='extension' value='pdf' class='extension dbaseComprobante'/>";
 		_html += "      <table style='width:100%;font-family:calibri;padding:5px;'>";
 		_html += "         <tr>";
@@ -429,7 +429,7 @@ var _F = {
 		$(".base64").val(_API.utf8_to_b64($(".data-pdf").html()));
 		var _url = (_AJAX.server + "downloadBase64File/" + $(".code").val() + "/" + $(".description").val());
 		$(".btnGetBase64").attr("href", _url);
-		var _json = _API.getFormValues(".dbaseComprobante", null);
+		var _json = _API.tools.getFormValues(".dbaseComprobante", null);
 		_json["module"] = "mod_backend";
 		_json["table"] = "Files_base64";
 		_json["model"] = "Files_base64";
