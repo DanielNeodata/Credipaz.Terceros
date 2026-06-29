@@ -28,10 +28,10 @@ $(document).ready(function () {
                             _API.setBranch("Credipaz.Cesiones", "Acceso a información de cesiones", true, "./img/credipaz.png", 1, 12);
                             break;
                         case "localhost:4443": //SIA - dev daniel
-                            _API.setBranch("Credipaz.SIA", null, false, null, null);
+                            _API.setBranch("Credipaz.SIA", null, false, null, null, null);
                             break;
                         case "localhost:4444": //Botón de pago - dev daniel
-                            _API.setBranch("Credipaz.Pagos", null, false, null, null);
+                            _API.setBranch("Credipaz.Pagos", null, false, null, null, null);
                             break;
                     }
                     /* control de acceso autenticado por parte del usuario externo */
