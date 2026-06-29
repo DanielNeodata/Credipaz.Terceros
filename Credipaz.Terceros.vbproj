@@ -125,6 +125,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Credipaz.ApiDoc\html\index.html" />
+    <Content Include="Credipaz.ApiDoc\js\events.js" />
+    <Content Include="Credipaz.ApiDoc\js\functions.js" />
+    <Content Include="Credipaz.ApiDoc\js\loader.js" />
     <Content Include="Credipaz.GestionExternaDeuda\html\index.html" />
     <Content Include="Credipaz.GestionExternaDeuda\js\events.js" />
     <Content Include="Credipaz.GestionExternaDeuda\js\functions.js" />
