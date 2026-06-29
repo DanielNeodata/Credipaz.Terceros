@@ -1,6 +1,7 @@
 var _API = {
     _TS: 0,
     _ROOT: "",
+    id_app_external:0,
     loginRequired: false,
     externalUserMode: 0,
     imageLogin: "./img/loginDefault.png",
@@ -361,7 +362,7 @@ var _API = {
                     });
             });
     },
-    setBranch: function (_root, _subsystem, _loginRequired, _imageLogin, _externalUserMode) {
+    setBranch: function (_root, _subsystem, _loginRequired, _imageLogin, _externalUserMode, _id_app_external) {
         if (_root == null || _root == "") {
             alert("¡Debe especificar un valor válidos para el parámetro _root!");
             return false;
@@ -376,6 +377,8 @@ var _API = {
         if (_loginRequired && _imageLogin != null && _imageLogin != "") { _API.imageLogin = (_imageLogin + "?" + _API._TS); }
         /* modo del user a autenticar 0 - LDAP / 1 - EXTERNAL */
         _API.externalUserMode = _externalUserMode;
+        /* valor del id de app a la cual el usuario externo debe tener permiso de acceso */
+        _API.id_app_external = _id_app_external;
     },
     loaderFile: function (_file) {
         return new Promise(

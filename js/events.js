@@ -11,13 +11,18 @@ $("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", fun
     _API.onDestroyModal(_id);
 });
 
+/*Evento para máscara de numeros en inputs*/
+$("body").off("keyup", ".onlyNumbers").on("keyup", ".onlyNumbers", function () {
+    _API.onlyNumbers($(this));
+});
+
 $("body").off("click", ".btn-AuthenticateExternal").on("click", ".btn-AuthenticateExternal", function () {
     /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
     if (!_API.validate(".validateLogin", false)) { return false; }
     var data = {
         "id_user": _API.authentication.id,
         "token_authentication": _API.authentication.token_authentication,
-        "id_app": _API.authentication.id_app_external,
+        "id_app": _API.id_app_external,
         "username": $(".Username").val(),
         "password": $(".Password").val(),
         "external_operator": _API.externalUserMode
