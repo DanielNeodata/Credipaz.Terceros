@@ -442,6 +442,37 @@ var _API = {
                     });
             });
     },
+    authenticateexternal: function () {
+        return new Promise(
+            function (resolve, reject) {
+                /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
+                if (!_API.validate(".validateLogin", false)) { return false; }
+                var data = {
+                    "id_user": _API.authentication.id,
+                    "token_authentication": _API.authentication.token_authentication,
+                    "id_app": _API.id_app_external,
+                    "username": $(".Username").val(),
+                    "password": $(".Password").val(),
+                    "external_operator": _API.externalUserMode
+                };
+                _API.call("production/authenticateexternal", data)
+                    .then(function (response) {
+                        if (response.status != "OK") {
+                            /* si no autentica, alerta y sale del form */
+                            alert(response.message);
+                        } else {
+                            /* si pasa la autenticación ok, destruye el modal y ejecuta el loader */
+                            _API.onDestroyModal("#modalLogin");
+                            _API.loaderFile(_API.configuration.fileLoader).then(function () { });
+                        }
+                        _API.log("authenticateexternal", response);
+                        resolve(response);
+                    })
+                    .catch(function (err) {
+                        reject(err);
+                    });
+            });
+    },
     method: function (endpoint, data) {
         /* AUTOAUTENTICA
         Función genérica para hacer cualquier llamada a la API, 
