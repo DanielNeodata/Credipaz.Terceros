@@ -71,7 +71,7 @@ var _F = {
 						/* url decoding del valor del parametro */
 						var _documento = decodeURIComponent(_API.urlParameters["code"].toString());
 						/* chequea si el valor es una cadena en base64 y la decodea */
-						if (_API.isBase64(_documento)) { _documento = _API.b64_to_utf8(_documento); }
+						if (_API.isBase64(_documento)) { _documento = _API.b64_to_string(_documento); }
 						/* asigna el valor del parametro decodeado o raw, segun corresponda */
 						$(".Documento").val(_documento);
 						/* búsqueda de valor automático */
@@ -160,9 +160,9 @@ var _F = {
 					$(this).val(0);
 					_color = "pink";
 				} else {
-					_rec = JSON.parse(_API.b64_to_utf8($(this).attr("data-record")));
+					_rec = JSON.parse(_API.b64_to_string($(this).attr("data-record")));
 					_rec.Importe = _samImporte.toFixed(2).toString();
-					$(this).attr("data-record", _API.utf8_to_b64(JSON.stringify(_rec)));
+					$(this).attr("data-record", _API.string_to_b64(JSON.stringify(_rec)));
 					_total += _samImporte;
 					if (_samImporte != 0) { _F._itemsPagos.push(_rec); }
 				}
@@ -179,7 +179,7 @@ var _F = {
 			} else {
 				var _tar_min = parseFloat($(".chkTarMin").val());
 				var _tar_tot = parseFloat($(".chkTarTot").val());
-				_rec = JSON.parse(_API.b64_to_utf8($(".otro_monto").attr("data-record")));
+				_rec = JSON.parse(_API.b64_to_string($(".otro_monto").attr("data-record")));
 				if (_otro_monto != 0) {
 					if (isNaN(_tar_min)) { _tar_min = 0; }
 					if (isNaN(_tar_tot)) { _tar_tot = 0; }
@@ -196,7 +196,7 @@ var _F = {
 			if (_otro_monto != 0) { _F._itemsPagos.push(_rec); }
 		}
 		$(".chkPay").each(function () {
-			var _rec = JSON.parse(_API.b64_to_utf8($(this).attr("data-record")));
+			var _rec = JSON.parse(_API.b64_to_string($(this).attr("data-record")));
 			if ($(this).prop("checked")) {
 				if (_rec.Importe == null || _rec.Importe == "") { _rec.Importe = 0; }
 				if (parseFloat(_rec.Importe) != 0) {
@@ -426,7 +426,7 @@ var _F = {
 		_html += "      </tr>";
 		_html += "   </table>";
 		_FUNCTIONS.onShowInfoPDF(_html, "<b style='color:darkgreen;'>Pago procesado en forma exitosa</b>");
-		$(".base64").val(_API.utf8_to_b64($(".data-pdf").html()));
+		$(".base64").val(_API.string_to_b64($(".data-pdf").html()));
 		var _url = (_AJAX.server + "downloadBase64File/" + $(".code").val() + "/" + $(".description").val());
 		$(".btnGetBase64").attr("href", _url);
 		var _json = _API.tools.getFormValues(".dbaseComprobante", null);

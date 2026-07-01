@@ -1,0 +1,65 @@
+[
+  {
+    "key": "apidoc.mediya.com.ar",
+    "root": "Credipaz.ApiDoc",
+    "subsystem": "Documentacion API",
+    "loginRequired": true,
+    "imageLogin": "./img/mediya.png",
+    "externalUserMode": 1,
+    "id_app_external": 11
+  },
+  {
+    "key": "apidoc.credipaz.com",
+    "root": "Credipaz.ApiDoc",
+    "subsystem": "Documentacion API",
+    "loginRequired": true,
+    "imageLogin": "./img/credipaz.png",
+    "externalUserMode": 1,
+    "id_app_external": 11
+  },
+  {
+    "key": "deuda.credipaz.com",
+    "root": "Credipaz.GestionExternaDeuda",
+    "subsystem": "Gestión externa de deuda",
+    "loginRequired": true,
+    "imageLogin": "./img/credipaz.png",
+    "externalUserMode": 1,
+    "id_app_external": 13
+  },
+  {
+    "key": "cesiones.credipaz.com",
+    "root": "Credipaz.Cesiones",
+    "subsystem": "Información de cesiones",
+    "loginRequired": true,
+    "imageLogin": "./img/credipaz.png",
+    "externalUserMode": 1,
+    "id_app_external": 12
+  },
+  {
+    "key": "sia.credipaz.com",
+    "root": "Credipaz.SIA",
+    "subsystem": "",
+    "loginRequired": false,
+    "imageLogin": "",
+    "externalUserMode": -1,
+    "id_app_external": -1
+  },
+  {
+    "key": "pagos.credipaz.com",
+    "root": "Credipaz.Pagos",
+    "subsystem": "",
+    "loginRequired": false,
+    "imageLogin": "",
+    "externalUserMode": -1,
+    "id_app_external": -1
+  },
+  {
+    "key": "pagos.mediya.com.ar",
+    "root": "Credipaz.Pagos",
+    "subsystem": "",
+    "loginRequired": false,
+    "imageLogin": "",
+    "externalUserMode": -1,
+    "id_app_external": -1
+  }
+]

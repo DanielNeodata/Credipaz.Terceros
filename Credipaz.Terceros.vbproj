@@ -157,6 +157,7 @@
     <Content Include="img\mediya.png" />
     <Content Include="index.js" />
     <Content Include="index.html" />
+    <Content Include="Recursos\configBranches.json" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

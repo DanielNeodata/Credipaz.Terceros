@@ -23,6 +23,13 @@ var _API = {
         console.log(key);
         console.log(data);
     },
+    logStatus: function () {
+        if (!_API.verbose) { return false; }
+        /* Log de valores seteables en la configuración general de acceso, no visible en producción */
+        if (_API.urlParameters != null && _API.urlParameters.length) { _API.log("URL parameters", _API.urlParameters); }
+        if (_API.configuration != null) { _API.log("Configuration", _API.configuration); }
+        if (_API.authentication != null) {_API.log("Authentication", _API.authentication);}
+    },
     getUrlParams: function (url) {
         var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
         var obj = {};
@@ -86,13 +93,8 @@ var _API = {
         if (second < 10) { second = "0" + second; }
         return (year + ":" + month + ":" + day + "-" + hour + ":" + minute + ":" + second);
     },
-    isBase64: function (testString) {
-        try {
-            var isEncoded = (btoa(atob(testString)) == atob(btoa(testString)));
-            return isEncoded;
-        } catch (err) {
-            return false;
-        }
+    isSet: function (_val) {
+        return (typeof _val !== undefined);
     },
     uuid: function () {
         var s = [];
@@ -103,9 +105,6 @@ var _API = {
         s[8] = s[13] = s[18] = s[23] = "-";
         var uuid = s.join("");
         return uuid;
-    },
-    isset: function (_val) {
-        return (typeof _val !== undefined);
     },
     hash: async function (alg, str) {
         var msgBuffer = new TextEncoder().encode(str);
@@ -122,8 +121,16 @@ var _API = {
         }
         return hex;
     },
-    utf8_to_b64: function (str) { return window.btoa(unescape(encodeURIComponent(str))); },
-    b64_to_utf8: function (str) {
+    isBase64: function (testString) {
+        try {
+            var isEncoded = (btoa(atob(testString)) == atob(btoa(testString)));
+            return isEncoded;
+        } catch (err) {
+            return false;
+        }
+    },
+    string_to_b64: function (str) { return window.btoa(unescape(encodeURIComponent(str))); },
+    b64_to_string: function (str) {
         str = str.replace(/\s/g, '');
         return decodeURIComponent(escape(window.atob(str)));
     },
@@ -183,20 +190,11 @@ var _API = {
         */
         return new Promise(
             function (resolve, reject) {
+                /* Timestamp para forzar ignorar el cache de carga de los archivos de todo el tree */
+                _API._TS = _TS;
                 fetch("./Recursos/configServers.json?" + _API._TS)
-                    .then(response => {
+                    .then(function(response) {
                         if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
-                        $.getScript(("js/events.js?" + _API._TS), function () {
-                            $.getScript(("js/tools.js?" + _API._TS), function () {
-                                _API.tools = _T;
-                            });
-                        });
-                        /* Almacena los parámetros de la url de acceso */
-                        _API.urlParameters = _API.getUrlParams();
-                        /* Setea verbose, para activar o no la escritura en la consola del navegador de los mensajes de log */
-                        _API.verbose = (window.location.hostname.toLowerCase() == "localhost");
-                        /* Timestamp para forzar ignorar el cache de carga de los archivos de todo el tree */
-                        _API._TS = _TS;
                         return response.text();
                     })
                     .then(function (config) {
@@ -204,37 +202,84 @@ var _API = {
                         var _item = data.find(item => item.key === key);
                         /* Asignación de valores de configuración */
                         _API.configuration = _item;
+                        /* Almacena los parámetros de la url de acceso */
+                        _API.urlParameters = _API.getUrlParams();
+                        /* Setea verbose, para activar o no la escritura en la consola del navegador de los mensajes de log */
+                        _API.verbose = (window.location.hostname.toLowerCase() == "localhost");
+                        $.getScript(("js/events.js?" + _API._TS), function () {
+                            $.getScript(("js/tools.js?" + _API._TS), function () {
+                                _API.tools = _T;
+                            });
+                        });
                         resolve(null);
                     })
                     .catch(function (err) {
-                        _API.log("Fetch error:", err);
+                        _API.log("readConfigServers error->", err);
                         reject(err);
                     });
             });
     },
-    setBranch: function (_branchConfig) {
-        if (_branchConfig._root == null || _branchConfig._root == "") {
+    readConfigBranches: function (key) {
+        /* 
+        Función de lectura de la configuración indivudual de cada una de las ramas
+        Parámetros:
+        key: valor para identificar el elemento correcto en el archivo configBranches.js
+        */
+        return new Promise(
+            function (resolve, reject) {
+                fetch("./Recursos/configBranches.json?" + _API._TS)
+                    .then(function (response) {
+                        if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
+                        return response.text();
+                    })
+                    .then(function (config) {
+                        var data = JSON.parse(config);
+                        var _item = data.find(item => item.key === key);
+                        resolve(_item);
+                    })
+                    .catch(function (err) {
+                        _API.log("readConfigBranches error->", err);
+                        reject(err);
+                    });
+            });
+    },
+    activateBranch: function (_branchConfig) {
+        if (_branchConfig.root == null || _branchConfig.root == "") {
             alert("¡Debe especificar un valor válidos para el parámetro _root!");
             return false;
         }
         /* subdirectorio de la implementacion en cuestión */
-        _API._ROOT = _branchConfig._root;
+        _API._ROOT = _branchConfig.root;
         /* Identificado de texto de subsystem para mostrar en formulario de login */
-        _API.subsystem = _branchConfig._subsystem;
+        _API.subsystem = _branchConfig.subsystem;
         /* flag de auth de usuario externo requiriendo login */
-        _API.loginRequired = _branchConfig._loginRequired;
+        _API.loginRequired = _branchConfig.loginRequired;
         /* imagen del encabeado de la pantalla de login */
-        if (_branchConfig._loginRequired && _branchConfig._imageLogin != null && _branchConfig._imageLogin != "") { _API.imageLogin = (_branchConfig._imageLogin + "?" + _API._TS); }
+        if (_branchConfig.loginRequired && _branchConfig.imageLogin != null && _branchConfig.imageLogin != "") { _API.imageLogin = (_branchConfig.imageLogin + "?" + _API._TS); }
         /* modo del user a autenticar 0 - LDAP / 1 - EXTERNAL */
-        _API.externalUserMode = _branchConfig._externalUserMode;
+        _API.externalUserMode = _branchConfig.externalUserMode;
         /* valor del id de app a la cual el usuario externo debe tener permiso de acceso */
-        _API.id_app_external = _branchConfig._id_app_external;
+        _API.id_app_external = _branchConfig.id_app_external;
+        /* control de acceso autenticado por parte del usuario externo */
+        if (!_API.loginRequired) {
+            /* acceso sin autenticación de usuario externo */
+            _API.loaderFile(_API.configuration.fileLoader).then(function () { _API.logStatus(); });
+        } else {
+            /* acceso con autenticación de usuario externo 
+               debe hacerse llamada de autenticación inicial para lueg poder utilizar la atenticación externa,
+               esto no es requerido cuando no se requiere de la autenticacion externa*/
+            _API.authenticate().then(function () {
+                _API.onShowLoginModal();
+            });
+        }
     },
     loaderFile: function (_file) {
         return new Promise(
             function (resolve, reject) {
                 try {
-                    $.getScript((_API._ROOT + _file + "?" + _API._TS), function () { resolve(null); });
+                    $.getScript((_API._ROOT + _file + "?" + _API._TS), function () {
+                        resolve(null);
+                    });
                 } catch (err) {
                     _API.log(("loader-> " + _url), response);
                     reject(err);
@@ -258,7 +303,7 @@ var _API = {
                     "url": _url,
                     "data": data,
                     "success": function (response) {
-                        _API.log(("call-> " + _url), response);
+                        _API.log(("call->response-> " + _url), response);
                         resolve(response);
                     },
                     "error": function (xhr, status, error) { reject(error); }
@@ -313,7 +358,7 @@ var _API = {
                         } else {
                             /* si pasa la autenticación ok, destruye el modal y ejecuta el loader */
                             _API.onDestroyModal("#modalLogin");
-                            _API.loaderFile(_API.configuration.fileLoader).then(function () { });
+                            _API.loaderFile(_API.configuration.fileLoader).then(function () { _API.logStatus(); });
                         }
                         _API.log("authenticateexternal", response);
                         resolve(response);
