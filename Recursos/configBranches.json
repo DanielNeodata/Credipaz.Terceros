@@ -49,7 +49,7 @@
     "root": "Credipaz.Pagos",
     "subsystem": "",
     "loginRequired": false,
-    "imageLogin": "",
+    "imageLogin": "./img/credipaz.png",
     "externalUserMode": -1,
     "id_app_external": -1
   },
@@ -58,7 +58,7 @@
     "root": "Credipaz.Pagos",
     "subsystem": "",
     "loginRequired": false,
-    "imageLogin": "",
+    "imageLogin": "./img/mediya.png",
     "externalUserMode": -1,
     "id_app_external": -1
   }

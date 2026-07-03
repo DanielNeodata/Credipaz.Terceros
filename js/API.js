@@ -255,7 +255,7 @@ var _API = {
         /* flag de auth de usuario externo requiriendo login */
         _API.loginRequired = _branchConfig.loginRequired;
         /* imagen del encabeado de la pantalla de login */
-        if (_branchConfig.loginRequired && _branchConfig.imageLogin != null && _branchConfig.imageLogin != "") { _API.imageLogin = (_branchConfig.imageLogin + "?" + _API._TS); }
+        if (_branchConfig.imageLogin != null && _branchConfig.imageLogin != "") { _API.imageLogin = (_branchConfig.imageLogin + "?" + _API._TS); }
         /* modo del user a autenticar 0 - LDAP / 1 - EXTERNAL */
         _API.externalUserMode = _branchConfig.externalUserMode;
         /* valor del id de app a la cual el usuario externo debe tener permiso de acceso */
