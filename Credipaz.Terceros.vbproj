@@ -137,6 +137,7 @@
     <Content Include="Credipaz.Cesiones\js\events.js" />
     <Content Include="Credipaz.Cesiones\js\functions.js" />
     <Content Include="Credipaz.Cesiones\js\loader.js" />
+    <Content Include="Credipaz.Pagos\img\logoImageBig.png" />
     <Content Include="Credipaz.SIA\html\index.html" />
     <Content Include="Credipaz.SIA\js\events.js" />
     <Content Include="Credipaz.SIA\js\functions.js" />
@@ -155,6 +156,7 @@
     <Content Include="img\clubredondo.png" />
     <Content Include="img\credipaz.png" />
     <Content Include="img\mediya.png" />
+    <Content Include="index.css" />
     <Content Include="index.js" />
     <Content Include="index.html" />
     <Content Include="Recursos\configBranches.json" />

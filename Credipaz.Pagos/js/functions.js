@@ -3,14 +3,7 @@ var _F = {
 	/* VARIABLES ACCESIBLES EN TODA LA RAMA VA OBETO _F */
 	_itemsPagos: [],
 	_TMR_PAY_BOTONPAGO: 0,
-	_TIMER_LAZY: 0,
 	DNI: "",
-	FISERV_STOREID: "5930544571808",
-	FISERV_SHAREDSECRET: "EEt8*{6pEh",
-	FISERV_URL: "https://www5.ipg-online.com/connect/gateway/processing",
-	URL_ERROR: "https://fiserv.credipaz.com/webhooks/FiservError",
-	URL_OK: "https://fiserv.credipaz.com/webhooks/FiservOk",
-	URL_NOTIFY: "https://fiserv.credipaz.com/webhooks/FiservNotify",
 
 	/* FUNCION DE INICIALIZACION */
 	onInit: function () {
@@ -81,7 +74,7 @@ var _F = {
 						$(".headerImage").remove();
 						$(".areaSelector").remove();
 					} else {
-						$(".logoImage").attr("src", _API.imageLogin);
+						$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
 					}
 					resolve(null);
 				} catch (err) {
@@ -232,8 +225,8 @@ var _F = {
 		return new Promise(
 			function (resolve, reject) {
 				try {
-					var hostURI = _F.URL_NOTIFY;
-					var transactionNotificationURL = _F.URL_NOTIFY;
+					var hostURI = _API.branchConfiguration.URL_NOTIFY;
+					var transactionNotificationURL = _API.branchConfiguration.URL_NOTIFY;
 					var txndatetime = _API.getToday();
 					var currency = "032";
 					var chargetotal = _API.tools.formatChargeTotal(values.total.toString());
@@ -245,18 +238,18 @@ var _F = {
 					}
 					values.itemsPagos = JSON.parse(values.itemsPagos, true);
 					/* Todo ocurre una vez resuelto el hashing */
-					var stringToHash = (_F.FISERV_STOREID + txndatetime + chargetotal + currency + _F.FISERV_SHAREDSECRET);
+					var stringToHash = (_API.branchConfiguration.FISERV_STOREID + txndatetime + chargetotal + currency + _API.branchConfiguration.FISERV_SHAREDSECRET);
 					_API.hash("SHA-256", _API.bin2hex(stringToHash))
 						.catch(function (err) {reject(err);})
 						.then(function (extendedHash) {
 							var html = "";
-							html += "<form id='checkoutform' method='post' action='" + (_F.FISERV_URL + "?" + _API.uuid()) + "' target='iframe_fiserv'>";
+							html += "<form id='checkoutform' method='post' action='" + (_API.branchConfiguration.FISERV_URL + "?" + _API.uuid()) + "' target='iframe_fiserv'>";
 							html += "   <table class='tbl-fiserv d-none'>";
-							html += "    <tr><td>hostURI</td><td><input class='dataPost' type='text' id='hostURI' name='hostURI' value='" + _F.URL_NOTIFY + "'/></td></tr>";
+							html += "    <tr><td>hostURI</td><td><input class='dataPost' type='text' id='hostURI' name='hostURI' value='" + _API.branchConfiguration.URL_NOTIFY + "'/></td></tr>";
 							html += "    <tr><td>parentUri</td><td><input class='dataPost' type='text' id='parentUri' name='parentUri' value='" + window.location.href + "'/></td></tr>";
-							html += "    <tr><td>responseFailURL</td><td><input class='dataPost' type='text' id='responseFailURL' name='responseFailURL' value='" + _F.URL_ERROR + "'/></td></tr>";
-							html += "    <tr><td>responseSuccessURL</td><td><input class='dataPost' type='text' id='responseSuccessURL' name='responseSuccessURL' value='" + _F.URL_OK + "'/></td></tr>";
-							html += "    <tr><td>storename</td><td><input class='dataPost' type='text' id='storename' name='storename' value='" + _F.FISERV_STOREID + "'/></td></tr>";
+							html += "    <tr><td>responseFailURL</td><td><input class='dataPost' type='text' id='responseFailURL' name='responseFailURL' value='" + _API.branchConfiguration.URL_ERROR + "'/></td></tr>";
+							html += "    <tr><td>responseSuccessURL</td><td><input class='dataPost' type='text' id='responseSuccessURL' name='responseSuccessURL' value='" + _API.branchConfiguration.URL_OK + "'/></td></tr>";
+							html += "    <tr><td>storename</td><td><input class='dataPost' type='text' id='storename' name='storename' value='" + _API.branchConfiguration.FISERV_STOREID + "'/></td></tr>";
 							html += "    <tr><td>txndatetime</td><td><input class='dataPost' type='text' id='txndatetime' name='txndatetime' value='" + txndatetime + "'/></td></tr>";
 							html += "    <tr><td>currency</td><td><input class='dataPost' type='text' id='currency' name='currency' value='" + currency + "'/></td></tr>";
 							html += "    <tr><td>chargetotal</td><td><input class='dataPost' type='text' id='chargetotal' name='chargetotal' value='" + chargetotal + "'/></td></tr>";
@@ -284,8 +277,7 @@ var _F = {
 				}
 			});
 	},
-
-	onSelectedCardForPayment: function (_this) {
+	onPagarFiserv: function (_this) {
 		$(".ocultarEnFISERV").hide();
 		var data = {
 			"Id_type_channel": 1,
@@ -332,8 +324,6 @@ var _F = {
 			alert("id:" + _idTransfer_botonpago + " " + error.message);
 		});
 	},
-
-	/* FALTA!!! */
 	onWindowComprobante: function (response, _fulldata, _raw_request) {
 		var _identificaciones = "";
 		var _html = "<div style='max-width:540px;width:100%;font-family:arial;border:solid 2px black;padding:5px;' class='data-pdf'>";
@@ -342,8 +332,8 @@ var _F = {
 		_html += "<input type='hidden' id='base64' name='base64' value='' class='base64 dbaseComprobante'/>";
 		_html += "<input type='hidden' id='filename' name='filename' value='Comprobante de pago " + _API.uuid() + ".pdf' class='filename dbaseComprobante'/>";
 		_html += "<input type='hidden' id='extension' name='extension' value='pdf' class='extension dbaseComprobante'/>";
-		_html += "      <table style='width:100%;font-family:calibri;padding:5px;'>";
-		_html += "         <tr>";
+		_html += "<table style='width:100%;font-family:calibri;padding:5px;'>";
+		_html += "   <tr>";
 		switch (_raw_request[0].Tipo) {
 			case "CRDO":
 			case "CICR":
@@ -357,88 +347,63 @@ var _F = {
 				_html += "</td>";
 				break;
 		}
-		_html += "         </tr>";
-		_html += "         <tr>";
-		_html += "            <td align='center' valign='middle' style='border-bottom:solid 1px silver;'>";
-		_html += "               <span style='font-weight:bold;font-size:24px;'>Comprobante de pago</span>";
-		_html += "            </td>";
-		_html += "         </tr>";
+		_html += "   </tr>";
+		_html += "   <tr>";
+		_html += "      <td align='center' valign='middle' style='border-bottom:solid 1px silver;'>";
+		_html += "         <span style='font-weight:bold;font-size:24px;'>Comprobante de pago</span>";
+		_html += "      </td>";
+		_html += "   </tr>";
 		for (_item of _raw_request) {
+			_html += "<tr><td align='center' valign='middle' style='font-size:24px;'>";
 			switch (_item.Tipo) {
 				case "TAR":
-					_html += "         <tr>";
-					_html += "            <td align='center' valign='middle' style='font-size:24px;'>TARJETA CABAL CREDIPAZ</td>";
-					_html += "         </tr>";
+					_html += "TARJETA CABAL CREDIPAZ";
 					break;
 				case "CRE":
-					_html += "         <tr>";
-					_html += "            <td align='center' valign='middle' style='font-size:24px;'>CRÉDITO</td>";
-					_html += "         </tr>";
+					_html += "CRÉDITO";
 					break;
 				case "CICR":
-					_html += "         <tr>";
-					_html += "            <td align='center' valign='middle' style='font-size:24px;'>MEDIYA Cuota Anticipada</td>";
-					_html += "         </tr>";
+					_html += "MEDIYA Cuota Anticipada";
 					break;
 				case "CRDO":
-					_html += "         <tr>";
-					_html += "            <td align='center' valign='middle' style='font-size:24px;'>MEDIYA Cuota</td>";
-					_html += "         </tr>";
+					_html += "MEDIYA Cuota";
 					break;
 				case "ACU":
-					_html += "         <tr>";
-					_html += "            <td align='center' valign='middle' style='font-size:24px;'>ACUERDO DE PAGO</td>";
-					_html += "         </tr>";
+					_html += "ACUERDO DE PAGO";
 					break;
 			}
-			_html += "         <tr>";
-			_html += "            <td align='center' valign='middle' style='font-weight:bold;font-size:24px;'>$ " + _item.Importe + "</td>";
-			_html += "            <td align='center' valign='middle' style='font-weight:bold;font-size:12px;'>(Importe sujeto a confirmación de cobro)</td>";
-			_html += "         </tr>";
+			_html += "</td></tr>";
+			_html += "<tr>";
+			_html += "   <td align='center' valign='middle' style='font-weight:bold;font-size:24px;'>$ " + _item.Importe + "</td>";
+			_html += "   <td align='center' valign='middle' style='font-weight:bold;font-size:12px;'>(Importe sujeto a confirmación de cobro)</td>";
+			_html += "</tr>";
 			if (_identificaciones != "") { _identificaciones += ", " }
 			_identificaciones += _item.Identificacion;
 		}
-		_html += "         <tr>";
-		_html += "            <td align='center' valign='middle'>";
-		_html += "               <table align='center' style='width:80%;padding:5px;' cellspacing='0'>";
-		_html += "                  <tr>";
-		_html += "                     <td align='left' valign='top' style='border-top:solid 1px black;'>Identificación</td>";
-		_html += "                     <td align='right' valign='top' style='border-top:solid 1px black;'>" + _identificaciones + "</td>";
-		_html += "                  </tr>";
-		_html += "                  <tr>";
-		_html += "                     <td align='left' valign='top' style='border-top:solid 1px black;'>Medio de pago</td>";
-		_html += "                     <td align='right' valign='top' style='border-top:solid 1px black;'>" + _fulldata.MedioPago + "</td>";
-		_html += "                  </tr>";
-		_html += "                  <tr>";
-		_html += "                     <td align='left' valign='top' style='border-top:solid 1px black;'>Fecha de pago</td>";
-		_html += "                     <td align='right' valign='top' style='border-top:solid 1px black;'>" + response.now + "</td>";
-		_html += "                  </tr>";
-		_html += "                  <tr>";
-		_html += "                     <td align='left' valign='top' style='border-top:solid 1px black;border-bottom:solid 1px black;'>Número de pago</td>";
-		_html += "                     <td align='right' valign='top' style='border-top:solid 1px black;border-bottom:solid 1px black;'>" + response.apiReference + "</td>";
-		_html += "                  </tr>";
-		_html += "               </table>";
-		_html += "            </td>";
-		_html += "         </tr>";
-		_html += "      </table>";
-		_html += "   </div>";
-		_html += "   <table align='center' style='width:100%;'>";
 		_html += "      <tr>";
-		_html += "         <td align='center' style='border-bottom:solid 1px grey;padding:5px;'>";
-		_html += "            <a href='#' class='d-none btn btn-md btn-raised btn-success btnGetBase64'>Descargar PDF</a>";
+		_html += "         <td align='center' valign='middle'>";
+		_html += "            <table align='center' style='width:80%;padding:5px;' cellspacing='0'>";
+		_html += "               <tr>";
+		_html += "                  <td align='left' valign='top' style='border-top:solid 1px black;'>Identificación</td>";
+		_html += "                  <td align='right' valign='top' style='border-top:solid 1px black;'>" + _identificaciones + "</td>";
+		_html += "               </tr>";
+		_html += "               <tr>";
+		_html += "                  <td align='left' valign='top' style='border-top:solid 1px black;'>Medio de pago</td>";
+		_html += "                  <td align='right' valign='top' style='border-top:solid 1px black;'>" + _fulldata.MedioPago + "</td>";
+		_html += "               </tr>";
+		_html += "               <tr>";
+		_html += "                  <td align='left' valign='top' style='border-top:solid 1px black;'>Fecha de pago</td>";
+		_html += "                  <td align='right' valign='top' style='border-top:solid 1px black;'>" + response.now + "</td>";
+		_html += "               </tr>";
+		_html += "               <tr>";
+		_html += "                  <td align='left' valign='top' style='border-top:solid 1px black;border-bottom:solid 1px black;'>Número de pago</td>";
+		_html += "                  <td align='right' valign='top' style='border-top:solid 1px black;border-bottom:solid 1px black;'>" + response.apiReference + "</td>";
+		_html += "               </tr>";
+		_html += "            </table>";
 		_html += "         </td>";
 		_html += "      </tr>";
 		_html += "   </table>";
-		_FUNCTIONS.onShowInfoPDF(_html, "<b style='color:darkgreen;'>Pago procesado en forma exitosa</b>");
-		$(".base64").val(_API.string_to_b64($(".data-pdf").html()));
-		var _url = (_AJAX.server + "downloadBase64File/" + $(".code").val() + "/" + $(".description").val());
-		$(".btnGetBase64").attr("href", _url);
-		var _json = _API.tools.getFormValues(".dbaseComprobante", null);
-		_json["module"] = "mod_backend";
-		_json["table"] = "Files_base64";
-		_json["model"] = "Files_base64";
-		_AJAX.UiSave(_json).then(function (data) {
-			$(".btnGetBase64").removeClass("d-none");
-		});
+		_html += "</div>";
+		_API.onShowModal("modalComprobante", "Pago procesado en forma exitosa", _html).then(function () { });
 	},
 }

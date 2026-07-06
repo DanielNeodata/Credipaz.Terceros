@@ -1,6 +1,7 @@
 var _API = {
     _TS: 0,
     _ROOT: "",
+    _TIMER_LAZY: 0,
     tools:null,
     id_app_external:0,
     loginRequired: false,
@@ -9,6 +10,7 @@ var _API = {
     subsystem: "",
     configuration: null,
     authentication: null,
+    branchConfiguration: null,
     urlParameters: null,
     inited: false,
     verbose: false,
@@ -249,6 +251,7 @@ var _API = {
             return false;
         }
         /* subdirectorio de la implementacion en cuestión */
+        _API.branchConfiguration = _branchConfig;
         _API._ROOT = _branchConfig.root;
         /* Identificado de texto de subsystem para mostrar en formulario de login */
         _API.subsystem = _branchConfig.subsystem;

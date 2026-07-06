@@ -17,9 +17,9 @@ $("body").off("keydown", ".updImporte").on("keydown", ".updImporte", function (e
 });
 $("body").off("keyup", ".updImporte").on("keyup", ".updImporte", function (e) {
 	$(".data-payment1").addClass("d-none");
-	clearTimeout(_F._TIMER_LAZY);
-	_F._TIMER_LAZY = setTimeout(function () { _F.onTotalizePayment($(this)); }, 500);
+	clearTimeout(_API._TIMER_LAZY);
+	_API._TIMER_LAZY = setTimeout(function () { _F.onTotalizePayment($(this)); }, 500);
 });
 $("body").off("click", ".btn-pagar-fiserv").on("click", ".btn-pagar-fiserv", function (e) {
-	_F.onSelectedCardForPayment($(this));
+	_F.onPagarFiserv($(this));
 });

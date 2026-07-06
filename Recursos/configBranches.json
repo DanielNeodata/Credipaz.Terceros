@@ -51,7 +51,13 @@
     "loginRequired": false,
     "imageLogin": "./img/credipaz.png",
     "externalUserMode": -1,
-    "id_app_external": -1
+    "id_app_external": -1,
+    "FISERV_STOREID": "5930544571808",
+    "FISERV_SHAREDSECRET": "EEt8*{6pEh",
+    "FISERV_URL": "https://www5.ipg-online.com/connect/gateway/processing",
+    "URL_ERROR": "https://fiserv.credipaz.com/webhooks/FiservError",
+    "URL_OK": "https://fiserv.credipaz.com/webhooks/FiservOk",
+    "URL_NOTIFY": "https://fiserv.credipaz.com/webhooks/FiservNotify"
   },
   {
     "key": "pagos.mediya.com.ar",
@@ -60,6 +66,12 @@
     "loginRequired": false,
     "imageLogin": "./img/mediya.png",
     "externalUserMode": -1,
-    "id_app_external": -1
+    "id_app_external": -1,
+    "FISERV_STOREID": "5930544571808",
+    "FISERV_SHAREDSECRET": "EEt8*{6pEh",
+    "FISERV_URL": "https://www5.ipg-online.com/connect/gateway/processing",
+    "URL_ERROR": "https://fiserv.credipaz.com/webhooks/FiservError",
+    "URL_OK": "https://fiserv.credipaz.com/webhooks/FiservOk",
+    "URL_NOTIFY": "https://fiserv.credipaz.com/webhooks/FiservNotify"
   }
 ]
