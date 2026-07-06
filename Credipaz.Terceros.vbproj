@@ -125,7 +125,98 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\archivo.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\empresas.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\entidadesCesion.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\estadosCiviles.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\nacionalidades.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\ocupaciones.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\productos.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\provincias.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\sexos.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\sucursales.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\cedidos.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\cesiones.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\consultarEstadoTransaccionPago.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalAdicional.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalFechasImportantes.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalLimites.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalPagoLink.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalPagosPeriodo.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalSaldos.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalTitular.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalTracking.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalUltimosConsumos.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCredito.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCreditoCuotas.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCreditoDeuda.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCreditoPagoLink.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\iniciarTransaccionPago.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\resumenTarjeta.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\segmentosDeuda.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
     <Content Include="Credipaz.ApiDoc\html\index.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetClientsByDocument.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetCreditCardCurrentBalances.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetCreditCardCurrentMovements.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetCreditCardDetails.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetCreditCardDueDate.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetCreditCardExtensions.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetCreditCardStatementMovements.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetCreditCardStatements.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetExchangeRateTransaction.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetLoan.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetLoanFees.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetLoanPayments.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetLoanRates.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetPendingServiceBills.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetProductBankStatementFile.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetProductBankStatements.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetProducts.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetProductsConsolidatedPosition.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetTransactionCost.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\InsertServicePaymentFromData.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\InsertTransaction.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\SendSmsToken.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\integraciones\UpdateCreditCards.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\asesores\alta.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\asesores\deshabilitar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\asesores\habilitar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\asesores\listar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\asesores\modificar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\centros.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\comercializadoras.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\estadosCiviles.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\farmacias.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\modosDePago.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\nacionalidades.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\ocupaciones.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\parentescos.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\planes.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\activos.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\adicionales\alta.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\adicionales\listar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\alta.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\autorizar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\caidos.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\candidatos.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\infoMediyaPagoLink.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\listar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\modificar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\pendientes.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\profile.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\tarjetasHabilitadas.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\tiposDeAdicionales.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\tiposDeCentros.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticarexterno.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\interfacedocumentacion.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\verificartoken.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\websites\acciones.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\websites\canalesDeAcciones.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\websites\canalesDeLandings.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\websites\landing.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\websites\sucursales.html" />
     <Content Include="Credipaz.ApiDoc\js\events.js" />
     <Content Include="Credipaz.ApiDoc\js\functions.js" />
     <Content Include="Credipaz.ApiDoc\js\loader.js" />
@@ -185,7 +276,9 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Credipaz.ApiDoc\img\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

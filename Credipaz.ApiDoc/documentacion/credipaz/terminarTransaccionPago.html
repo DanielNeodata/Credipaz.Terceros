@@ -1,0 +1,167 @@
+<form>
+    <div class="container-full">
+        <h5>Terminar transacción de pago</h5>
+        <p>Finalizar una transacción de pago en plataformas externas dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
+        <div class="row">
+            <div class="col-6 shadow pt-2">
+                <table class="table table-borderless">
+                    <thead class="thead-light">
+                        <tr>
+                            <th><b class="p-0 m-0">Endpoint</b></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input class="form-control" id="endpoint" name="endpoint" disabled value="" style="padding:5px !important;" /></td>
+                            <td><a href="#" class="btn-copyClip btn btn-sm btn-light" data-source="endpoint"><span class="material-symbols-outlined">content_copy</span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-borderless">
+                    <thead class="thead-light">
+                        <tr>
+                            <th><b class="p-0 m-0">Parámetros</b></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Token</b></td>
+                            <td><input class="form-control" id="token_authentication" name="token_authentication" type="text" placeholder="Token authentication" value="" autocomplete="new-password"/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>ID usuario activo</b></td>
+                            <td><input class="form-control" id="id_user_active" name="id_user_active" type="number" placeholder="ID usuario activo" value="" autocomplete="new-password"/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>ID application</b></td>
+                            <td><input disabled class="form-control" id="id_app" name="id_app" type="number" placeholder="ID application" value="11"/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>ID transacción</b></td>
+                            <td><input class="form-control" id="IdTransaccion" name="IdTransaccion" type="number" placeholder="ID transacción" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Status</b></td>
+                            <td><input class="form-control" id="Status" name="Status" type="text" placeholder="Status" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>DNI</b></td>
+                            <td><input class="form-control" id="NroDocumento" name="NroDocumento" type="number" placeholder="DNI" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Moneda</b></td>
+                            <td><input class="form-control" id="Moneda" name="Moneda" type="text" placeholder="Moneda" value="032"/></td>
+                            <td style="width:25%;"><i>string</i><p style="font-size:0.6rem;">Valor fijo <b>032</b></p></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Monto</b></td>
+                            <td><input class="form-control" id="Monto" name="Monto" type="text" placeholder="Monto" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nombre en tarjeta</b></td>
+                            <td><input class="form-control" id="Card_name" name="Card_name" type="text" placeholder="Nombre en tarjeta" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tarjeta en respuesta</b></td>
+                            <td><input class="form-control" id="Card_response" name="Card_response" type="text" placeholder="Tarjeta en respuesta" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>PAN parcial</b></td>
+                            <td><input class="form-control" id="Partial_card_number" name="Partial_card_number" type="text" placeholder="PAN parcial" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Mensaje</b></td>
+                            <td><input class="form-control" id="Message" name="Message" type="text" placeholder="Mensaje" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Datos crudos</b></td>
+                            <td><input class="form-control" id="Raw_response" name="Raw_response" type="text" placeholder="Datos crudos" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Registro externo</b></td>
+                            <td><input class="form-control" id="Registro_externo" name="Registro_externo" type="text" placeholder="Registro externo" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr />
+                <center><a href="#" class="btn btn-raised btn-success btnExec">Ejecutar</a></center>
+
+                <table class="table table-borderless shadow-sm mt-2">
+                    <thead class="thead-light">
+                        <tr>
+                            <th><b class="p-0 m-0">Observaciones</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>Para integraciones externas se debe utilizar <b>11</b>, como valor de ID application, el cual está fijo en estos ejemplos.</p>
+                                <p>Debe enviarse el <b>token_authentication</b> y el <b>id_user_active</b>, ambos valores obtenidos por medio del endpoint <b>/production/authenticate</b>.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6 p-3 shadow">
+                <h5 class="p-0 m-0 titleCall d-none">Llamada Ajax JQuery</h5>
+                <div id="request" class="titleCall d-none"></div>
+                <h5 class="p-0 m-0 titleCall d-none">Respuesta</h5>
+                <div id="response" class="titleCall d-none"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
+        var _json = {
+            "token_authentication": $("#token_authentication").val(),
+            "id_app": $("#id_app").val(),
+            "id_user_active": $("#id_user_active").val(),
+            "NroDocumento": $("#NroDocumento").val(),
+            "Moneda": $("#Moneda").val(),
+            "Monto": $("#Monto").val(),
+            "Card_name": $("#Card_name").val(),
+            "Card_response": $("#Card_response").val(),
+            "Partial_card_number": $("#Partial_card_number").val(),
+            "Message": $("#Message").val(),
+            "Raw_response": $("#Raw_response").val(),
+            "Registro_externo": $("#Registro_externo").val(),
+        }
+        _F.onUiExecute(_json).then(function (data) {
+            $("#response").html("<pre>" + JSON.stringify(data, undefined, 2) + "</pre>");
+            $(".titleCall").removeClass("d-none");
+        });
+    });
+</script>
