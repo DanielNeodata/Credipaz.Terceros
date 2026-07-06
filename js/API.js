@@ -183,6 +183,20 @@ var _API = {
             })
         });
     },
+    onShowUnauthorized: function (_message) {
+        /* carga html a mostrar en el body de la modal */
+        $.get(("html/unauthorized.html?" + _API._TS), function (_html) {
+            /* muestra la modal con el body resuelto*/
+            _API.onShowModal("modalUnauthorized", "", _html).then(function (_ret) {
+                /* remueve footer default de la modal, porque viene con botón de acción en el load de unauthorized.html */
+                $(".wfooter").remove();
+                /* asigna la imagen del header según valor de variable asignado en el switch por encabezado */
+                $(".imgHeaderLogin").attr("src", _API.imageLogin);
+                /* Mensaje pasada a la interface de rechazo */
+                $(".subTitle").html(_message);
+            })
+        });
+    },
 
     readConfigServers: function (key, _TS) {
         /* 
@@ -365,6 +379,34 @@ var _API = {
                         }
                         _API.log("authenticateexternal", response);
                         resolve(response);
+                    })
+                    .catch(function (err) {
+                        reject(err);
+                    });
+            });
+    },
+    verifytoken: function (params) {
+        return new Promise(
+            function (resolve, reject) {
+                /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
+                if (!_API.tools.validate(".validateLogin", false)) { return false; }
+                var data = {
+                    "id_user_activate": params.Id_user,
+                    "token_authentication": params.Token,
+                    "id_app": params.Id_app,
+                };
+                _API.call("production/verifytoken", data)
+                    .then(function (response) {
+                        if (response.estado != "OK") {
+                            /* si no autentica, alerta y sale del form */
+                            reject(null);
+                        } else {
+                            if (response.records.length == 0) {
+                                reject(null);
+                            } else {
+                                resolve(null);
+                            }
+                        }
                     })
                     .catch(function (err) {
                         reject(err);

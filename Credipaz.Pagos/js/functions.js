@@ -74,10 +74,22 @@ var _F = {
 						$(".headerImage").remove();
 						$(".areaSelector").remove();
 					} else {
-						$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
+						if (_API.urlParameters["data"] != undefined) {
+							var _data = decodeURIComponent(_API.urlParameters["data"].toString());
+							var _json = JSON.parse(_API.b64_to_string(_data));
+							/*Verify id_user & token*/
+							_API.verifytoken(_json).then(function (verify) {
+								$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
+							}).catch(function (err) {
+								_API.onShowUnauthorized("Verificaciones no aprobadas.");
+							});
+						} else {
+							_API.onShowUnauthorized("Parámetros no enviados.");
+						}
 					}
 					resolve(null);
 				} catch (err) {
+					_API.onShowUnauthorized("Parámetros de ejecución incorrectos.");
 					reject(err);
 				}
 			})

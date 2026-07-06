@@ -150,6 +150,7 @@
     <Content Include="Credipaz.Pagos\js\events.js" />
     <Content Include="Credipaz.Pagos\js\functions.js" />
     <Content Include="Credipaz.Pagos\js\loader.js" />
+    <Content Include="html\unauthorized.html" />
     <Content Include="html\modalDefault.html" />
     <Content Include="html\login.html" />
     <Content Include="img\loginDefault.png" />
