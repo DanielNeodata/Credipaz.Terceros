@@ -15,9 +15,17 @@ $("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", fun
 $("body").off("keyup", ".onlyNumbers").on("keyup", ".onlyNumbers", function () {
     _API.tools.onlyNumbers($(this));
 });
+
+/*Evento que dispara el boton de autenticvación externa*/
 $("body").off("click", ".btn-AuthenticateExternal").on("click", ".btn-AuthenticateExternal", function () {
     _API.authenticateexternal($(this));
 });
+/*Botón de cierre de la interface por control de seguridad*/
 $("body").off("click", ".btn-Unauthorized").on("click", ".btn-Unauthorized", function () {
     window.close();
+});
+
+/*Evento que copia el contenido del elemento al portapapeles*/
+$("body").off("click", ".btn-copyClip").on("click", ".btn-copyClip", function () {
+    _T.copyToClipboard($(this));
 });

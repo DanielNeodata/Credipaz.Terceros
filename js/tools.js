@@ -155,4 +155,15 @@ var _T = {
         if (isNaN(_val)) { _val = 0; }
         return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: _dec, maximumFractionDigits: _dec }).format(_val);
     },
+    copyToClipboard: function (_this) {
+        var _id = _this.attr("data-source");
+        var textToCopy = $('#' + _id).val();
+        var tempTextarea = $('<textarea>');
+        $('body').append(tempTextarea);
+        tempTextarea.val(textToCopy).select();
+        document.execCommand('copy');
+        tempTextarea.remove();
+        _API.onAlert({ "message": "Se han copiado los datos al portapapeles.  Puede utilizarlos donde desee.", "class": "alert-info" });
+    },
+
 };

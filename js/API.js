@@ -1,6 +1,7 @@
 var _API = {
     _TS: 0,
     _ROOT: "",
+    _TIMER_ALERT: 0,
     _TIMER_LAZY: 0,
     tools:null,
     id_app_external:0,
@@ -137,7 +138,28 @@ var _API = {
         return decodeURIComponent(escape(window.atob(str)));
     },
 
-    onShowModal: function (_name, _title, _body) {
+    onAlert: function (_json) {
+        try {
+            clearTimeout(_API._TIMER_ALERT);
+            $(".alert-frame").remove();
+            if (typeof _json["message"] === 'object') {_text = "";} else {_text = _json["message"];}
+            if (_text == undefined) { _text = ""; }
+            if (_text == "") { return false; }
+            var _html = "<div class='alert-frame' style='position:fixed;top:50px;left:5px;'>";
+            _html += "      <div class='push-alert alert " + _json["class"] + " alert-dismissible fade show' role='alert'>";
+            _html += "   <button type='button' class='close m-0 p-1 pt-2' style='position:absolute;right:5px;' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+            _html += _text
+            _html +=       "</div>";
+            _html += "   </div>";
+            $("body").append(_html);
+            _API._TIMER_ALERT = setTimeout(function () { $(".push-alert").alert('close') }, 7500);
+            return true;
+        } catch (rex) {
+            alert(rex.message);
+            return false;
+        }
+    },
+onShowModal: function (_name, _title, _body) {
         return new Promise(
             function (resolve, reject) {
                 try {

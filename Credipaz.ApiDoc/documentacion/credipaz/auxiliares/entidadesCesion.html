@@ -1,79 +1,17 @@
 <form>
     <div class="container-full">
-        <h5>Entidades cesión</h5>
+        <h5 class="apiTitle"></h5>
         <p>Lista de las entidades disponibbles para cesiones, dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
         <div class="row">
             <div class="col-6 shadow pt-2">
+                <table class="table table-borderless hdrEnd"></table>
                 <table class="table table-borderless">
-                    <thead class="thead-light">
-                        <tr>
-                            <th><b class="p-0 m-0">Endpoint</b></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input class="form-control" id="endpoint" name="endpoint" disabled value="" style="padding:5px !important;" /></td>
-                            <td><a href="#" class="btn-copyClip btn btn-sm btn-light" data-source="endpoint"><span class="material-symbols-outlined">content_copy</span></a></td>
-                        </tr>
-                    </tbody>
+                    <thead class="thead-light hdrParam"></thead>
+                    <tbody class="bodyParam"></tbody>
                 </table>
-
-                <table class="table table-borderless">
-                    <thead class="thead-light">
-                        <tr>
-                            <th><b class="p-0 m-0">Parámetros</b></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><b>Token</b></td>
-                            <td><input class="form-control" id="token_authentication" name="token_authentication" type="text" placeholder="Token authentication" value="" autocomplete="new-password"/></td>
-                            <td><i>string</i></td>
-                            <td><span class="badge badge-danger">requerido</span></td>
-                        </tr>
-                        <tr>
-                            <td><b>ID usuario activo</b></td>
-                            <td><input class="form-control" id="id_user_active" name="id_user_active" type="number" placeholder="ID usuario activo" value="" autocomplete="new-password"/></td>
-                            <td><i>integer</i></td>
-                            <td><span class="badge badge-danger">requerido</span></td>
-                        </tr>
-                        <tr>
-                            <td><b>ID application</b></td>
-                            <td><input disabled class="form-control" id="id_app" name="id_app" type="number" placeholder="ID application" value="11"/></td>
-                            <td><i>integer</i></td>
-                            <td><span class="badge badge-danger">requerido</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <hr />
-                <center><a href="#" class="btn btn-raised btn-success btnExec">Ejecutar</a></center>
-
-                <table class="table table-borderless shadow-sm mt-2">
-                    <thead class="thead-light">
-                        <tr>
-                            <th><b class="p-0 m-0">Observaciones</b></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <p>Para integraciones externas se debe utilizar <b>11</b>, como valor de ID application, el cual está fijo en estos ejemplos.</p>
-                                <p>Debe enviarse el <b>token_authentication</b> y el <b>id_user_active</b>, ambos valores obtenidos por medio del endpoint <b>/production/authenticate</b>.</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="footerEndpoint" style="width:100%;"></div>
             </div>
-            <div class="col-6 p-3 shadow">
-                <h5 class="p-0 m-0 titleCall d-none">Llamada Ajax JQuery</h5>
-                <div id="request" class="titleCall d-none"></div>
-                <h5 class="p-0 m-0 titleCall d-none">Respuesta</h5>
-                <div id="response" class="titleCall d-none"></div>
-            </div>
+            <div class="col-6 p-3 shadow areaAjax"></div>
         </div>
     </div>
 </form>
