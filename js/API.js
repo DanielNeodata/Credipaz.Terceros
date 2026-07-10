@@ -159,7 +159,7 @@ var _API = {
             return false;
         }
     },
-onShowModal: function (_name, _title, _body) {
+    onShowModal: function (_name, _title, _body) {
         return new Promise(
             function (resolve, reject) {
                 try {
@@ -225,6 +225,7 @@ onShowModal: function (_name, _title, _body) {
             $(".btn-AuthenticateExternal").click();
         }
     },
+
     readConfigServers: function (key, _TS) {
         /* 
         Función de lectura de la configuración general de todas las ramas
