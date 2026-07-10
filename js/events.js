@@ -16,6 +16,11 @@ $("body").off("keyup", ".onlyNumbers").on("keyup", ".onlyNumbers", function () {
     _API.tools.onlyNumbers($(this));
 });
 
+/*Evento para return de formulario de login*/
+$("body").off("keyup", ".loginreturn").on("keyup", ".loginreturn", function (key) {
+    _API.onLoginReturn($(this), key);
+});
+
 /*Evento que dispara el boton de autenticvación externa*/
 $("body").off("click", ".btn-AuthenticateExternal").on("click", ".btn-AuthenticateExternal", function () {
     _API.authenticateexternal($(this));

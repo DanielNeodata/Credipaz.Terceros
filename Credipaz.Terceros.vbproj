@@ -100,31 +100,6 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="My Project\Application.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Settings.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="My Project\Resources.resx">
-      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\archivo.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\empresas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\entidadesCesion.html" />
@@ -230,6 +205,16 @@
     <Content Include="Credipaz.Cesiones\js\loader.js" />
     <Content Include="Credipaz.Pagos\img\logoImageBig.png" />
     <Content Include="Credipaz.SIA\html\index.html" />
+    <Content Include="Credipaz.SIA\img\ambulancia.png" />
+    <Content Include="Credipaz.SIA\img\clubredondo.png" />
+    <Content Include="Credipaz.SIA\img\credipaz.png" />
+    <Content Include="Credipaz.SIA\img\emergencias_banner.png" />
+    <Content Include="Credipaz.SIA\img\farmacia.png" />
+    <Content Include="Credipaz.SIA\img\laboratorio_banner.png" />
+    <Content Include="Credipaz.SIA\img\logo.png" />
+    <Content Include="Credipaz.SIA\img\medico.png" />
+    <Content Include="Credipaz.SIA\img\medico_banner.png" />
+    <Content Include="Credipaz.SIA\img\wait.gif" />
     <Content Include="Credipaz.SIA\js\events.js" />
     <Content Include="Credipaz.SIA\js\functions.js" />
     <Content Include="Credipaz.SIA\js\loader.js" />
@@ -252,15 +237,6 @@
     <Content Include="index.js" />
     <Content Include="index.html" />
     <Content Include="Recursos\configBranches.json" />
-    <None Include="My Project\Application.myapp">
-      <Generator>MyApplicationCodeGenerator</Generator>
-      <LastGenOutput>Application.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="My Project\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <CustomToolNamespace>My</CustomToolNamespace>
-      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
-    </None>
     <Content Include="js\API.js" />
     <Content Include="js\tools.js" />
     <Content Include="js\events.js" />
@@ -278,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Credipaz.ApiDoc\img\" />
+    <Folder Include="My Project\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -294,7 +271,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50481/</IISUrl>
+          <IISUrl>http://localhost:54443/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

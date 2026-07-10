@@ -219,7 +219,12 @@ onShowModal: function (_name, _title, _body) {
             })
         });
     },
-
+    onLoginReturn: function (_this, key) {
+        var keyCode = (key.keyCode || key.which);
+        if (keyCode === 13) {
+            $(".btn-AuthenticateExternal").click();
+        }
+    },
     readConfigServers: function (key, _TS) {
         /* 
         Función de lectura de la configuración general de todas las ramas
