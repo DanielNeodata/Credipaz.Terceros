@@ -455,8 +455,8 @@ var _API = {
                 _API.authenticate()
                     .then(function (auth) {
                         /* Agregado de valores de la autenticación correcta al objeto data */
-                        data["id_user"] = _API.authentication.data.id;
-                        data["token"] = _API.authentication.data.token_authentication;
+                        data["id_user_active"] = _API.authentication.data.id;
+                        data["token_authentication"] = _API.authentication.data.token_authentication;
                         data["id_app"] = _API.configuration.id_app;
                         /* Llamada directa al método de la API con los valores completos */
                         _API.call(endpoint, data)
