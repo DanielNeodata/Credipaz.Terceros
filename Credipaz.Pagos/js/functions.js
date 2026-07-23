@@ -222,6 +222,7 @@ var _F = {
 		$(".coinTotal").html(_API.tools.formatMoney(_total, 2));
 		if (_total.toString().indexOf(".") == -1) { _total += ".00"; }
 		var chargetotal = _API.tools.formatChargeTotal(_total.toString());
+
 		if (_total_consolidado > 0) {
 			var data = { "total": _total, "itemsPagos": JSON.stringify(_F._itemsPagos) };
 			_F.onBuildFormFiserv(data).then(function (html) {
@@ -232,6 +233,7 @@ var _F = {
 		} else {
 			$(".divIFrame").addClass("d-none");
 		}
+
 	},
 	onBuildFormFiserv: function (values) {
 		return new Promise(
