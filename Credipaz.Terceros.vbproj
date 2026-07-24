@@ -130,6 +130,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\resumenTarjeta.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\segmentosDeuda.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\monitoreo.html" />
     <Content Include="Credipaz.ApiDoc\html\index.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetClientsByDocument.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetCreditCardCurrentBalances.html" />
@@ -226,6 +227,11 @@
     <Content Include="Credipaz.Pagos\js\events.js" />
     <Content Include="Credipaz.Pagos\js\functions.js" />
     <Content Include="Credipaz.Pagos\js\loader.js" />
+    <Content Include="Credipaz.Telemedicina\html\index.html" />
+    <Content Include="Credipaz.Telemedicina\img\logo.png" />
+    <Content Include="Credipaz.Telemedicina\js\events.js" />
+    <Content Include="Credipaz.Telemedicina\js\functions.js" />
+    <Content Include="Credipaz.Telemedicina\js\loader.js" />
     <Content Include="html\unauthorized.html" />
     <Content Include="html\modalDefault.html" />
     <Content Include="html\login.html" />

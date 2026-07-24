@@ -73,5 +73,14 @@
     "URL_ERROR": "https://fiserv.credipaz.com/webhooks/FiservError",
     "URL_OK": "https://fiserv.credipaz.com/webhooks/FiservOk",
     "URL_NOTIFY": "https://fiserv.credipaz.com/webhooks/FiservNotify"
+  },
+  {
+    "key": "telemedicina.mediya.com.ar",
+    "root": "Credipaz.Telemedicina",
+    "subsystem": "",
+    "loginRequired": false,
+    "imageLogin": "./img/mediya.png",
+    "externalUserMode": 0,
+    "id_app_external": 7
   }
 ]

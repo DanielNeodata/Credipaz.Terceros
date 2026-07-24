@@ -388,8 +388,8 @@ var _API = {
                 /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
                 if (!_API.tools.validate(".validateLogin", false)) { return false; }
                 var data = {
-                    "id_user": _API.authentication.id,
-                    "token_authentication": _API.authentication.token_authentication,
+                    "id_user": _API.authentication.data.id,
+                    "token_authentication": _API.authentication.data.token_authentication,
                     "id_app": _API.id_app_external,
                     "username": $(".Username").val(),
                     "password": $(".Password").val(),
@@ -397,6 +397,10 @@ var _API = {
                 };
                 _API.call("production/authenticateexternal", data)
                     .then(function (response) {
+                        _API.authentication.data.id = response.data.id;
+                        _API.authentication.data.token_authentication = response.data.token_authentication;
+                        _API.authentication.data.token_authentication_created = response.data.token_authentication_created;
+                        _API.authentication.data.token_authentication_expired = response.data.token_authentication_expired;
                         if (response.status != "OK") {
                             /* si no autentica, alerta y sale del form */
                             alert(response.message);
@@ -405,7 +409,6 @@ var _API = {
                             _API.onDestroyModal("#modalLogin");
                             _API.loaderFile(_API.configuration.fileLoader).then(function () { _API.logStatus(); });
                         }
-                        _API.log("authenticateexternal", response);
                         resolve(response);
                     })
                     .catch(function (err) {

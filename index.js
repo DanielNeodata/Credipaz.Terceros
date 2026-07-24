@@ -52,6 +52,12 @@ $(document).ready(function () {
                 case "localhost:54445": //Botón de pago Mediya - dev ruben
                     _headerProductionKey = "pagos.mediya.com.ar";
                     break;
+                case "testtelemedicina.mediya.com.ar": //Telemedicina externo - testing
+                case "telemedicina.mediya.com.ar": //Telemedicina externo - producción
+                case "localhost:4446": //Telemedicina externo - dev daniel
+                case "localhost:54446": //Telemedicina externo - dev ruben
+                    _headerProductionKey = "telemedicina.mediya.com.ar";
+                    break;
             }
             /* Switch para ir a la rama del tree según el encabezado del sitio 
             Seteo de valores específicos de comportamiento de la rama mediante readConfigBranches
