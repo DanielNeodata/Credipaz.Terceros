@@ -1,7 +1,7 @@
 <form>
     <div class="container-full">
         <h5 class="apiTitle"></h5>
-        <p>Lista los planes médicos disponibles para Mediya, dado la cantidad de adicionales mayores y menores, así como el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
+        <p>Grabación de notas postcierre para atenciones de Telemedicina, dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
         <div class="row">
             <div class="col-6 shadow pt-2">
                 <table class="table table-borderless hdrEnd"></table>
@@ -9,16 +9,16 @@
                     <thead class="thead-light hdrParam"></thead>
                     <tbody class="bodyParam">
                         <tr>
-                            <td><b>Adicionales mayores</b></td>
-                            <td><input class="form-control" id="adicMayores" name="adicMayores" type="number" placeholder="Adicionales mayores" value="0"/></td>
-                            <td><i>integer</i></td>
+                            <td><b>Nota</b></td>
+                            <td><input class="form-control" id="Nota" name="Nota" type="text" placeholder="Nota" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
                             <td><span class="badge badge-danger">requerido</span></td>
                         </tr>
                         <tr>
-                            <td><b>Adicionales menores</b></td>
-                            <td><input class="form-control" id="adicMenores" name="adicMenores" type="number" placeholder="Adicionales menores" value="0"/></td>
+                            <td><b>ID</b></td>
+                            <td><input class="form-control" id="Id" name="Id" type="number" placeholder="ID" value=""/></td>
                             <td><i>integer</i></td>
-                            <td><span class="badge badge-danger">requerido</span></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -31,8 +31,8 @@
 <script>
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {
-            "adicMayores": $("#adicMayores").val(),
-            "adicMenores": $("#adicMenores").val(),
+            "Nota": $("#Nota").val(),
+            "Id": $("#Id").val(),
         };
         _F.onUiExecute(_json).then(function (data) { });
     });

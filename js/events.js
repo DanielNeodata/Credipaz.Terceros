@@ -4,11 +4,11 @@
 
 /*Evento ok por default de las ventanas modal*/
 $("body").off("click", ".btn-ok-modal").on("click", ".btn-ok-modal", function () {
-    _API.onDestroyModal(_id);
+    _API.onDestroyModal("#" + $(this).attr("data-modal"));
 });
 /*Evento cancel por default de las ventanas modal*/
 $("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
-    _API.onDestroyModal(_id);
+    _API.onDestroyModal("#" + $(this).attr("data-modal"));
 });
 
 /*Evento para máscara de numeros en inputs*/

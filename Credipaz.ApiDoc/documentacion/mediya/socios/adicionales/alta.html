@@ -85,9 +85,6 @@
 <script>
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {
-            "token_authentication": $("#token_authentication").val(),
-            "id_user_active": $("#id_user_active").val(),
-            "id_app": $("#id_app").val(),
             "id_socio": $("#id_socio").val(),
             "id_tipo_adicional": $("#id_tipo_adicional").val(),
             "nombre": $("#nombre").val(),
@@ -99,7 +96,7 @@
             "telefono": $("#telefono").val(),
             "fechaNacimiento": $("#fechaNacimiento").val(),
             "id_parentesco": $("#id_parentesco").val(),
-        }
+        };
         _F.onUiExecute(_json).then(function (data) { });
     });
 </script>

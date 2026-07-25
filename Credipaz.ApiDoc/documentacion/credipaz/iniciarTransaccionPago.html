@@ -61,9 +61,6 @@
 <script>
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {
-            "token_authentication": $("#token_authentication").val(),
-            "id_app": $("#id_app").val(),
-            "id_user_active": $("#id_user_active").val(),
             "NroDocumento": $("#NroDocumento").val(),
             "Id_type_channel": $("#Id_type_channel").val(),
             "Identificacion": $("#Identificacion").val(),
@@ -72,7 +69,7 @@
             "Amount_request": $("#Amount_request").val(),
             "Raw_request": $("#Raw_request").val(),
             "Channel": $("#Channel").val(),
-        }
+        };
         _F.onUiExecute(_json).then(function (data) { });
     });
 </script>

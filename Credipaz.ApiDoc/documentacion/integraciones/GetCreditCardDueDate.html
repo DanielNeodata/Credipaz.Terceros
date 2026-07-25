@@ -40,14 +40,11 @@
 <script>
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {
-            "token_authentication": $("#token_authentication").val(),
-            "id_user_active": $("#id_user_active").val(),
-            "id_app": $("#id_app").val(),
             "IdCliente": $("#IdCliente").val(),
             "IdTarjeta": $("#IdTarjeta").val(),
             "IdCliente": $("#IdCliente").val(),
             "producto": $("#producto").val()
-        }
+        };
         _F.onUiExecute(_json).then(function (data) { });
     });
 </script>

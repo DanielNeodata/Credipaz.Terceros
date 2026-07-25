@@ -130,6 +130,10 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\resumenTarjeta.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\segmentosDeuda.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\cancelar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\postcierre.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\supervision.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\consultas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\monitoreo.html" />
     <Content Include="Credipaz.ApiDoc\html\index.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetClientsByDocument.html" />
@@ -228,6 +232,8 @@
     <Content Include="Credipaz.Pagos\js\functions.js" />
     <Content Include="Credipaz.Pagos\js\loader.js" />
     <Content Include="Credipaz.Telemedicina\html\index.html" />
+    <Content Include="Credipaz.Telemedicina\html\postclose.html" />
+    <Content Include="Credipaz.Telemedicina\html\editchargecode.html" />
     <Content Include="Credipaz.Telemedicina\img\logo.png" />
     <Content Include="Credipaz.Telemedicina\js\events.js" />
     <Content Include="Credipaz.Telemedicina\js\functions.js" />
@@ -239,6 +245,7 @@
     <Content Include="img\clubredondo.png" />
     <Content Include="img\credipaz.png" />
     <Content Include="img\mediya.png" />
+    <Content Include="img\wait.gif" />
     <Content Include="index.css" />
     <Content Include="index.js" />
     <Content Include="index.html" />

@@ -78,7 +78,7 @@
     "key": "telemedicina.mediya.com.ar",
     "root": "Credipaz.Telemedicina",
     "subsystem": "",
-    "loginRequired": false,
+    "loginRequired": true,
     "imageLogin": "./img/mediya.png",
     "externalUserMode": 0,
     "id_app_external": 7

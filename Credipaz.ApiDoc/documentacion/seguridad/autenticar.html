@@ -43,11 +43,10 @@
 <script>
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {
-            "id_app": $("#id_app").val(),
             "username": $("#username").val(),
             "password": $("#password").val(),
             "version": $("#version").val(),
-        }
+        };
         _F.onUiExecute(_json).then(function (data) { });
     });
 </script>

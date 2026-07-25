@@ -418,6 +418,6 @@ var _F = {
 		_html += "      </tr>";
 		_html += "   </table>";
 		_html += "</div>";
-		_API.onShowModal("modalComprobante", "Pago procesado en forma exitosa", _html).then(function () { });
+		_API.onShowModal("modalComprobante", "Pago procesado en forma exitosa", _html, "").then(function () { });
 	},
 }

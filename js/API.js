@@ -138,6 +138,15 @@ var _API = {
         return decodeURIComponent(escape(window.atob(str)));
     },
 
+    onWait: function (_on) {
+        if (_on) {
+            $.blockUI({ message: '<img src="/img/wait.gif" />', css: { border: 'none', backgroundColor: 'transparent', opacity: 1, color: 'transparent' } });
+            $(".blockOverlay").css({ "z-index": 9999999 });
+            $(".blockPage").css({ "z-index": 9999999 });
+        } else {
+            $.unblockUI();
+        }
+    },
     onAlert: function (_json) {
         try {
             clearTimeout(_API._TIMER_ALERT);
@@ -159,7 +168,7 @@ var _API = {
             return false;
         }
     },
-    onShowModal: function (_name, _title, _body) {
+    onShowModal: function (_name, _title, _body, _size) {
         return new Promise(
             function (resolve, reject) {
                 try {
@@ -168,13 +177,12 @@ var _API = {
                     _API.onDestroyModal(_id);
                     $.get(("html/modalDefault.html?" + _API._TS), function (_html) {
                         $("body").append(_html);
-                        if (_title == "") {
-                            $(".modal-header").remove();
-                        } else {
-                            $(".modal-title").html(_title);
-                        }
+                        if (_size != "") { $(".modal-dialog").addClass(_size); }
+                        if (_title == "") { $(".modal-header").remove(); } else { $(".modal-title").html(_title); }
                         $(".modal-body").html(_body);
                         $(".modal").attr("id", _name);
+                        $(".btn-cancel-modal").attr("data-modal", _name);
+                        $(".btn-ok-modal").attr("data-modal", _name);
                         $(".modal").attr("aria-labelledby", (_name + "Label"));
                         var _options = { backdrop: 'static', keyboard: false, show: true };
                         $(_id).modal(_options);
@@ -195,7 +203,7 @@ var _API = {
         /* carga html a mostrar en el body de la modal */
         $.get(("html/login.html?" + _API._TS), function (_html) {
             /* muestra la modal con el body resuelto*/
-            _API.onShowModal("modalLogin", "", _html).then(function (_ret) {
+            _API.onShowModal("modalLogin", "", _html, "").then(function (_ret) {
                 /* remueve footer default de la modal, porque viene con botón de acción en el load de login.html */
                 $(".wfooter").remove();
                 /* asigna la imagen del header según valor de variable asignado en el switch por encabezado */
@@ -209,7 +217,7 @@ var _API = {
         /* carga html a mostrar en el body de la modal */
         $.get(("html/unauthorized.html?" + _API._TS), function (_html) {
             /* muestra la modal con el body resuelto*/
-            _API.onShowModal("modalUnauthorized", "", _html).then(function (_ret) {
+            _API.onShowModal("modalUnauthorized", "", _html, "").then(function (_ret) {
                 /* remueve footer default de la modal, porque viene con botón de acción en el load de unauthorized.html */
                 $(".wfooter").remove();
                 /* asigna la imagen del header según valor de variable asignado en el switch por encabezado */
@@ -225,6 +233,28 @@ var _API = {
             $(".btn-AuthenticateExternal").click();
         }
     },
+    onBuildTable: function (_id, title, records, vHeaders, vColumns, vRules, tblClass, tblStyle) {
+        var _html = "";
+        if (title != "") { _html += "<h5>" + title + "</h5>"; }
+        if (tblClass == "") { tblClass = "table table-borderless table-hover table-sm table-condensed" }
+        if (tblStyle == "") { tblStyle = "width:100%;font-size:14px;"; }
+        _html += "<table class='" + tblClass + "' style='" + tblStyle + "'>";
+        if (vHeaders.length > 0) {
+            _html += "<thead class='thead-dark'>";
+            _html += "<tr>";
+            vHeaders.forEach(function (item) {_html += "<th>" + item + "</th>";});
+            _html += "</tr>";
+            _html += "</thead>";
+        }
+        $.each(records, function (i, record) {
+            _html += "<tr>";
+            vColumns.forEach(function (item) { _html += "<td>" + record[item] + "</td>"; });
+            _html += "</tr>";
+        });
+        _html += "</table>";
+        return _html;
+    },
+
 
     readConfigServers: function (key, _TS) {
         /* 

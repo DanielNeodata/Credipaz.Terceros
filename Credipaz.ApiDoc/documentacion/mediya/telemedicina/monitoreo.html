@@ -10,9 +10,15 @@
                     <tbody class="bodyParam">
                         <tr>
                             <td><b>Modo</b></td>
-                            <td><input class="form-control" id="iModo" name="iModo" type="text" placeholder="Modo" value="" autocomplete="new-password" /></td>
-                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: 1/2/3</p></td>
+                            <td><input class="form-control" id="iModo" name="iModo" type="number" placeholder="Modo" value="" autocomplete="new-password" /></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: 1/2/3/4</p></td>
                             <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>ID</b></td>
+                            <td><input class="form-control" id="Id" name="Id" type="number" placeholder="ID" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -25,11 +31,9 @@
 <script>
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {
-            "token_authentication": $("#token_authentication").val(),
-            "id_user_active": $("#id_user_active").val(),
-            "id_app": $("#id_app").val(),
             "iModo": $("#iModo").val(),
-        }
+            "Id": $("#Id").val(),
+        };
         _F.onUiExecute(_json).then(function (data) { });
     });
 </script>

@@ -187,9 +187,6 @@
 <script>
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {
-            "token_authentication": $("#token_authentication").val(),
-            "id_user_active": $("#id_user_active").val(),
-            "id_app": $("#id_app").val(),
             "nombre": $("#nombre").val(),
             "apellido": $("#apellido").val(),
             "dni": $("#dni").val(),
@@ -218,7 +215,7 @@
             "nombreEnTarjeta": $("#nombreEnTarjeta").val(),
             "mesVencimiento": $("#mesVencimiento").val(),
             "anioVencimiento": $("#anioVencimiento").val()
-        }
+        };
         _F.onUiExecute(_json).then(function (data) { });
     });
 </script>
