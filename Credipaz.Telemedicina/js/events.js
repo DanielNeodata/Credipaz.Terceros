@@ -24,4 +24,20 @@ $("body").off("click", ".btnPostClose").on("click", ".btnPostClose", function ()
 $("body").off("click", ".btnEditChargeCode").on("click", ".btnEditChargeCode", function () {
 	_F.onEditChargeCode($(this));
 });
+$("body").off("click", ".btnSaveNuevaNota").on("click", ".btnSaveNuevaNota", function () {
+	_F.onSaveNuevaNota($(this));
+});
+$("body").off("click", ".btnAmbulancia").on("click", ".btnAmbulancia", function () {
+	_F.onAmbulancia($(this));
+});
+$("body").off("click", ".btnSaveAmbulancia").on("click", ".btnSaveAmbulancia", function () {
+	_F.onSaveAmbulancia($(this));
+});
+$("body").off("change", ".tCierre").on("change", ".tCierre", function () {
+	_F.onChangeTypeClose($(this));
+});
+$("body").off("change", ".cboSwiss").on("change", ".cboSwiss", function () {
+	_F.onChangeCboSwiss($(this));
+});
+
 

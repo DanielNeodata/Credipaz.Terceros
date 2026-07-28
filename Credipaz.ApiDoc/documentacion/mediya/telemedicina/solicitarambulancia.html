@@ -1,7 +1,7 @@
 <form>
     <div class="container-full">
         <h5 class="apiTitle"></h5>
-        <p>Grabación de notas postcierre para atenciones de Telemedicina, dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
+        <p>Solicitud de ambulancia relacionada a la atención en curso de Telemedicina, dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
         <div class="row">
             <div class="col-6 shadow pt-2">
                 <table class="table table-borderless hdrEnd"></table>
@@ -12,13 +12,19 @@
                             <td><b>ID</b></td>
                             <td><input class="form-control" id="Id" name="Id" type="number" placeholder="ID" value=""/></td>
                             <td><i>integer</i></td>
-                            <td><span class="badge badge-secondary">opcional</span></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tipo</b></td>
+                            <td><input class="form-control" id="Tipo" name="Tipo" type="number" placeholder="Tipo de emergencia" value="" autocomplete="new-password" /></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Tomar valor a enviar de <b>mediya/telemedicina/tiposemergencia</b></p></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
                         </tr>
                         <tr>
                             <td><b>Nota</b></td>
                             <td><input class="form-control" id="Nota" name="Nota" type="text" placeholder="Nota" value="" autocomplete="new-password" /></td>
                             <td><i>string</i></td>
-                            <td><span class="badge badge-danger">requerido</span></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -31,8 +37,9 @@
 <script>
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {
-            "Nota": $("#Nota").val(),
             "Id": $("#Id").val(),
+            "Tipo": $("#Tipo").val(),
+            "Nota": $("#Nota").val(),
         };
         _F.onUiExecute(_json).then(function (data) { });
     });

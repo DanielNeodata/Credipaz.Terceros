@@ -3,7 +3,8 @@ var _API = {
     _ROOT: "",
     _TIMER_ALERT: 0,
     _TIMER_LAZY: 0,
-    tools:null,
+    tools: null,
+    id_user_log:null,
     id_app_external:0,
     loginRequired: false,
     externalUserMode: 0,
@@ -168,6 +169,33 @@ var _API = {
             return false;
         }
     },
+    onShowModalOverAll: function (_name, _title, _body) {
+        return new Promise(
+            function (resolve, reject) {
+                try {
+                    var _id = ("#" + _name);
+                    var _id_container = (_name + "_container");
+                    _API.scrollY = window.scrollY;
+                    $(_id).remove();
+                    $.get(("html/modalDefaultOverAll.html?" + _API._TS), function (_html) {
+                        var _back = "<div id='" + _id_container + "' style=' background-color: rgba(0, 0, 0, 0.5);position:absolute;left:0px;top:0px;width:100%;height:100%;z-index:999998;'></div>";
+                        $("body").append(_back);
+                        $("#" + _id_container).append(_html);
+                        if (_title == "") { $(".modalall-header").remove(); } else { $(".modalall-title").html(_title); }
+                        $(".modalall-body").html(_body);
+                        $(".modalall").attr("id", _name);
+                        $(".btn-cancel-modalall").attr("data-modal", _name);
+                        $(".btn-ok-modalall").attr("data-modal", _name);
+                        resolve(null);
+                    });
+                } catch (err) {
+                    _API.log(("onShowModal->" + _name), _API.authentication);
+                    reject(err);
+                }
+            }
+        );
+
+    },
     onShowModal: function (_name, _title, _body, _size) {
         return new Promise(
             function (resolve, reject) {
@@ -198,6 +226,9 @@ var _API = {
     onDestroyModal: function (_id) {
         $(".modal-backdrop").remove();
         $(_id).remove();
+    },
+    onDestroyModalAll: function (_id) {
+        $(_id + "_container").remove();
     },
     onShowLoginModal: function () {
         /* carga html a mostrar en el body de la modal */
@@ -253,6 +284,39 @@ var _API = {
         });
         _html += "</table>";
         return _html;
+    },
+    onLoadComboAjax: function (_endpoint, _target, _selected, _valEmpty = "") {
+        return new Promise(
+            function (resolve, reject) {
+                try {
+                    var _value = _selected;
+                    var _id = $(_target).attr("data-id");
+                    var _descripcion = $(_target).attr("data-descripcion");
+                    $(_target).css({ "opacity": 0.5, "color": "red" });
+                    _API.method(_endpoint, { }).then(function (data) {
+                        var _sel = "";
+                        var _empty = $(_target).attr("data-empty");
+                        $(_target).empty();
+                        if (_value == -1 || _value == "") { _sel = "selected"; }
+                        if (_empty != "N") { $(_target).append('<option ' + _sel + ' value="' + _valEmpty + '">[Seleccione]</option>'); }
+                        $.each(data.data, function (i, item) {
+                            _sel = "";
+                            if (_value == item[_id]) {
+                                $(_target.replace("#", ".")).val(_selected);
+                                _sel = "selected";
+                            }
+                            $(_target).append('<option ' + _sel + ' value="' + item[_id] + '">' + item[_descripcion] + '</option>');
+                        });
+                        $(_target).css({ "opacity": 1, "color": "black" });
+                        resolve(data.data);
+                    }).catch(function (err) {
+                        reject(err);
+                    });
+                } catch (rex) {
+                    reject(rex);
+                }
+            }
+        );
     },
 
 
@@ -372,13 +436,14 @@ var _API = {
         return new Promise(
             function (resolve, reject) {
                 var _url = (_API.configuration.server + endpoint);
+                _API.log("call->data->"+_url, data);
                 $.ajax({
                     "type": "POST",
                     "dataType": "json",
                     "url": _url,
                     "data": data,
                     "success": function (response) {
-                        _API.log(("call->response-> " + _url), response);
+                        _API.log("call->response", response);
                         resolve(response);
                     },
                     "error": function (xhr, status, error) { reject(error); }
@@ -427,10 +492,12 @@ var _API = {
                 };
                 _API.call("production/authenticateexternal", data)
                     .then(function (response) {
+                        _API.id_user_log = response.data.id;
                         _API.authentication.data.id = response.data.id;
                         _API.authentication.data.token_authentication = response.data.token_authentication;
                         _API.authentication.data.token_authentication_created = response.data.token_authentication_created;
                         _API.authentication.data.token_authentication_expired = response.data.token_authentication_expired;
+
                         if (response.status != "OK") {
                             /* si no autentica, alerta y sale del form */
                             alert(response.message);

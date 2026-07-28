@@ -5,5 +5,14 @@ body {
     overflow-y: auto !important;
 }
 .magenta {
-    color:#dd127b;
+    color: #dd127b !important;
+}
+.bg-magenta {
+    background-color: #dd127b !important;
+}
+.bg-silver {
+    background-color: silver !important;
+}
+.bold {
+    font-weight:bold !important;
 }
