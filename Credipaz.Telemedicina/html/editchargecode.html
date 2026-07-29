@@ -79,76 +79,68 @@
             <div class="text-center container-flex">
                 <div class="btn-group" role="group" aria-label="First group">
                     <a href="#" class="btn btnVideo btn-primary m-1">Video</a>
-                    <a href="#" class="btn btnAmbulancia btn-warning m-1">Ambulancia</a>
+                    <a href="#" class="btn btnAmbulancia btn-warning m-1 d-none">Ambulancia</a>
                     <a href="#" class="btn btnReceta btn-info m-1">Receta</a>
                     <a href="#" class="btn btnOrden btn-secondary m-1">Orden</a>
                 </div>
             </div>
+            <div class="areaMessage container-flex d-none"></div>
 
             <div class="accordion my-1" id="accordionExample">
               <div class="card">
-                <div class="card-header" id="headingOne">
+                <div class="card-header" id="headingTwo">
                   <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Imágenes recibidas
-                    </button>
+                    <a class="btnEvaluaciones btn btn-link btn-block text-left collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Evaluación médica
+                    </a>
                   </h2>
                 </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                  <div class="card-body areaImagenes">
-                    Lista de imágenes
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body areaEvaluaciones">
+                    <table class="tblEvaluaciones table table-condensed table btn-sm table-borderless"></table>
                   </div>
                 </div>
               </div>
 
               <div class="card">
-                <div class="card-header" id="headingTwo">
+                <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Evaluación médica
-                    </button>
+                    <a data-id="" data-id_socio="" class="btnImagenes btn btn-link btn-block text-left" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Imágenes recibidas
+                    </a>
                   </h2>
                 </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                  <div class="card-body areaEvaluaciones">
-                    Datos de la evaluación médica
-                  </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body areaImagenes"></div>
                 </div>
               </div>
 
               <div class="card">
                 <div class="card-header" id="headingThree">
                   <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <a data-id="" data-id_socio="" class="btnRecetas btn btn-link btn-block text-left collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                       Recetas
-                    </button>
+                    </a>
                   </h2>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="card-body areaRecetas">
-                    Lista de recetas
-                  </div>
+                  <div class="card-body areaRecetas"></div>
                 </div>
               </div>
 
               <div class="card">
                 <div class="card-header" id="headingFour">
                   <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                    <a data-id="" data-id_socio="" class="btnAtenciones btn btn-link btn-block text-left" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
                       Atenciones anteriores
-                    </button>
+                    </a>
                   </h2>
                 </div>
-                <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordionExample">
-                  <div class="card-body areaAtenciones">
-                    Lista de atenciones anteriores
-                  </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                  <div class="card-body areaAtenciones"></div>
                 </div>
               </div>
-
             </div>
-
-
         </div>
     </div>
     <hr />

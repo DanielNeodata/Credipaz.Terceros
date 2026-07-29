@@ -33,11 +33,27 @@ $("body").off("click", ".btnAmbulancia").on("click", ".btnAmbulancia", function 
 $("body").off("click", ".btnSaveAmbulancia").on("click", ".btnSaveAmbulancia", function () {
 	_F.onSaveAmbulancia($(this));
 });
+$("body").off("click", ".btnImagenes").on("click", ".btnImagenes", function () {
+	_F.onImagenes($(this));
+});
+$("body").off("click", ".btnRecetas").on("click", ".btnRecetas", function () {
+	_F.onRecetas($(this));
+});
+$("body").off("click", ".btnAtenciones").on("click", ".btnAtenciones", function () {
+	_F.onAtenciones($(this));
+});
+$("body").off("click", ".btnVerAtencionPrevia").on("click", ".btnVerAtencionPrevia", function () {
+	_F.onVerAtencionPrevia($(this));
+});
+$("body").off("click", ".btnVerImagen").on("click", ".btnVerImagen", function () {
+	_F.onVerImagen($(this));
+});
+$("body").off("click", ".btnVerReceta").on("click", ".btnVerReceta", function () {
+	_F.onVerReceta($(this));
+});
 $("body").off("change", ".tCierre").on("change", ".tCierre", function () {
 	_F.onChangeTypeClose($(this));
 });
 $("body").off("change", ".cboSwiss").on("change", ".cboSwiss", function () {
 	_F.onChangeCboSwiss($(this));
 });
-
-

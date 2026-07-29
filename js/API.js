@@ -173,6 +173,7 @@ var _API = {
         return new Promise(
             function (resolve, reject) {
                 try {
+                    $("html").css({ "overflow": "hidden" });
                     var _id = ("#" + _name);
                     var _id_container = (_name + "_container");
                     _API.scrollY = window.scrollY;
@@ -200,6 +201,7 @@ var _API = {
         return new Promise(
             function (resolve, reject) {
                 try {
+                    $("html").css({ "overflow": "hidden" });
                     var _id = ("#" + _name);
                     _API.scrollY = window.scrollY;
                     _API.onDestroyModal(_id);
@@ -226,9 +228,11 @@ var _API = {
     onDestroyModal: function (_id) {
         $(".modal-backdrop").remove();
         $(_id).remove();
+        $("html").css({ "overflow": "auto" });
     },
     onDestroyModalAll: function (_id) {
         $(_id + "_container").remove();
+        $("html").css({ "overflow": "auto" });
     },
     onShowLoginModal: function () {
         /* carga html a mostrar en el body de la modal */

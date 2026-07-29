@@ -7,11 +7,11 @@ $("body").off("click", ".btn-ok-modal").on("click", ".btn-ok-modal", function ()
     _API.onDestroyModal("#" + $(this).attr("data-modal"));
 });
 $("body").off("click", ".btn-ok-modalall").on("click", ".btn-ok-modalall", function () {
-    _API.onDestroyModal("#" + $(this).attr("data-modal"));
+    _API.onDestroyModalAll("#" + $(this).attr("data-modal"));
 });
 /*Evento cancel por default de las ventanas modal*/
 $("body").off("click", ".btn-cancel-modal").on("click", ".btn-cancel-modal", function () {
-    _API.onDestroyModalAll("#" + $(this).attr("data-modal"));
+    _API.onDestroyModal("#" + $(this).attr("data-modal"));
 });
 $("body").off("click", ".btn-cancel-modalall").on("click", ".btn-cancel-modalall", function () {
     _API.onDestroyModalAll("#" + $(this).attr("data-modal"));

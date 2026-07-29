@@ -1,0 +1,53 @@
+<form>
+    <div class="container-full">
+        <h5 class="apiTitle"></h5>
+        <p>Lista de mensajes desde y hacia el médico vinculados a una atención o un socio, dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
+        <div class="row">
+            <div class="col-6 shadow pt-2">
+                <table class="table table-borderless hdrEnd"></table>
+                <table class="table table-borderless">
+                    <thead class="thead-light hdrParam"></thead>
+                    <tbody class="bodyParam">
+                        <tr>
+                            <td><b>Id socio</b></td>
+                            <td><input class="form-control" id="idSocio" name="idSocio" type="number" placeholder="Id socio" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Id charge code</b></td>
+                            <td><input class="form-control" id="idChargeCode" name="idChargeCode" type="number" placeholder="Id código de atención" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tipo de dirección</b></td>
+                            <td><input class="form-control" id="idTypeDirection" name="idTypeDirection" type="number" placeholder="Tipo de dirección" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: 1/2</p></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tipo de mensaje</b></td>
+                            <td><input class="form-control" id="idTypeItem" name="idTypeItem" type="number" placeholder="Tipo de mensaje" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: 1/2</p></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footerEndpoint" style="width:100%;"></div>
+            </div>
+            <div class="col-6 p-3 shadow areaAjax"></div>
+        </div>
+    </div>
+</form>
+<script>
+    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
+        var _json = {
+            "idSocio": $("#idSocio").val(),
+            "idChargeCode": $("#idChargeCode").val(),
+            "idTypeDirection": $("#idTypeDirection").val(),
+            "idTypeItem": $("#idTypeItem").val(),
+        };
+        _F.onUiExecute(_json).then(function (data) { });
+    });
+</script>

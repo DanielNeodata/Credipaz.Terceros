@@ -131,7 +131,9 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\segmentosDeuda.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\credenciales.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\mensajes.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\cancelar.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\atencionesanteriores.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\solicitarambulancia.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\tiposemergencia.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\tiposcierre.html" />
