@@ -163,7 +163,7 @@ var _T = {
         tempTextarea.val(textToCopy).select();
         document.execCommand('copy');
         tempTextarea.remove();
-        _API.onAlert({ "message": "Se han copiado los datos al portapapeles.  Puede utilizarlos donde desee.", "class": "alert-info" });
+        _API.onAlert({ "message": "Se han copiado los datos al portapapeles.", "class": "alert-info" });
     },
 
 };
