@@ -1,0 +1,249 @@
+<form>
+    <div class="container-full">
+        <h5 class="apiTitle"></h5>
+        <p>Grabación de atención médica de un socio, dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
+        <div class="row">
+            <div class="col-6 shadow pt-2">
+                <table class="table table-borderless hdrEnd"></table>
+                <table class="table table-borderless">
+                    <thead class="thead-light hdrParam"></thead>
+                    <tbody class="bodyParam">
+                        <tr>
+                            <td><b>Id user</b></td>
+                            <td><input class="form-control" id="idUser" name="idUser" type="number" placeholder="Id user" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tipo de cierre</b></td>
+                            <td><input class="form-control" id="id_type_task_close" name="id_type_task_close" type="number" placeholder="Tipo de cierre" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Tomar valor a enviar de <b>mediya/telemedicina/tiposcierre</b></p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Id operator task</b></td>
+                            <td><input class="form-control" id="idOperatorTask" name="idOperatorTask" type="number" placeholder="Id operator task" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Motivo</b></td>
+                            <td><input class="form-control" id="motivo" name="motivo" type="text" placeholder="Motivo" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Evolución</b></td>
+                            <td><input class="form-control" id="evolucion" name="evolucion" type="text" placeholder="Evolución" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Diagnóstico</b></td>
+                            <td><input class="form-control" id="diagnostico" name="diagnostico" type="text" placeholder="Diagnóstico" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Indicaciones</b></td>
+                            <td><input class="form-control" id="indicaciones" name="indicaciones" type="text" placeholder="Indicaciones" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nota de cierre</b></td>
+                            <td><input class="form-control" id="note_close" name="note_close" type="text" placeholder="Nota de cierre" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Derivado consulta</b></td>
+                            <td><input class="form-control" id="derivado_consulta" name="derivado_consulta" type="number" placeholder="Derivado consulta" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Derivado especialista</b></td>
+                            <td><input class="form-control" id="derivado_especialista" name="derivado_especialista" type="number" placeholder="Derivado especialista" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Temperatura</b></td>
+                            <td><input class="form-control" id="temperatura" name="temperatura" type="number" placeholder="Temperatura" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Tos</b></td>
+                            <td><input class="form-control" id="tos" name="tos" type="number" placeholder="Tos" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Expectoración</b></td>
+                            <td><input class="form-control" id="expectoracion" name="expectoracion" type="number" placeholder="Expectoración" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Odinofagia</b></td>
+                            <td><input class="form-control" id="odinofagia" name="odinofagia" type="number" placeholder="Odinofagia" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Disfagia</b></td>
+                            <td><input class="form-control" id="disfagia" name="disfagia" type="number" placeholder="Disfagia" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Disnea</b></td>
+                            <td><input class="form-control" id="disnea" name="disnea" type="number" placeholder="Disnea" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nauseas</b></td>
+                            <td><input class="form-control" id="nauseas" name="nauseas" type="number" placeholder="Nauseas" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Vómitos</b></td>
+                            <td><input class="form-control" id="vomitos" name="vomitos" type="number" placeholder="Vómitos" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Dolor abdominal</b></td>
+                            <td><input class="form-control" id="dolor_abdominal" name="dolor_abdominal" type="number" placeholder="Dolor abdominal" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Diarrea</b></td>
+                            <td><input class="form-control" id="diarrea" name="diarrea" type="number" placeholder="Diarrea" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Proctorragia</b></td>
+                            <td><input class="form-control" id="proctorragia" name="proctorragia" type="number" placeholder="Proctorragia" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Disuria</b></td>
+                            <td><input class="form-control" id="disuria" name="disuria" type="number" placeholder="Disuria" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Polaquiuria</b></td>
+                            <td><input class="form-control" id="polaquiuria" name="polaquiuria" type="number" placeholder="Polaquiuria" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Edemas</b></td>
+                            <td><input class="form-control" id="edemas" name="edemas" type="number" placeholder="Edemas" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Parestesias</b></td>
+                            <td><input class="form-control" id="parestesias" name="parestesias" type="number" placeholder="Parestesias" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Calambres</b></td>
+                            <td><input class="form-control" id="calambres" name="calambres" type="number" placeholder="Calambres" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Insensibilidad miembro</b></td>
+                            <td><input class="form-control" id="insensibilidad_miembro" name="insensibilidad_miembro" type="number" placeholder="Insensibilidad miembro" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Cefaleas</b></td>
+                            <td><input class="form-control" id="cefaleas" name="cefaleas" type="number" placeholder="Cefaleas" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Antecedente de migrañas</b></td>
+                            <td><input class="form-control" id="migrana_antecedente" name="migrana_antecedente" type="number" placeholder="Antecedente de migrañas" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Ta constatada</b></td>
+                            <td><input class="form-control" id="ta_constatada" name="ta_constatada" type="number" placeholder="Ta constatada" value=""/></td>
+                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: -1/0/1</p></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Medicamento para migraña</b></td>
+                            <td><input class="form-control" id="migrana_medicada" name="migrana_medicada" type="text" placeholder="Medicamento para migraña" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Otras evaluaciones</b></td>
+                            <td><input class="form-control" id="otras_evaluaciones" name="otras_evaluaciones" type="text" placeholder="Otras evaluaciones" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footerEndpoint" style="width:100%;"></div>
+            </div>
+            <div class="col-6 p-3 shadow areaAjax"></div>
+        </div>
+    </div>
+</form>
+<script>
+    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
+        var _json = {
+            "idUser": $("#idUser").val(),
+            "idOperatorTask": $("#idOperatorTask").val(),
+            "id_type_task_close": $("#id_type_task_close").val(),
+            "motivo": $("#motivo").val(),
+            "evolucion": $("#evolucion").val(),
+            "diagnostico": $("#diagnostico").val(),
+            "indicaciones": $("#indicaciones").val(),
+            "derivado_consulta": $("#derivado_consulta").val(),
+            "derivado_especialista": $("#derivado_especialista").val(),
+            "note_close": $("#note_close").val(),
+            "temperatura": $("#temperatura").val(),
+            "tos": $("#tos").val(),
+            "expectoracion": $("#expectoracion").val(),
+            "odinofagia": $("#odinofagia").val(),
+            "disfagia": $("#disfagia").val(),
+            "disnea": $("#disnea").val(),
+            "nauseas": $("#nauseas").val(),
+            "vomitos": $("#vomitos").val(),
+            "dolor_abdominal": $("#dolor_abdominal").val(),
+            "diarrea": $("#diarrea").val(),
+            "proctorragia": $("#proctorragia").val(),
+            "disuria": $("#disuria").val(),
+            "polaquiuria": $("#polaquiuria").val(),
+            "edemas": $("#edemas").val(),
+            "parestesias": $("#parestesias").val(),
+            "calambres": $("#calambres").val(),
+            "insensibilidad_miembro": $("#insensibilidad_miembro").val(),
+            "cefaleas": $("#cefaleas").val(),
+            "migrana_antecedente": $("#migrana_antecedente").val(),
+            "migrana_medicada": $("#migrana_medicada").val(),
+            "ta_constatada": $("#ta_constatada").val(),
+            "otras_evaluaciones": $("#otras_evaluaciones").val()
+        };
+        _F.onUiExecute(_json).then(function (data) { });
+    });
+</script>

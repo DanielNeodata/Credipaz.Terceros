@@ -18,9 +18,6 @@
 <script>
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {};
-        _F.onUiExecute(_json).then(function (data) {
-            $("#response").html("<pre>" + JSON.stringify(data, undefined, 2) + "</pre>");
-            $(".titleCall").removeClass("d-none");
-        });
+        _F.onUiExecute(_json).then(function (data) { });
     });
 </script>

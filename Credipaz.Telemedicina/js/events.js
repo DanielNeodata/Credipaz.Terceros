@@ -51,6 +51,40 @@ $("body").off("click", ".btnVerImagen").on("click", ".btnVerImagen", function ()
 $("body").off("click", ".btnVerReceta").on("click", ".btnVerReceta", function () {
 	_F.onVerReceta($(this));
 });
+$("body").off("click", ".btnBuildOrden").on("click", ".btnBuildOrden", function () {
+	_F.onBuildOrden($(this));
+});
+$("body").off("click", ".btnBuildReceta").on("click", ".btnBuildReceta", function () {
+	_F.onBuildReceta($(this));
+});
+$("body").off("click", ".btnCambiarDatosOrden").on("click", ".btnCambiarDatosOrden", function () {
+	_F.onCambiarDatosOrden($(this));
+});
+$("body").off("click", ".btnEspontanea").on("click", ".btnEspontanea", function () {
+	_F.onEspontanea($(this));
+});
+$("body").off("click", ".btnGrabarOrdenMedica").on("click", ".btnGrabarOrdenMedica", function () {
+	_F.onGrabarOrdenMedica($(this));
+});
+$("body").off("click", ".btnGrabarAtencion").on("click", ".btnGrabarAtencion", function () {
+	_F.onGrabarAtencion($(this));
+});
+$("body").off("click", ".btnDoctorAtencion").on("click", ".btnDoctorAtencion", function () {
+	_F.onDoctorAtencion($(this));
+});
+$("body").off("click", ".btnVideo").on("click", ".btnVideo", function () {
+	_F.onVideo($(this));
+});
+
+$("body").off("click", ".btnUploadReceta").on("click", ".btnUploadReceta", function (event) {
+	$(this).val(null);
+});
+
+
+
+$("body").off("change", ".btnUploadReceta").on("change", ".btnUploadReceta", function (event) {
+	_F.onUploadReceta($(this));
+});
 $("body").off("change", ".tCierre").on("change", ".tCierre", function () {
 	_F.onChangeTypeClose($(this));
 });

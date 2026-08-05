@@ -7,7 +7,10 @@ $(document).ready(function () {
            Setea la verbosity de la función log, solo generando logs en ambientes de desarrollo
            Setea timestamp para saltear los cachés*/
         _API.readConfigServers("API", _TS).then(function () {
-            /* asignacion de key pa lectura de configuracion de la rama, segun el encabezado de produccion */
+            /*Carga de librerias de terceros y configuracion de las mismas */
+            _API.loadExternalLibraries();
+
+            /* asignacion de key para lectura de configuracion de la rama, segun el encabezado de produccion */
             var _headerProductionKey = "";
             switch (window.location.host) {
                 case "testapidoc.mediya.com.ar": //Documentación API Mediya - testing

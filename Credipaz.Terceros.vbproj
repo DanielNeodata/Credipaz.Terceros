@@ -131,6 +131,12 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\segmentosDeuda.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\credenciales.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabaratencion.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\cambiarestadodoctor.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabarreceta.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabarordenmedica.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\atencionespontanea.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\farmalinkreceta.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\mensajes.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\cancelar.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\atencionesanteriores.html" />
@@ -245,6 +251,8 @@
     <Content Include="Credipaz.Telemedicina\js\events.js" />
     <Content Include="Credipaz.Telemedicina\js\functions.js" />
     <Content Include="Credipaz.Telemedicina\js\loader.js" />
+    <Content Include="js\Neodata\NEOAUTHENTICATION.js" />
+    <Content Include="js\Neodata\NEOVIDEO-jvideo1.js" />
     <Content Include="html\modalDefaultOverAll.html" />
     <Content Include="html\unauthorized.html" />
     <Content Include="html\modalDefault.html" />

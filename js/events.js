@@ -31,10 +31,6 @@ $("body").off("keyup", ".loginreturn").on("keyup", ".loginreturn", function (key
 $("body").off("click", ".btn-AuthenticateExternal").on("click", ".btn-AuthenticateExternal", function () {
     _API.authenticateexternal($(this));
 });
-/*Botón de cierre de la interface por control de seguridad*/
-$("body").off("click", ".btn-Unauthorized").on("click", ".btn-Unauthorized", function () {
-    window.close();
-});
 
 /*Evento que copia el contenido del elemento al portapapeles*/
 $("body").off("click", ".btn-copyClip").on("click", ".btn-copyClip", function () {

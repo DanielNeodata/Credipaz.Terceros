@@ -12,6 +12,7 @@ var _API = {
     subsystem: "",
     configuration: null,
     authentication: null,
+    telemedicina: { "isDoctor": 0, "doctorName": "", "doctorFirma":"", "doctorMatricula": "" },
     branchConfiguration: null,
     urlParameters: null,
     inited: false,
@@ -174,6 +175,8 @@ var _API = {
             function (resolve, reject) {
                 try {
                     $("html").css({ "overflow": "hidden" });
+                    $("#" + $(".modal").attr("id")).fadeOut("slow");
+                    $("body").removeClass("modal-open");
                     var _id = ("#" + _name);
                     var _id_container = (_name + "_container");
                     _API.scrollY = window.scrollY;
@@ -182,6 +185,9 @@ var _API = {
                         var _back = "<div id='" + _id_container + "' style=' background-color: rgba(0, 0, 0, 0.5);position:absolute;left:0px;top:0px;width:100%;height:100%;z-index:999998;'></div>";
                         $("body").append(_back);
                         $("#" + _id_container).append(_html);
+
+                        //$("body").append(_html);
+
                         if (_title == "") { $(".modalall-header").remove(); } else { $(".modalall-title").html(_title); }
                         $(".modalall-body").html(_body);
                         $(".modalall").attr("id", _name);
@@ -233,6 +239,8 @@ var _API = {
     onDestroyModalAll: function (_id) {
         $(_id + "_container").remove();
         $("html").css({ "overflow": "auto" });
+        $("body").addClass("modal-open");
+        $("#" + $(".modal").attr("id")).fadeIn("fast");
     },
     onShowLoginModal: function () {
         /* carga html a mostrar en el body de la modal */
@@ -249,6 +257,8 @@ var _API = {
         });
     },
     onShowUnauthorized: function (_message) {
+        /*Destruye el contenido ya cargado parcialmente en el body del html */
+        $("body").html("");
         /* carga html a mostrar en el body de la modal */
         $.get(("html/unauthorized.html?" + _API._TS), function (_html) {
             /* muestra la modal con el body resuelto*/
@@ -268,11 +278,12 @@ var _API = {
             $(".btn-AuthenticateExternal").click();
         }
     },
-    onBuildTable: function (_id, title, records, vHeaders, vColumns, vRules, tblClass, tblStyle) {
+    onBuildTable: function (_id, title, records, vHeaders, vColumns, vRules, tblClass, tblStyle, _preHeader) {
         var _html = "";
         if (title != "") { _html += "<h5>" + title + "</h5>"; }
         if (tblClass == "") { tblClass = "table table-borderless table-hover table-sm table-condensed" }
         if (tblStyle == "") { tblStyle = "width:100%;font-size:14px;"; }
+        if (_preHeader != "") { _html += _preHeader; }
         _html += "<table class='" + tblClass + "' style='" + tblStyle + "'>";
         if (vHeaders.length > 0) {
             _html += "<thead class='thead-dark'>";
@@ -323,7 +334,6 @@ var _API = {
         );
     },
 
-
     readConfigServers: function (key, _TS) {
         /* 
         Función de lectura de la configuración general de todas las ramas
@@ -360,6 +370,18 @@ var _API = {
                         reject(err);
                     });
             });
+    },
+    loadExternalLibraries: function () {
+        /*Carga de librerias de terceros y configuracion de las mismas */
+        $.getScript("https://jvideo1.gruponeodata.com/external_api.js?" + _API._TS).done(function (script, textStatus) {
+            $.getScript(("js/Neodata/NEOAUTHENTICATION.js?" + _API._TS)).done(function (script, textStatus) {
+                $.getScript("js/Neodata/NEOVIDEO-jvideo1.js?" + _API._TS).done(function (script, textStatus) {
+                    _NEOAUTHENTICATION._SERVER = _API.configuration.authenticationServer;
+                    _NEOVIDEO._SERVER = _API.configuration.videoServer;
+                    _NEOVIDEO._id_application = _API.configuration.id_neo_app;
+                });
+            });
+        });
     },
     readConfigBranches: function (key) {
         /* 
@@ -497,11 +519,16 @@ var _API = {
                 _API.call("production/authenticateexternal", data)
                     .then(function (response) {
                         _API.id_user_log = response.data.id;
+                        _API.username_log = response.data.username;
                         _API.authentication.data.id = response.data.id;
                         _API.authentication.data.token_authentication = response.data.token_authentication;
                         _API.authentication.data.token_authentication_created = response.data.token_authentication_created;
                         _API.authentication.data.token_authentication_expired = response.data.token_authentication_expired;
-
+                        _API.telemedicina.atendiendo = response.data.atendiendo;
+                        _API.telemedicina.isDoctor = response.data.isDoctor;
+                        _API.telemedicina.doctorName = response.data.doctorName;
+                        _API.telemedicina.doctorFirma = response.data.firma;
+                        _API.telemedicina.doctorMatricula = response.data.matricula;
                         if (response.status != "OK") {
                             /* si no autentica, alerta y sale del form */
                             alert(response.message);

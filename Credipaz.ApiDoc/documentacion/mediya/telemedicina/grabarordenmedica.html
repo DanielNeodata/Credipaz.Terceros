@@ -1,0 +1,60 @@
+<form>
+    <div class="container-full">
+        <h5 class="apiTitle"></h5>
+        <p>Grabación de orden médica relacionada a la atención de un socio, dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
+        <div class="row">
+            <div class="col-6 shadow pt-2">
+                <table class="table table-borderless hdrEnd"></table>
+                <table class="table table-borderless">
+                    <thead class="thead-light hdrParam"></thead>
+                    <tbody class="bodyParam">
+                        <tr>
+                            <td><b>Id user</b></td>
+                            <td><input class="form-control" id="idUser" name="idUser" type="number" placeholder="Id user" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Id charge code</b></td>
+                            <td><input class="form-control" id="idChargeCode" name="idChargeCode" type="number" placeholder="Id charge code" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Con copia</b></td>
+                            <td><input class="form-control" id="carbonCopy" name="carbonCopy" type="number" placeholder="Con copia" value=""/></td>
+                            <td style="width:25%;"><i>string</i><p style="font-size:0.6rem;">Valores permitidos: S/N</p></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Mensaje</b></td>
+                            <td><input class="form-control" id="Message" name="Message" type="text" placeholder="Mensaje" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Raw data</b></td>
+                            <td><input class="form-control" id="Raw_data" name="Raw_data" type="text" placeholder="Raw data" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footerEndpoint" style="width:100%;"></div>
+            </div>
+            <div class="col-6 p-3 shadow areaAjax"></div>
+        </div>
+    </div>
+</form>
+<script>
+    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
+        var _json = {
+            "idUser": $("#idUser").val(),
+            "idChargeCode": $("#idChargeCode").val(),
+            "carbonCopy": $("#carbonCopy").val(),
+            "Message": $("#Message").val(),
+            "Raw_data": $("#Raw_data").val(),
+        };
+        _F.onUiExecute(_json).then(function (data) { });
+    });
+</script>

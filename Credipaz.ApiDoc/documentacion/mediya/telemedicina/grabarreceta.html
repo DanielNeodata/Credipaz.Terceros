@@ -1,7 +1,7 @@
 <form>
     <div class="container-full">
         <h5 class="apiTitle"></h5>
-        <p>Lista datos de actividad relacionada a la atención en curso de Telemedicina, dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
+        <p>Grabación de receta médica relacionada a la atención de un socio, dado el <b>token_authentication</b> y <b>id_user_active</b> autenticado.</p>
         <div class="row">
             <div class="col-6 shadow pt-2">
                 <table class="table table-borderless hdrEnd"></table>
@@ -15,16 +15,16 @@
                             <td><span class="badge badge-danger">requerido</span></td>
                         </tr>
                         <tr>
-                            <td><b>Modo</b></td>
-                            <td><input class="form-control" id="iModo" name="iModo" type="number" placeholder="Modo" value="" autocomplete="new-password" /></td>
-                            <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valores permitidos: 1/2/3/4</p></td>
+                            <td><b>Id charge code</b></td>
+                            <td><input class="form-control" id="idChargeCode" name="idChargeCode" type="number" placeholder="Id charge code" value=""/></td>
+                            <td><i>integer</i></td>
                             <td><span class="badge badge-danger">requerido</span></td>
                         </tr>
                         <tr>
-                            <td><b>ID</b></td>
-                            <td><input class="form-control" id="Id" name="Id" type="number" placeholder="ID" value=""/></td>
-                            <td><i>integer</i></td>
-                            <td><span class="badge badge-secondary">opcional</span></td>
+                            <td><b>Mensaje</b></td>
+                            <td><input class="form-control" id="Message" name="Message" type="text" placeholder="Mensaje" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -38,8 +38,8 @@
     $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
         var _json = {
             "idUser": $("#idUser").val(),
-            "iModo": $("#iModo").val(),
-            "Id": $("#Id").val(),
+            "idChargeCode": $("#idChargeCode").val(),
+            "Message": $("#Message").val(),
         };
         _F.onUiExecute(_json).then(function (data) { });
     });
