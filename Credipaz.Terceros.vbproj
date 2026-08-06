@@ -131,6 +131,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\segmentosDeuda.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\credenciales.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\estadocolaatencion.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabaratencion.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\cambiarestadodoctor.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabarreceta.html" />
