@@ -100,6 +100,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="audio\vintage.mp3" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\archivo.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\empresas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\entidadesCesion.html" />
@@ -134,6 +135,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\estadocolaatencion.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabaratencion.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\cambiarestadodoctor.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\generarcodigopago.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabarreceta.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabarordenmedica.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\atencionespontanea.html" />

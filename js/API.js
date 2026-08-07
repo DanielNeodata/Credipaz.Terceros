@@ -293,11 +293,17 @@ var _API = {
             _html += "</thead>";
         }
         $.each(records, function (i, record) {
+            _bDirty = true;
             _html += "<tr>";
             vColumns.forEach(function (item) { _html += "<td>" + record[item] + "</td>"; });
             _html += "</tr>";
         });
         _html += "</table>";
+        return _html;
+    },
+    onNoTablaForTable: function (_msg) {
+        var _html = "<div class='card p-2 shadow-sm'><b>Sin datos para la consulta</b></div>";
+        if (_msg != "") { _html = _msg; }
         return _html;
     },
     onLoadComboAjax: function (_endpoint, _target, _selected, _valEmpty = "") {
