@@ -907,7 +907,6 @@ var _F = {
 			$(".areaDoctor").addClass("d-none");
 			return false;
 		}
-		if (_API.doctorRequired) { $(".areaStatus").remove(); }
 		$(".doctorName").html("Dr./Dra. " + _API.telemedicina.doctorName);
 		$(".doctorMatricula").html("Matrícula " + _API.telemedicina.doctorMatricula);
 		$(".doctorFirma").attr("src", _API.telemedicina.doctorFirma);
