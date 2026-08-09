@@ -194,31 +194,42 @@ var _API = {
             $.unblockUI();
         }
     },
-    onSettings: function (_this) {
+    onSettings: async function (_this) {
+        _API.onWait(true);
         var _html = "";
-        _html += "<h5>Configuración del usuario</h5>";
+        _html += "<h5>Configuración del usuario</h5><hr/>";
         _html += "<div class='card p-2'>";
-        _html += "<label>Detalle de audio, video y permisos</label>";
+        _html += "<b>Detalle de audio, video y permisos</b>";
         _html += "<table class='table table-borderless table-sm'>";
         _html += "   <tr>";
         _html += "      <td>Cámara</td>";
-        if (_MEDIA.hasWebcam) { _html += "<td><b style='color:darkgreen;'>Existe</b></td>"; } else { _html += "<td><b style='color:darkred;'>Sin cámara</b></td>"; }
-        if (_MEDIA.isWebcamAlreadyCaptured) { _html += "<td><b style='color:darkgreen;'>Habilitada</b></td>"; } else { _html += "<td><b style='color:darkred;'>No habilitada</b></td>"; }
+        if (_MEDIA.hasWebcam) { _html += "<td><b style='color:green;'>Existe</b></td>"; } else { _html += "<td><b style='color:red;'>Sin cámara</b></td>"; }
+        if (_MEDIA.isWebcamAlreadyCaptured) { _html += "<td><b style='color:green;'>Habilitada</b></td>"; } else { _html += "<td><b style='color:red;'>No habilitada</b></td>"; }
         _html += "      <td><b style='color:blue;'>" + _MEDIA.permissionWebcam + "</b></td>";
         _html += "   </tr>";
         _html += "   <tr>";
         _html += "      <td>Micrófono</td>";
-        if (_MEDIA.hasMicrophone) { _html += "<td><b style='color:darkgreen;'>Existe</b></td>"; } else { _html += "<td><b style='color:darkred;'>Sin micrófono</b></td>"; }
-        if (_MEDIA.isMicrophoneAlreadyCaptured) { _html += "<td><b style='color:darkgreen;'>Habilitado</b></td>"; } else { _html += "<td><b style='color:darkred;'>No habilitado</b></td>"; }
+        if (_MEDIA.hasMicrophone) { _html += "<td><b style='color:green;'>Existe</b></td>"; } else { _html += "<td><b style='color:red;'>Sin micrófono</b></td>"; }
+        if (_MEDIA.isMicrophoneAlreadyCaptured) { _html += "<td><b style='color:green;'>Habilitado</b></td>"; } else { _html += "<td><b style='color:red;'>No habilitado</b></td>"; }
         _html += "      <td><b style='color:blue;'>" + _MEDIA.permissionMicrophone + "</b></td>";
         _html += "   </tr>";
+        _html += "</table>";
+        _html += "</div>";
+        _html += "<div class='card p-2 mt-1'>";
+        _html += "<b>Estado de servicios</b>";
+        _html += "<table class='table table-borderless table-sm'>";
+        _html += await _API.onServerAvailability("API server", _API.configuration.server);
+        _html += await _API.onServerAvailability("Interfaces", _API.configuration.interfaces);
+        _html += await _API.onServerAvailability("NeoAuthenticate", _API.configuration.authenticationServer);
+        _html += await _API.onServerAvailability("NeoVideo", _API.configuration.videoServer);
         _html += "</table>";
         _html += "</div>";
         _API.onShowModalOverAll("modalAV", "", _html, "").then(function (_ret) {
             $(".btn-ok-modalall").remove();
             $(".wfooter").addClass("text-center");
             $(".btn-cancel-modalall").html("Cerrar").removeClass("btn-danger").addClass("btn-info").attr("data-modal", "modalAV");
-            $("#modalAV").css({ "top": "200px" });
+            $("#modalAV").css({ "top": "400px" });
+            _API.onWait(false);
         });
     },
     onShowLoginModal: function () {
@@ -366,6 +377,18 @@ var _API = {
                     });
                 });
             });
+    },
+    onServerAvailability: async function (_servicio, _url) {
+        var _html = "";
+        var _style = "color:red;"
+        var _estado = "Offline";
+        var check = await _API.tools.isUrlAvailable(_url);
+        if (check) { _style = "color:green;"; _estado = "Online"; }
+        _html += "   <tr>";
+        _html += "      <td>" + _servicio +"</td>";
+        _html += "      <td><b style='" + _style + "'>" + _estado + "</b></td>";
+        _html += "   </tr>";
+        return _html;
     },
 
     /* Funciones core de configuración, carga de archivos y llamadas a servicios externos */
