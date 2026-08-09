@@ -907,7 +907,7 @@ var _F = {
 			$(".areaDoctor").addClass("d-none");
 			return false;
 		}
-		$(".doctorName").html("Dr./Dra. " + _API.telemedicina.doctorName);
+		$(".doctorName").html("Dr./Dra. " + _API.telemedicina.doctorName); 
 		$(".doctorMatricula").html("Matrícula " + _API.telemedicina.doctorMatricula);
 		$(".doctorFirma").attr("src", _API.telemedicina.doctorFirma);
 		$(".btnDoctorAtencion").attr("data-action", "atender").removeClass("btn-danger").addClass("btn-info").html("En descanso");
