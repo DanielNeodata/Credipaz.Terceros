@@ -61,6 +61,12 @@ $(document).ready(function () {
                 case "localhost:54446": //Telemedicina externo - dev ruben
                     _headerProductionKey = "telemedicina.mediya.com.ar";
                     break;
+                case "testintranet.credipaz.com": //Intranet - testing
+                case "intranet.credipaz.com": //Intranet - producción
+                case "localhost:4447": //Intranet - dev daniel
+                case "localhost:54447": //Intranet - dev ruben
+                    _headerProductionKey = "intranet.credipaz.com";
+                    break;
             }
             /* Switch para ir a la rama del tree según el encabezado del sitio 
             Seteo de valores específicos de comportamiento de la rama mediante readConfigBranches

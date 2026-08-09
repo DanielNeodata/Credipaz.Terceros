@@ -1,4 +1,12 @@
 var _T = {
+    isUrlAvailable: async function (url) {
+        try {
+            var response = await fetch(url, { mode: 'no-cors', method: 'HEAD' });
+            return true;
+        } catch (error) {
+            return false;
+        }
+    },
     getNow: function () {
         var currentDate = new Date();
         var second = currentDate.getSeconds();
@@ -180,5 +188,90 @@ var _T = {
         tempTextarea.remove();
         _API.onAlert({ "message": "Se han copiado los datos al portapapeles.", "class": "alert-info" });
     },
-
+    getUrlParams: function (url) {
+        var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+        var obj = {};
+        if (queryString) {
+            queryString = queryString.split('#')[0];
+            var arr = queryString.split('&');
+            for (var i = 0; i < arr.length; i++) {
+                var a = arr[i].split('=');
+                var paramName = a[0];
+                var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+                if (paramName.match(/\[(\d+)?\]$/)) {
+                    var key = paramName.replace(/\[(\d+)?\]/, '');
+                    if (!obj[key]) obj[key] = [];
+                    if (paramName.match(/\[\d+\]$/)) {
+                        var index = /\[(\d+)\]/.exec(paramName)[1];
+                        obj[key][index] = paramValue;
+                    } else {
+                        obj[key].push(paramValue);
+                    }
+                } else {
+                    if (!obj[paramName]) {
+                        obj[paramName] = paramValue;
+                    } else if (obj[paramName] && typeof obj[paramName] === 'string') {
+                        obj[paramName] = [obj[paramName]];
+                        obj[paramName].push(paramValue);
+                    } else {
+                        obj[paramName].push(paramValue);
+                    }
+                }
+            }
+        }
+        return obj;
+    },
+    getNow: function () {
+        var currentDate = new Date();
+        var second = currentDate.getSeconds();
+        var minute = currentDate.getMinutes();
+        var hour = currentDate.getHours();
+        var day = currentDate.getDate();
+        var month = currentDate.getMonth() + 1;
+        var year = currentDate.getFullYear();
+        if (day < 10) { day = "0" + day; }
+        if (month < 10) { month = "0" + month; }
+        if (hour < 10) { hour = "0" + hour; }
+        if (minute < 10) { minute = "0" + minute; }
+        if (second < 10) { second = "0" + second; }
+        return day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second;
+    },
+    uuid: function () {
+        var s = [];
+        var hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 36; i++) { s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1); }
+        s[14] = "4";
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[18] = s[23] = "-";
+        var uuid = s.join("");
+        return uuid;
+    },
+    hash: async function (alg, str) {
+        var msgBuffer = new TextEncoder().encode(str);
+        var hashBuffer = await crypto.subtle.digest(alg, msgBuffer);
+        var hashArray = Array.from(new Uint8Array(hashBuffer));
+        var hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+        return hashHex;
+    },
+    bin2hex: function (str) {
+        var hex = '';
+        for (var i = 0; i < str.length; i++) {
+            var charCode = str.charCodeAt(i);
+            hex += charCode.toString(16).padStart(2, '0');
+        }
+        return hex;
+    },
+    isBase64: function (testString) {
+        try {
+            var isEncoded = (btoa(atob(testString)) == atob(btoa(testString)));
+            return isEncoded;
+        } catch (err) {
+            return false;
+        }
+    },
+    string_to_b64: function (str) { return window.btoa(unescape(encodeURIComponent(str))); },
+    b64_to_string: function (str) {
+        str = str.replace(/\s/g, '');
+        return decodeURIComponent(escape(window.atob(str)));
+    },
 };

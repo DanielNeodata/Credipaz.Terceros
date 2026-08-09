@@ -8,7 +8,6 @@ var _F = {
 						$(".logoImage").attr("src", _API.imageLogin);
 						_API.inited = true;
 						var data = { "id_user_activate": _API.authentication.data.id, "id_app": _API.configuration.id_app, "token_authentication": _API.authentication.data.token_authentication };
-						_API.log("onInit->data->", data);
 						_API.call("production/documentationinterface", data).then(function (response) {
 							response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
 							response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));

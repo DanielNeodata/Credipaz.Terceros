@@ -4,11 +4,20 @@ body {
 .modal-open {
     overflow-y: auto !important;
 }
+.blue {
+    color: #007bff !important;
+}
+.bg-blue {
+    background-color: #007bff !important;
+}
 .magenta {
     color: #dd127b !important;
 }
 .bg-magenta {
     background-color: #dd127b !important;
+}
+.silver {
+    color: silver !important;
 }
 .bg-silver {
     background-color: silver !important;
@@ -16,6 +25,20 @@ body {
 .bold {
     font-weight:bold !important;
 }
+.itemParent {
+    cursor: pointer !important;
+}
+.list-group-item {
+    cursor: pointer !important;
+}
+    .list-group-item:hover {
+        color: #007bff !important;
+        background-color: gainsboro !important;
+    }
+.collapsing {
+    transition: height 0.5s ease-in-out !important;
+}
+
 .blink {
     animation: blinker 1s linear infinite;
 }

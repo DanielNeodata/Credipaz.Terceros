@@ -4,20 +4,24 @@ var _API = {
     _TIMER_ALERT: 0,
     _TIMER_LAZY: 0,
     tools: null,
-    id_user_log:null,
-    id_app_external:0,
+    id_user_log: null,
+    id_app_external: 0,
+    id_sucursal: 100,
+    sucursal: "CASA CENTRAL",
     loginRequired: false,
+    postLogin: false,
     externalUserMode: 0,
+    doctorRequired:false,
     imageLogin: "./img/loginDefault.png",
     subsystem: "",
     configuration: null,
     authentication: null,
-    telemedicina: { "isDoctor": 0, "doctorName": "", "doctorFirma":"", "doctorMatricula": "" },
+    telemedicina: { "isDoctor": 0, "doctorName": "", "doctorFirma": "", "doctorMatricula": "" },
     branchConfiguration: null,
     urlParameters: null,
     inited: false,
     verbose: false,
-    scrollY: 0,
+    /* Funciones de log */
     log: function (key, data) {
         /* 
         Función para escribir log en consola.
@@ -33,134 +37,22 @@ var _API = {
         /* Log de valores seteables en la configuración general de acceso, no visible en producción */
         if (_API.urlParameters != null && _API.urlParameters.length) { _API.log("URL parameters", _API.urlParameters); }
         if (_API.configuration != null) { _API.log("Configuration", _API.configuration); }
-        if (_API.authentication != null) {_API.log("Authentication", _API.authentication);}
-    },
-    getUrlParams: function (url) {
-        var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
-        var obj = {};
-        if (queryString) {
-            queryString = queryString.split('#')[0];
-            var arr = queryString.split('&');
-            for (var i = 0; i < arr.length; i++) {
-                var a = arr[i].split('=');
-                var paramName = a[0];
-                var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
-                if (paramName.match(/\[(\d+)?\]$/)) {
-                    var key = paramName.replace(/\[(\d+)?\]/, '');
-                    if (!obj[key]) obj[key] = [];
-                    if (paramName.match(/\[\d+\]$/)) {
-                        var index = /\[(\d+)\]/.exec(paramName)[1];
-                        obj[key][index] = paramValue;
-                    } else {
-                        obj[key].push(paramValue);
-                    }
-                } else {
-                    if (!obj[paramName]) {
-                        obj[paramName] = paramValue;
-                    } else if (obj[paramName] && typeof obj[paramName] === 'string') {
-                        obj[paramName] = [obj[paramName]];
-                        obj[paramName].push(paramValue);
-                    } else {
-                        obj[paramName].push(paramValue);
-                    }
-                }
-            }
-        }
-        return obj;
-    },
-    getNow: function () {
-        var currentDate = new Date();
-        var second = currentDate.getSeconds();
-        var minute = currentDate.getMinutes();
-        var hour = currentDate.getHours();
-        var day = currentDate.getDate();
-        var month = currentDate.getMonth() + 1;
-        var year = currentDate.getFullYear();
-        if (day < 10) { day = "0" + day; }
-        if (month < 10) { month = "0" + month; }
-        if (hour < 10) { hour = "0" + hour; }
-        if (minute < 10) { minute = "0" + minute; }
-        if (second < 10) { second = "0" + second; }
-        return day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second;
-    },
-    getToday: function () {
-        var currentDate = new Date();
-        var second = currentDate.getSeconds();
-        var minute = currentDate.getMinutes();
-        var hour = currentDate.getHours();
-        var day = currentDate.getDate();
-        var month = currentDate.getMonth() + 1;
-        var year = currentDate.getFullYear();
-        if (day < 10) { day = "0" + day; }
-        if (month < 10) { month = "0" + month; }
-        if (hour < 10) { hour = "0" + hour; }
-        if (minute < 10) { minute = "0" + minute; }
-        if (second < 10) { second = "0" + second; }
-        return (year + ":" + month + ":" + day + "-" + hour + ":" + minute + ":" + second);
-    },
-    isSet: function (_val) {
-        return (typeof _val !== undefined);
-    },
-    uuid: function () {
-        var s = [];
-        var hexDigits = "0123456789abcdef";
-        for (var i = 0; i < 36; i++) { s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1); }
-        s[14] = "4";
-        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
-        s[8] = s[13] = s[18] = s[23] = "-";
-        var uuid = s.join("");
-        return uuid;
-    },
-    hash: async function (alg, str) {
-        var msgBuffer = new TextEncoder().encode(str);
-        var hashBuffer = await crypto.subtle.digest(alg, msgBuffer);
-        var hashArray = Array.from(new Uint8Array(hashBuffer));
-        var hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
-        return hashHex;
-    },
-    bin2hex: function (str) {
-        var hex = '';
-        for (var i = 0; i < str.length; i++) {
-            var charCode = str.charCodeAt(i);
-            hex += charCode.toString(16).padStart(2, '0');
-        }
-        return hex;
-    },
-    isBase64: function (testString) {
-        try {
-            var isEncoded = (btoa(atob(testString)) == atob(btoa(testString)));
-            return isEncoded;
-        } catch (err) {
-            return false;
-        }
-    },
-    string_to_b64: function (str) { return window.btoa(unescape(encodeURIComponent(str))); },
-    b64_to_string: function (str) {
-        str = str.replace(/\s/g, '');
-        return decodeURIComponent(escape(window.atob(str)));
+        if (_API.authentication != null) { _API.log("Authentication", _API.authentication); }
     },
 
-    onWait: function (_on) {
-        if (_on) {
-            $.blockUI({ message: '<img src="/img/wait.gif" />', css: { border: 'none', backgroundColor: 'transparent', opacity: 1, color: 'transparent' } });
-            $(".blockOverlay").css({ "z-index": 9999999 });
-            $(".blockPage").css({ "z-index": 9999999 });
-        } else {
-            $.unblockUI();
-        }
-    },
+    /* Funciones de ventanas poup y alertas */
     onAlert: function (_json) {
         try {
             clearTimeout(_API._TIMER_ALERT);
             $(".alert-frame").remove();
-            if (typeof _json["message"] === 'object') {_text = "";} else {_text = _json["message"];}
+            if (typeof _json["message"] === 'object') { _text = ""; } else { _text = _json["message"]; }
             if (_text == undefined) { _text = ""; }
             if (_text == "") { return false; }
-            var _html = "<div class='alert-frame' style='position:fixed;top:50px;left:5px;'>";
+            var _html = "<div class='alert-frame' style='position:fixed;top:5px;right:5px;'>";
             _html += "      <div class='push-alert alert " + _json["class"] + " alert-dismissible fade show' role='alert'>";
             _html += "   <button type='button' class='close m-0 p-1 pt-2' style='position:absolute;right:5px;' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
             _html += _text
-            _html +=       "</div>";
+            _html += "</div>";
             _html += "   </div>";
             $("body").append(_html);
             _API._TIMER_ALERT = setTimeout(function () { $(".push-alert").alert('close') }, 7500);
@@ -179,7 +71,6 @@ var _API = {
                     $("body").removeClass("modal-open");
                     var _id = ("#" + _name);
                     var _id_container = (_name + "_container");
-                    _API.scrollY = window.scrollY;
                     $(_id).remove();
                     $.get(("html/modalDefaultOverAll.html?" + _API._TS), function (_html) {
                         var _back = "<div id='" + _id_container + "' style=' background-color: rgba(0, 0, 0, 0.5);position:absolute;left:0px;top:0px;width:100%;height:100%;z-index:999998;'></div>";
@@ -201,7 +92,6 @@ var _API = {
                 }
             }
         );
-
     },
     onShowModal: function (_name, _title, _body, _size) {
         return new Promise(
@@ -209,7 +99,6 @@ var _API = {
                 try {
                     $("html").css({ "overflow": "hidden" });
                     var _id = ("#" + _name);
-                    _API.scrollY = window.scrollY;
                     _API.onDestroyModal(_id);
                     $.get(("html/modalDefault.html?" + _API._TS), function (_html) {
                         $("body").append(_html);
@@ -242,6 +131,96 @@ var _API = {
         $("body").addClass("modal-open");
         $("#" + $(".modal").attr("id")).fadeIn("fast");
     },
+    
+    /* Funciones de acciones sobre menues y entorno */
+    onClickMenu: function (_this) {
+        _this.parent().addClass("blink");
+        setTimeout(function () { _this.parent().removeClass("blink"); }, 1000);
+    },
+    onClickSubMenu: async function (_this) {
+        _this.addClass("blink");
+        setTimeout(function () { _this.removeClass("blink"); }, 1000);
+        switch (_this.attr("data-mode")) {
+            case "interfaces":
+                var _url = _this.attr("data-url");
+                /*Se chequea accesibilidad por el tipo de conexión - VPN / red interna */
+                var check = await _API.tools.isUrlAvailable(_API.configuration.interfaces);
+                if (!check) {
+                    _API.onAlert({ "message": "La función no es accesible.  <b>Su conexión no es la adecuada.</b>", "class": "alert-danger" });
+                    return false;
+                }
+                /*Chequea si string es url válida y si está accesible, más allá de estar correcto el tipo de conexión */
+                check = await _API.tools.isUrlAvailable(_url);
+                if (!URL.canParse(_url) || !check) {
+                    _API.onAlert({ "message": ("<b>" + _url + "</b> no está accesible por el momento."), "class": "alert-warning" });
+                    return false;
+                }
+                /*Resuelve la navegación y display de la url de Interfaces */
+                if (!_url.includes("?")) { _url += "?"; }
+                _url += ("id_user_active=" + _API.id_user_log + "&username=" + _API.username_log + "&id_sucursal=" + _API.id_sucursal + "&sucursal=" + _API.sucursal);
+                var _html = "<iframe id='neoweb_iframe' class='neoweb_iframe' src='" + encodeURI(_url) + "' frameborder='0' style='height:500vh;width:100%;'></iframe>";
+                $(".areaResultado").html(_html).removeClass("d-none");
+                break;
+        }
+    },
+    onLoginReturn: function (_this, key) {
+        var keyCode = (key.keyCode || key.which);
+        if (keyCode === 13) {
+            $(".btn-AuthenticateExternal").click();
+        }
+    },
+    onLogout: function (_this) {
+        var _html = "<h4 class='pl-2 magenta msgOut blink'></h4>";
+        _html += "<div class='progress' style='height:2px;'><div class='progress-bar progress-bar-striped progress-bar-animated bg-dark' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width: 0%'></div></div>";
+        _API.onShowModal("modalLogout", "", _html, "").then(function (_ret) {
+            $(".wfooter").remove();
+            var _messages = ["Desconectando de red...", "Reseteando variables...", "Liberando memoria..."]
+            var _timeOut = 3000;
+            var _interval = (_timeOut / _messages.length);
+            var i = 0;
+            setInterval(function () { $(".progress-bar").attr("aria-valuenow", i).css({ "width": (i + "%") }); i++; }, (_timeOut / 100));
+            _messages.forEach((item, index) => { setTimeout(function () { $(".msgOut").html(item); }, (_interval * index)); });
+            setTimeout(function () { $("body").html("").addClass("bg-silver").fadeOut(100, function () { window.location.reload(); }); }, _timeOut);
+        });
+    },
+
+    /* Funciones con interface específica */
+    onWait: function (_on) {
+        if (_on) {
+            $.blockUI({ message: '<img src="/img/wait.gif" />', css: { border: 'none', backgroundColor: 'transparent', opacity: 1, color: 'transparent' } });
+            $(".blockOverlay").css({ "z-index": 9999999 });
+            $(".blockPage").css({ "z-index": 9999999 });
+        } else {
+            $.unblockUI();
+        }
+    },
+    onSettings: function (_this) {
+        var _html = "";
+        _html += "<h5>Configuración del usuario</h5>";
+        _html += "<div class='card p-2'>";
+        _html += "<label>Detalle de audio, video y permisos</label>";
+        _html += "<table class='table table-borderless table-sm'>";
+        _html += "   <tr>";
+        _html += "      <td>Cámara</td>";
+        if (_MEDIA.hasWebcam) { _html += "<td><b style='color:darkgreen;'>Existe</b></td>"; } else { _html += "<td><b style='color:darkred;'>Sin cámara</b></td>"; }
+        if (_MEDIA.isWebcamAlreadyCaptured) { _html += "<td><b style='color:darkgreen;'>Habilitada</b></td>"; } else { _html += "<td><b style='color:darkred;'>No habilitada</b></td>"; }
+        _html += "      <td><b style='color:blue;'>" + _MEDIA.permissionWebcam + "</b></td>";
+        _html += "   </tr>";
+        _html += "   <tr>";
+        _html += "      <td>Micrófono</td>";
+        if (_MEDIA.hasMicrophone) { _html += "<td><b style='color:darkgreen;'>Existe</b></td>"; } else { _html += "<td><b style='color:darkred;'>Sin micrófono</b></td>"; }
+        if (_MEDIA.isMicrophoneAlreadyCaptured) { _html += "<td><b style='color:darkgreen;'>Habilitado</b></td>"; } else { _html += "<td><b style='color:darkred;'>No habilitado</b></td>"; }
+        _html += "      <td><b style='color:blue;'>" + _MEDIA.permissionMicrophone + "</b></td>";
+        _html += "   </tr>";
+        _html += "</table>";
+        _html += "</div>";
+        _API.onShowModalOverAll("modalAV", "", _html, "").then(function (_ret) {
+            $(".btn-ok-modalall").remove();
+            $(".wfooter").addClass("text-center");
+            $(".btn-cancel-modalall").html("Cerrar").removeClass("btn-danger").addClass("btn-info").attr("data-modal", "modalAV");
+            $("#modalAV").css({ "top": "200px" });
+        });
+    },
     onShowLoginModal: function () {
         /* carga html a mostrar en el body de la modal */
         $.get(("html/login.html?" + _API._TS), function (_html) {
@@ -272,12 +251,6 @@ var _API = {
             })
         });
     },
-    onLoginReturn: function (_this, key) {
-        var keyCode = (key.keyCode || key.which);
-        if (keyCode === 13) {
-            $(".btn-AuthenticateExternal").click();
-        }
-    },
     onBuildTable: function (_id, title, records, vHeaders, vColumns, vRules, tblClass, tblStyle, _preHeader) {
         var _html = "";
         if (title != "") { _html += "<h5>" + title + "</h5>"; }
@@ -288,7 +261,7 @@ var _API = {
         if (vHeaders.length > 0) {
             _html += "<thead class='thead-dark'>";
             _html += "<tr>";
-            vHeaders.forEach(function (item) {_html += "<th>" + item + "</th>";});
+            vHeaders.forEach(function (item) { _html += "<th>" + item + "</th>"; });
             _html += "</tr>";
             _html += "</thead>";
         }
@@ -314,7 +287,7 @@ var _API = {
                     var _id = $(_target).attr("data-id");
                     var _descripcion = $(_target).attr("data-descripcion");
                     $(_target).css({ "opacity": 0.5, "color": "red" });
-                    _API.method(_endpoint, { }).then(function (data) {
+                    _API.method(_endpoint, {}).then(function (data) {
                         var _sel = "";
                         var _empty = $(_target).attr("data-empty");
                         $(_target).empty();
@@ -339,7 +312,63 @@ var _API = {
             }
         );
     },
+    onDniCliente: function (_this, key) {
+        if (key !== null) {
+            var keyCode = (key.keyCode || key.which);
+            if (keyCode !== 13) { return false; }
+        }
+        if (!_API.tools.validate(".dniCliente", true)) { return false; }
+        var _params = { "NroDocumento": $(".dniCliente").val() };
+        _API.method("/credipaz/getdatacliente", _params).then(function (data) {
+            if (data.status == "OK" && data.message.records.length != 0) {
+                _API.onShowModalOverAll("modalDatosCliente", "", data.message.html).then(function (_ret) {
+                    $(".btn-ok-modalall").remove();
+                    $(".wfooter").addClass("text-center");
+                    $(".btn-cancel-modalall").html("Cerrar").removeClass("btn-danger").addClass("btn-info").attr("data-modal", "modalDatosCliente");
+                });
+            } else {
+                alert("Sin resultados para esta consulta");
+            }
+        });
+    },
+    onMenuIntranet: function (_target) {
+        /*Armado del menu completo*/
+        var data = { "id_user_activate": _API.id_user_log, "id_app": 7, "token_authentication": _API.authentication.data.token_authentication };
+        _API.call("production/menuinterface", data).then(function (response) {
+            response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
+            response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
+            $(_target).html(response.html).removeClass("d-none");
+            if (_API.branchConfiguration.menuColor != "") { $(".itemMenu").addClass(_API.branchConfiguration.menuColor); }
+        });
+    },
+    onSucursalChooser: function (_auth) {
+        return new Promise(
+            function (resolve, reject) {
+                if (!_API.postLogin || _auth.data.details.length == 0) {
+                    resolve(true);
+                    return false;
+                }
+                var _sucursales = "";
+                $.each(_auth.data.details, function (i, item) {
+                    if (parseInt(item.nIDSucursal) != 0) { item.sSucursal = _API.sucursal; item.nIDSucursal = _API.id_sucursal; }
+                    _sucursales += '<a class="list-group-item list-group-item-action btnSelectSucursal" href="#" data-name="' + item.sSucursal + '" data-id="' + item.nIDSucursal + '">' + item.sSucursal + '</a>';
+                });
+                var _html = ('<div class="container mt-3"><ul class="list-group">' + _sucursales + '</ul></div>');
+                _API.onShowModalOverAll("modalSelectSucursal", "Seleccione sucursal donde se encuentra", _html, "").then(function (_ret) {
+                    $(".wfooter").remove();
+                    $(".btn-cancel-modalall").remove();
+                    $("#modalSelectSucursal").css({ "top": "200px" });
+                    $("body").off("click", ".btnSelectSucursal").on("click", ".btnSelectSucursal", function () {
+                        _API.id_sucursal = $(this).attr("data-id");
+                        _API.sucursal = $(this).attr("data-name");
+                        _API.onDestroyModal("#modalSelectSucursal");
+                        resolve(true);
+                    });
+                });
+            });
+    },
 
+    /* Funciones core de configuración, carga de archivos y llamadas a servicios externos */
     readConfigServers: function (key, _TS) {
         /* 
         Función de lectura de la configuración general de todas las ramas
@@ -351,7 +380,7 @@ var _API = {
                 /* Timestamp para forzar ignorar el cache de carga de los archivos de todo el tree */
                 _API._TS = _TS;
                 fetch("./Recursos/configServers.json?" + _API._TS)
-                    .then(function(response) {
+                    .then(function (response) {
                         if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
                         return response.text();
                     })
@@ -360,13 +389,15 @@ var _API = {
                         var _item = data.find(item => item.key === key);
                         /* Asignación de valores de configuración */
                         _API.configuration = _item;
-                        /* Almacena los parámetros de la url de acceso */
-                        _API.urlParameters = _API.getUrlParams();
-                        /* Setea verbose, para activar o no la escritura en la consola del navegador de los mensajes de log */
-                        _API.verbose = (window.location.hostname.toLowerCase() == "localhost");
-                        $.getScript(("js/events.js?" + _API._TS), function () {
-                            $.getScript(("js/tools.js?" + _API._TS), function () {
-                                _API.tools = _T;
+                        $.getScript(("js/media.js?" + _API._TS), function () {
+                            $.getScript(("js/events.js?" + _API._TS), function () {
+                                $.getScript(("js/tools.js?" + _API._TS), function () {
+                                    _API.tools = _T;
+                                    /* Almacena los parámetros de la url de acceso */
+                                    _API.urlParameters = _API.tools.getUrlParams();
+                                    /* Setea verbose, para activar o no la escritura en la consola del navegador de los mensajes de log */
+                                    _API.verbose = (window.location.hostname.toLowerCase() == "localhost");
+                                });
                             });
                         });
                         resolve(null);
@@ -425,12 +456,16 @@ var _API = {
         _API.subsystem = _branchConfig.subsystem;
         /* flag de auth de usuario externo requiriendo login */
         _API.loginRequired = _branchConfig.loginRequired;
+        /* flag indicando se requiere verificación pors login */
+        _API.postLogin = _branchConfig.postLogin;
         /* imagen del encabeado de la pantalla de login */
         if (_branchConfig.imageLogin != null && _branchConfig.imageLogin != "") { _API.imageLogin = (_branchConfig.imageLogin + "?" + _API._TS); }
         /* modo del user a autenticar 0 - LDAP / 1 - EXTERNAL */
         _API.externalUserMode = _branchConfig.externalUserMode;
         /* valor del id de app a la cual el usuario externo debe tener permiso de acceso */
         _API.id_app_external = _branchConfig.id_app_external;
+        /* flag para identiicar si es necesario filtrar el acceso a solo los médicos */
+        _API.doctorRequired = _branchConfig.doctorRequired;
         /* control de acceso autenticado por parte del usuario externo */
         if (!_API.loginRequired) {
             /* acceso sin autenticación de usuario externo */
@@ -468,7 +503,7 @@ var _API = {
         return new Promise(
             function (resolve, reject) {
                 var _url = (_API.configuration.server + endpoint);
-                _API.log("call->data->"+_url, data);
+                _API.log("call->data->" + _url, data);
                 $.ajax({
                     "type": "POST",
                     "dataType": "json",
@@ -539,9 +574,14 @@ var _API = {
                             /* si no autentica, alerta y sale del form */
                             alert(response.message);
                         } else {
-                            /* si pasa la autenticación ok, destruye el modal y ejecuta el loader */
-                            _API.onDestroyModal("#modalLogin");
-                            _API.loaderFile(_API.configuration.fileLoader).then(function () { _API.logStatus(); });
+                            /* Selector de sucursales, ver de controlar si se solicita o no */
+                            _API.onSucursalChooser(response).then(function (_ret) {
+                                _API.onDestroyModal("#modalLogin");
+                                /* Si pasa la autenticación ok, destruye el modal y ejecuta el loader */
+                                _API.loaderFile(_API.configuration.fileLoader).then(function () {
+                                    _API.logStatus();
+                                });
+                            });
                         }
                         resolve(response);
                     })

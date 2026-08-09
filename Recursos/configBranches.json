@@ -6,7 +6,10 @@
     "loginRequired": true,
     "imageLogin": "./img/mediya.png",
     "externalUserMode": 1,
-    "id_app_external": 11
+    "id_app_external": 11,
+    "postLogin": false,
+    "doctorRequired": false,
+    "menuColor": ""
   },
   {
     "key": "apidoc.credipaz.com",
@@ -15,7 +18,10 @@
     "loginRequired": true,
     "imageLogin": "./img/credipaz.png",
     "externalUserMode": 1,
-    "id_app_external": 11
+    "id_app_external": 11,
+    "postLogin": false,
+    "doctorRequired": false,
+    "menuColor": ""
   },
   {
     "key": "deuda.credipaz.com",
@@ -24,7 +30,10 @@
     "loginRequired": true,
     "imageLogin": "./img/credipaz.png",
     "externalUserMode": 1,
-    "id_app_external": 13
+    "id_app_external": 13,
+    "postLogin": false,
+    "doctorRequired": false,
+    "menuColor": ""
   },
   {
     "key": "cesiones.credipaz.com",
@@ -33,7 +42,10 @@
     "loginRequired": true,
     "imageLogin": "./img/credipaz.png",
     "externalUserMode": 1,
-    "id_app_external": 12
+    "id_app_external": 12,
+    "postLogin": false,
+    "doctorRequired": false,
+    "menuColor": ""
   },
   {
     "key": "sia.credipaz.com",
@@ -42,7 +54,10 @@
     "loginRequired": false,
     "imageLogin": "",
     "externalUserMode": -1,
-    "id_app_external": -1
+    "id_app_external": -1,
+    "postLogin": false,
+    "doctorRequired": false,
+    "menuColor": ""
   },
   {
     "key": "pagos.credipaz.com",
@@ -57,7 +72,10 @@
     "FISERV_URL": "https://www5.ipg-online.com/connect/gateway/processing",
     "URL_ERROR": "https://fiserv.credipaz.com/webhooks/FiservError",
     "URL_OK": "https://fiserv.credipaz.com/webhooks/FiservOk",
-    "URL_NOTIFY": "https://fiserv.credipaz.com/webhooks/FiservNotify"
+    "URL_NOTIFY": "https://fiserv.credipaz.com/webhooks/FiservNotify",
+    "postLogin": false,
+    "doctorRequired": false,
+    "menuColor": ""
   },
   {
     "key": "pagos.mediya.com.ar",
@@ -72,15 +90,33 @@
     "FISERV_URL": "https://www5.ipg-online.com/connect/gateway/processing",
     "URL_ERROR": "https://fiserv.credipaz.com/webhooks/FiservError",
     "URL_OK": "https://fiserv.credipaz.com/webhooks/FiservOk",
-    "URL_NOTIFY": "https://fiserv.credipaz.com/webhooks/FiservNotify"
+    "URL_NOTIFY": "https://fiserv.credipaz.com/webhooks/FiservNotify",
+    "postLogin": false,
+    "doctorRequired": false,
+    "menuColor": ""
   },
   {
     "key": "telemedicina.mediya.com.ar",
-    "root": "Credipaz.Telemedicina",
+    "root": "Credipaz.AccesoSistemaInterno",
     "subsystem": "",
     "loginRequired": true,
     "imageLogin": "./img/mediya.png",
     "externalUserMode": 0,
-    "id_app_external": 7
+    "id_app_external": 7,
+    "postLogin": false,
+    "doctorRequired": true,
+    "menuColor": "bg-blue"
+  },
+  {
+    "key": "intranet.credipaz.com",
+    "root": "Credipaz.AccesoSistemaInterno",
+    "subsystem": "",
+    "loginRequired": true,
+    "imageLogin": "./img/credipaz.png",
+    "externalUserMode": 0,
+    "id_app_external": 7,
+    "postLogin": true,
+    "doctorRequired": false,
+    "menuColor": "bg-magenta"
   }
 ]

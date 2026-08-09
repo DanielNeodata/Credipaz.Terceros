@@ -1,0 +1,35 @@
+<div class="container-full p-1">
+    <input type="hidden" class="shadowInput" id="shadowInput" name="shadowInput"/>
+    <audio autoplay id='ringerAlertas' class='d-none'><source src='' type='audio/mpeg'></audio>
+    <div class="row p-0 m-0 mt-1">
+        <div class="col-2">
+            <img src="" class="logoImage img-thumbnail shadow-sm" style="width:100%;"/>
+            <div class="card shadow-sm p-1 my-1 areaDoctor d-none">
+                <a href="#" data-action="pause" class="btnDoctorAtencion btn btn-sm mb-2"></a>
+                <div class="row">
+                    <div class="col-9">
+                        <span class="badge badge-light doctorName" style="display:block;"></span>
+                        <span class="badge badge-light doctorMatricula" style="display:block;"></span>
+                    </div>
+                    <div class="col-3">
+                       <img class="doctorFirma shadow-sm p-1" style="width:100%;"/>
+                    </div>
+                </div>
+                <span class="badge badge-dark enEspera blink" style="display:block;">...conectando</span>
+                <span class="badge badge-info conDemora d-none mt-1" style="display:block;"></span>
+            </div>
+            <div class="areaMenu"></div>
+        </div>
+        <div class="col-10">
+            <div class="container-full areaStatus blink text-right p-1 mb-1 shadow-sm">
+                <span class="badge badge-light badgeUsername" style="display:inline;"></span>
+                <span class="badge badge-light badgeSucursal" style="display:inline;"></span>
+
+                <a href="#" class="btn btn-dark btn-sm btnSettings m-0 p-1"><span class="material-symbols-outlined" style="font-size: 1rem;">settings</span></a>
+                <a href="#" class="btn btn-danger btn-sm btnLogout m-0 p-1"><span class="material-symbols-outlined" style="font-size: 1rem;">logout</span></a>
+
+            </div>
+            <div class="container-full areaResultado d-none"></div>
+        </div>
+    </div>
+</div>

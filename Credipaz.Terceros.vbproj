@@ -246,14 +246,14 @@
     <Content Include="Credipaz.Pagos\js\events.js" />
     <Content Include="Credipaz.Pagos\js\functions.js" />
     <Content Include="Credipaz.Pagos\js\loader.js" />
-    <Content Include="Credipaz.Telemedicina\html\ambulancia.html" />
-    <Content Include="Credipaz.Telemedicina\html\index.html" />
-    <Content Include="Credipaz.Telemedicina\html\postclose.html" />
-    <Content Include="Credipaz.Telemedicina\html\editchargecode.html" />
-    <Content Include="Credipaz.Telemedicina\img\logo.png" />
-    <Content Include="Credipaz.Telemedicina\js\events.js" />
-    <Content Include="Credipaz.Telemedicina\js\functions.js" />
-    <Content Include="Credipaz.Telemedicina\js\loader.js" />
+    <Content Include="Credipaz.AccesoSistemaInterno\html\ambulancia.html" />
+    <Content Include="Credipaz.AccesoSistemaInterno\html\index.html" />
+    <Content Include="Credipaz.AccesoSistemaInterno\html\postclose.html" />
+    <Content Include="Credipaz.AccesoSistemaInterno\html\editchargecode.html" />
+    <Content Include="Credipaz.AccesoSistemaInterno\js\events.js" />
+    <Content Include="Credipaz.AccesoSistemaInterno\js\functions.js" />
+    <Content Include="Credipaz.AccesoSistemaInterno\js\loader.js" />
+    <Content Include="js\media.js" />
     <Content Include="js\Neodata\NEOAUTHENTICATION.js" />
     <Content Include="js\Neodata\NEOVIDEO-jvideo1.js" />
     <Content Include="html\modalDefaultOverAll.html" />
@@ -285,6 +285,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Credipaz.AccesoSistemaInterno\img\" />
     <Folder Include="Credipaz.ApiDoc\img\" />
     <Folder Include="My Project\" />
   </ItemGroup>

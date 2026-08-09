@@ -65,7 +65,7 @@ var _F = {
 						/* url decoding del valor del parametro */
 						var _documento = decodeURIComponent(_API.urlParameters["code"].toString());
 						/* chequea si el valor es una cadena en base64 y la decodea */
-						if (_API.isBase64(_documento)) { _documento = _API.b64_to_string(_documento); }
+						if (_API.tools.isBase64(_documento)) { _documento = _API.tools.b64_to_string(_documento); }
 						/* asigna el valor del parametro decodeado o raw, segun corresponda */
 						$(".Documento").val(_documento);
 						/* búsqueda de valor automático */
@@ -76,7 +76,7 @@ var _F = {
 					} else {
 						if (_API.urlParameters["data"] != undefined) {
 							var _data = decodeURIComponent(_API.urlParameters["data"].toString());
-							var _json = JSON.parse(_API.b64_to_string(_data));
+							var _json = JSON.parse(_API.tools.b64_to_string(_data));
 							/*Verify id_user & token*/
 							_API.verifytoken(_json).then(function (verify) {
 								$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
@@ -169,9 +169,9 @@ var _F = {
 					$(this).val(0);
 					_color = "pink";
 				} else {
-					_rec = JSON.parse(_API.b64_to_string($(this).attr("data-record")));
+					_rec = JSON.parse(_API.tools.b64_to_string($(this).attr("data-record")));
 					_rec.Importe = _samImporte.toFixed(2).toString();
-					$(this).attr("data-record", _API.string_to_b64(JSON.stringify(_rec)));
+					$(this).attr("data-record", _API.tools.string_to_b64(JSON.stringify(_rec)));
 					_total += _samImporte;
 					if (_samImporte != 0) { _F._itemsPagos.push(_rec); }
 				}
@@ -188,7 +188,7 @@ var _F = {
 			} else {
 				var _tar_min = parseFloat($(".chkTarMin").val());
 				var _tar_tot = parseFloat($(".chkTarTot").val());
-				_rec = JSON.parse(_API.b64_to_string($(".otro_monto").attr("data-record")));
+				_rec = JSON.parse(_API.tools.b64_to_string($(".otro_monto").attr("data-record")));
 				if (_otro_monto != 0) {
 					if (isNaN(_tar_min)) { _tar_min = 0; }
 					if (isNaN(_tar_tot)) { _tar_tot = 0; }
@@ -205,7 +205,7 @@ var _F = {
 			if (_otro_monto != 0) { _F._itemsPagos.push(_rec); }
 		}
 		$(".chkPay").each(function () {
-			var _rec = JSON.parse(_API.b64_to_string($(this).attr("data-record")));
+			var _rec = JSON.parse(_API.tools.b64_to_string($(this).attr("data-record")));
 			if ($(this).prop("checked")) {
 				if (_rec.Importe == null || _rec.Importe == "") { _rec.Importe = 0; }
 				if (parseFloat(_rec.Importe) != 0) {
@@ -253,11 +253,11 @@ var _F = {
 					values.itemsPagos = JSON.parse(values.itemsPagos, true);
 					/* Todo ocurre una vez resuelto el hashing */
 					var stringToHash = (_API.branchConfiguration.FISERV_STOREID + txndatetime + chargetotal + currency + _API.branchConfiguration.FISERV_SHAREDSECRET);
-					_API.hash("SHA-256", _API.bin2hex(stringToHash))
+					_API.tools.hash("SHA-256", _API.tools.bin2hex(stringToHash))
 						.catch(function (err) {reject(err);})
 						.then(function (extendedHash) {
 							var html = "";
-							html += "<form id='checkoutform' method='post' action='" + (_API.branchConfiguration.FISERV_URL + "?" + _API.uuid()) + "' target='iframe_fiserv'>";
+							html += "<form id='checkoutform' method='post' action='" + (_API.branchConfiguration.FISERV_URL + "?" + _API.tools.uuid()) + "' target='iframe_fiserv'>";
 							html += "   <table class='tbl-fiserv d-none'>";
 							html += "    <tr><td>hostURI</td><td><input class='dataPost' type='text' id='hostURI' name='hostURI' value='" + _API.branchConfiguration.URL_NOTIFY + "'/></td></tr>";
 							html += "    <tr><td>parentUri</td><td><input class='dataPost' type='text' id='parentUri' name='parentUri' value='" + window.location.href + "'/></td></tr>";
@@ -325,7 +325,7 @@ var _F = {
 					$(".btn-deuda-fiserv").click();
 					$(".id_payment").val(0);
 					$(".code_payment").val(_idTransfer_botonpago); //id en mod_payments_transactions
-					var response = { "now": _API.getNow(), "apiReference": _idTransfer_botonpago };
+					var response = { "now": _API.tools.getNow(), "apiReference": _idTransfer_botonpago };
 					var _fulldata = { "dni": _dni, "MedioPago": datajson.data[0].partial_card_number };
 					var _raw_request = JSON.parse(datajson.data[0].raw_request);
 					_raw_request = JSON.parse(_raw_request["comments"]);
@@ -344,7 +344,7 @@ var _F = {
 		_html += "<input type='hidden' id='code' name='code' value='" + _fulldata.dni + "' class='code dbaseComprobante'/>";
 		_html += "<input type='hidden' id='description' name='description' value='comprobanteCOIN' class='description dbaseComprobante'/>";
 		_html += "<input type='hidden' id='base64' name='base64' value='' class='base64 dbaseComprobante'/>";
-		_html += "<input type='hidden' id='filename' name='filename' value='Comprobante de pago " + _API.uuid() + ".pdf' class='filename dbaseComprobante'/>";
+		_html += "<input type='hidden' id='filename' name='filename' value='Comprobante de pago " + _API.tools.uuid() + ".pdf' class='filename dbaseComprobante'/>";
 		_html += "<input type='hidden' id='extension' name='extension' value='pdf' class='extension dbaseComprobante'/>";
 		_html += "<table style='width:100%;font-family:calibri;padding:5px;'>";
 		_html += "   <tr>";
