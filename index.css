@@ -4,6 +4,12 @@ body {
 .modal-open {
     overflow-y: auto !important;
 }
+.white {
+    color: white !important;
+}
+.bg-white {
+    background-color: white !important;
+}
 .blue {
     color: #007bff !important;
 }

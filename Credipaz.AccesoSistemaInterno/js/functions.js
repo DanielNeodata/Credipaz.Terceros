@@ -9,6 +9,7 @@ var _F = {
 		return new Promise(
 			function (resolve, reject) {
 				try {
+					_API.telemedicina.isDoctor = 0;
 					if (_API.doctorRequired && _API.telemedicina.isDoctor != 1) {
 						_API.onShowUnauthorized("El usuario autenticado no es un médico.");
 						reject(null);
@@ -94,7 +95,6 @@ var _F = {
 					_preHeader += "         <div class='col-2'><label>DNI</label><br/><input type='number' placeholder='DNI' class='form-control onlyNumbers dniEspontanea' name='dniEspontanea' id='dniEspontanea'/></div>";
 					_preHeader += "         <div class='col-2'><label>Socio Mediya</label><br/><input type='number' placeholder='Nºde socio' class='form-control onlyNumbers nroSocioEspontanea' name='nroSocioEspontanea' id='nroSocioEspontanea'/></div>";
 					_preHeader += "         <div class='col-2 mt-2 pt-4'><a href='#' class='btn btn-primary btn-md btnEspontanea'>Espontánea</a></div>";
-
 					_preHeader += "      </div>";
 					_preHeader += "   </div>";
 					_html = _API.onBuildTable(("tblConsultas"), "Consultas", data.records, vHeaders, vColumns, vRules, "", "", _preHeader);
@@ -104,6 +104,7 @@ var _F = {
 				$(".areaResultado").html(_html).removeClass("d-none");
 			});
 	},
+
 	onCancelTelemedicina: function (_this) {
 		if (!confirm("Se cancelará la atención seleccionada. ¿Confirma?")) { return false; }
 		_API.onWait(true);

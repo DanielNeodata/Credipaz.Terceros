@@ -218,10 +218,11 @@ var _API = {
         _html += "<div class='card p-2 mt-1'>";
         _html += "<b>Estado de servicios</b>";
         _html += "<table class='table table-borderless table-sm'>";
-        _html += await _API.onServerAvailability("API server", _API.configuration.server);
-        _html += await _API.onServerAvailability("Interfaces", _API.configuration.interfaces);
-        _html += await _API.onServerAvailability("NeoAuthenticate", _API.configuration.authenticationServer);
-        _html += await _API.onServerAvailability("NeoVideo", _API.configuration.videoServer);
+        _html += await _API.onServerAvailability("API layer", _API.configuration.server);
+        _html += await _API.onServerAvailability("Bussiness layer", _API.configuration.cpfinancial);
+        _html += await _API.onServerAvailability("Interfaces layer", _API.configuration.interfaces);
+        _html += await _API.onServerAvailability("NeoAuthenticate layer", _API.configuration.authenticationServer);
+        _html += await _API.onServerAvailability("NeoVideo layer", _API.configuration.videoServer);
         _html += "</table>";
         _html += "</div>";
         _API.onShowModalOverAll("modalAV", "", _html, "").then(function (_ret) {
@@ -359,21 +360,24 @@ var _API = {
                     resolve(true);
                     return false;
                 }
+                /*Sucursales disponibles para ingreso, dado el usuario autenticado */
                 var _sucursales = "";
                 $.each(_auth.data.details, function (i, item) {
                     if (parseInt(item.nIDSucursal) != 0) { item.sSucursal = _API.sucursal; item.nIDSucursal = _API.id_sucursal; }
-                    _sucursales += '<a class="list-group-item list-group-item-action btnSelectSucursal" href="#" data-name="' + item.sSucursal + '" data-id="' + item.nIDSucursal + '">' + item.sSucursal + '</a>';
+                    _sucursales += '<a class="list-group-item btn btn-sm bg-magenta white bold btnSelectSucursal p-1 m-0" style="color:white;" href="#" data-name="' + item.sSucursal + '" data-id="' + item.nIDSucursal + '">' + item.sSucursal + '</div>';
                 });
-                var _html = ('<div class="container mt-3"><ul class="list-group">' + _sucursales + '</ul></div>');
-                _API.onShowModalOverAll("modalSelectSucursal", "Seleccione sucursal donde se encuentra", _html, "").then(function (_ret) {
-                    $(".wfooter").remove();
-                    $(".btn-cancel-modalall").remove();
-                    $("#modalSelectSucursal").css({ "top": "200px" });
-                    $("body").off("click", ".btnSelectSucursal").on("click", ".btnSelectSucursal", function () {
-                        _API.id_sucursal = $(this).attr("data-id");
-                        _API.sucursal = $(this).attr("data-name");
-                        _API.onDestroyModal("#modalSelectSucursal");
-                        resolve(true);
+                $.get(("html/choose.html?" + _API._TS), function (_html) {
+                    _API.onShowModalOverAll("modalSelectSucursal", "Seleccione sucursal donde se encuentra", _html).then(function (_ret) {
+                        $(".lsChooser").html(_sucursales);
+                        $(".wfooter").remove();
+                        $(".btn-cancel-modalall").remove();
+                        $("#modalSelectSucursal").css({ "top": "200px" });
+                        $("body").off("click", ".btnSelectSucursal").on("click", ".btnSelectSucursal", function () {
+                            _API.id_sucursal = $(this).attr("data-id");
+                            _API.sucursal = $(this).attr("data-name");
+                            _API.onDestroyModal("#modalSelectSucursal");
+                            resolve(true);
+                        });
                     });
                 });
             });
@@ -593,6 +597,9 @@ var _API = {
                         _API.telemedicina.doctorName = response.data.doctorName;
                         _API.telemedicina.doctorFirma = response.data.firma;
                         _API.telemedicina.doctorMatricula = response.data.matricula;
+
+                        //_API.telemedicina.isDoctor = 0;
+
                         if (response.status != "OK") {
                             /* si no autentica, alerta y sale del form */
                             alert(response.message);
