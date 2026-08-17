@@ -837,7 +837,7 @@ var _F = {
 		});
 	},
 	onUploadReceta: function (_this) {
-		var _message = "";
+		var _message = ""; 
 		var reader = new FileReader();
 		reader.readAsDataURL($(".btnUploadReceta").prop('files')[0]);
 		reader.onload = function () {
