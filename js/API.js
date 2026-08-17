@@ -597,9 +597,6 @@ var _API = {
                         _API.telemedicina.doctorName = response.data.doctorName;
                         _API.telemedicina.doctorFirma = response.data.firma;
                         _API.telemedicina.doctorMatricula = response.data.matricula;
-
-                        //_API.telemedicina.isDoctor = 0;
-
                         if (response.status != "OK") {
                             /* si no autentica, alerta y sale del form */
                             alert(response.message);
