@@ -9,7 +9,6 @@ var _F = {
 		return new Promise(
 			function (resolve, reject) {
 				try {
-					_API.telemedicina.isDoctor = 0;
 					if (_API.doctorRequired && _API.telemedicina.isDoctor != 1) {
 						_API.onShowUnauthorized("El usuario autenticado no es un médico.");
 						reject(null);

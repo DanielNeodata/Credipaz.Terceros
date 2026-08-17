@@ -254,6 +254,7 @@
     <Content Include="Credipaz.AccesoSistemaInterno\js\functions.js" />
     <Content Include="Credipaz.AccesoSistemaInterno\js\loader.js" />
     <Content Include="html\choose.html" />
+    <Content Include="img\test-credipaz.png" />
     <Content Include="js\media.js" />
     <Content Include="js\Neodata\NEOAUTHENTICATION.js" />
     <Content Include="js\Neodata\NEOVIDEO-jvideo1.js" />

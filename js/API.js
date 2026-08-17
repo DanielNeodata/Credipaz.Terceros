@@ -349,6 +349,8 @@ var _API = {
         _API.call("production/menuinterface", data).then(function (response) {
             response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
             response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
+            var _encoded_authentication_data = { "Id_user": _API.id_user_log, "Token": _API.authentication.data.token_authentication, "Id_app": data.data };
+            response.html = response.html.replaceAll("[ENCODED_AUTHENTICATION_DATA]", encodeURI(_API.tools.base64_encode(JSON.stringify(_encoded_authentication_data))));
             $(_target).html(response.html).removeClass("d-none");
             if (_API.branchConfiguration.menuColor != "") { $(".itemMenu").addClass(_API.branchConfiguration.menuColor); }
         });
