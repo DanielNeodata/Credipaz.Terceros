@@ -12,13 +12,16 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="color-scheme" content="light dark">
     <meta http-equiv="Content-Security-Policy" content="
-          frame-src * data: content: blob: 'self' 'unsafe-inline' 'unsafe-eval';
           default-src * https://* whatsapp://* gap://* tel://* mail://* 'self' 'unsafe-inline' 'unsafe-eval';
-          script-src * 'self' 'unsafe-inline' 'unsafe-eval';
+          worker-src * blob: 'self' 'unsafe-inline' 'unsafe-eval';
+          script-src * data: content: blob: 'self' 'unsafe-inline' 'unsafe-eval';
           connect-src * 'self' 'unsafe-inline' 'unsafe-eval';
-          media-src * 'self' 'unsafe-inline' 'unsafe-eval';
+          media-src * data: content: blob: 'self' 'unsafe-inline' 'unsafe-eval';
           img-src * data: content: blob: 'self' 'unsafe-inline' 'unsafe-eval';
-          style-src * 'self' 'unsafe-inline' 'unsafe-eval';" />
+          style-src * 'self' 'unsafe-inline' 'unsafe-eval';
+          font-src * 'self' 'unsafe-inline' 'unsafe-eval' blob: data:;
+          object-src * 'self' 'unsafe-inline' 'unsafe-eval' blob: data:;
+          frame-src * 'self' 'unsafe-inline' 'unsafe-eval' blob: data:;" />
 
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" crossorigin="anonymous">    
