@@ -223,7 +223,8 @@ var _F = {
 						$(".tIndicaciones").html(data.records[0].indicaciones);
 						$(".tCierreIrregular").html(data.records[0].note_close);
 						$(".tEmail").html(data.records[0].Email);
-						$(".tTelefono").html(data.records[0].Telefono);
+						$(".tTelefono").html(data.records[0].telefono);
+						if (data.records[0].telefono != "") { $(".telApp").html("Telefono desde la app: " + data.records[0].telefono).addClass("badge badge-info");}
 						$(".tEstado").css({ "background-color": "red" });
 						if (data.records[0].Estado == "VIG") { $(".tEstado").css({ "background-color": "lightgreen" }); }
 						$(".tEstado").html(data.records[0].Estado);
