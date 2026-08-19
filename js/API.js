@@ -148,12 +148,14 @@ var _API = {
                 var check = await _API.tools.isUrlAvailable(_API.configuration.interfaces);
                 if (!check) {
                     _API.onAlert({ "message": "La función no es accesible.  <b>Su conexión no es la adecuada.</b>", "class": "alert-danger" });
+                    _API.onWait(false);
                     return false;
                 }
                 /*Chequea si string es url válida y si está accesible, más allá de estar correcto el tipo de conexión */
                 check = await _API.tools.isUrlAvailable(_url);
                 if (!URL.canParse(_url) || !check) {
                     _API.onAlert({ "message": ("<b>" + _url + "</b> no está accesible por el momento."), "class": "alert-warning" });
+                    _API.onWait(false);
                     return false;
                 }
                 /*Resuelve la navegación y display de la url de Interfaces */
@@ -377,6 +379,7 @@ var _API = {
                         $(".btn-cancel-modalall").remove();
                         $("#modalSelectSucursal").css({ "top": "200px" });
                         $("body").off("click", ".btnSelectSucursal").on("click", ".btnSelectSucursal", function () {
+                            $(this).hide();
                             _API.id_sucursal = $(this).attr("data-id");
                             _API.sucursal = $(this).attr("data-name");
                             _API.onDestroyModal("#modalSelectSucursal");
@@ -576,12 +579,13 @@ var _API = {
                     });
             });
     },
-    authenticateexternal: function () {
+    authenticateexternal: function (_this) {
         return new Promise(
             function (resolve, reject) {
                 try {
                     /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
                     if (!_API.tools.validate(".validateLogin", false)) { return false; }
+                    _this.hide();
                     var data = {
                         "id_user": _API.authentication.data.id,
                         "token_authentication": _API.authentication.data.token_authentication,
@@ -619,6 +623,7 @@ var _API = {
                             resolve(response);
                         })
                         .catch(function (err) {
+                            _this.fadeIn();
                             _API.onShowUnauthorized("No se pudieron autenticar las credenciales provistas.");
                             reject(err);
                         });

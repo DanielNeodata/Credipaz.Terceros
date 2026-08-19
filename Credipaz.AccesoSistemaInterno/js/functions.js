@@ -822,6 +822,7 @@ var _F = {
 		});
 	},
 	onDoctorAtencion: function (_this) {
+		_this.hide();
 		_API.onWait(true);
 		var _params = {
 			"idUser": _API.id_user_log,
@@ -830,9 +831,11 @@ var _F = {
 		_API.method("/telemedicina/cambiarestadodoctor", _params).then(function (response) {
 			_API.telemedicina.atendiendo = parseInt(response.records[0].active);
 			_F.onDrawStatusDoctor();
+			_this.show();
 			_API.onWait(false);
 		}).catch(function (error) {
 			alert(error.message);
+			_this.show();
 			_API.onWait(false);
 		});
 	},
