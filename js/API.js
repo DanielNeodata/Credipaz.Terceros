@@ -138,6 +138,7 @@ var _API = {
         setTimeout(function () { _this.parent().removeClass("blink"); }, 1000);
     },
     onClickSubMenu: async function (_this) {
+        _API.onWait(true);
         _this.addClass("blink");
         setTimeout(function () { _this.removeClass("blink"); }, 1000);
         switch (_this.attr("data-mode")) {
@@ -147,12 +148,14 @@ var _API = {
                 var check = await _API.tools.isUrlAvailable(_API.configuration.interfaces);
                 if (!check) {
                     _API.onAlert({ "message": "La función no es accesible.  <b>Su conexión no es la adecuada.</b>", "class": "alert-danger" });
+                    _API.onWait(false);
                     return false;
                 }
                 /*Chequea si string es url válida y si está accesible, más allá de estar correcto el tipo de conexión */
                 check = await _API.tools.isUrlAvailable(_url);
                 if (!URL.canParse(_url) || !check) {
                     _API.onAlert({ "message": ("<b>" + _url + "</b> no está accesible por el momento."), "class": "alert-warning" });
+                    _API.onWait(false);
                     return false;
                 }
                 /*Resuelve la navegación y display de la url de Interfaces */
@@ -160,6 +163,7 @@ var _API = {
                 _url += ("id_user_active=" + _API.id_user_log + "&username=" + _API.username_log + "&id_sucursal=" + _API.id_sucursal + "&sucursal=" + _API.sucursal);
                 var _html = "<iframe id='neoweb_iframe' class='neoweb_iframe' src='" + encodeURI(_url) + "' frameborder='0' style='height:500vh;width:100%;'></iframe>";
                 $(".areaResultado").html(_html).removeClass("d-none");
+                setTimeout(function () { _API.onWait(false); }, 500);
                 break;
         }
     },
@@ -349,6 +353,8 @@ var _API = {
         _API.call("production/menuinterface", data).then(function (response) {
             response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
             response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
+            var _encoded_authentication_data = { "Id_user": _API.id_user_log, "Token": _API.authentication.data.token_authentication, "Id_app": data.id_app };
+            response.html = response.html.replaceAll("[ENCODED_AUTHENTICATION_DATA]", encodeURI(_API.tools.string_to_b64(JSON.stringify(_encoded_authentication_data))));
             $(_target).html(response.html).removeClass("d-none");
             if (_API.branchConfiguration.menuColor != "") { $(".itemMenu").addClass(_API.branchConfiguration.menuColor); }
         });
@@ -373,6 +379,7 @@ var _API = {
                         $(".btn-cancel-modalall").remove();
                         $("#modalSelectSucursal").css({ "top": "200px" });
                         $("body").off("click", ".btnSelectSucursal").on("click", ".btnSelectSucursal", function () {
+                            $(this).hide();
                             _API.id_sucursal = $(this).attr("data-id");
                             _API.sucursal = $(this).attr("data-name");
                             _API.onDestroyModal("#modalSelectSucursal");
@@ -567,57 +574,62 @@ var _API = {
                     .catch(function (err) {
                         _API.auth = null;
                         _API.log("authenticate error", err);
+                        _API.onShowUnauthorized("Servicio de autenticación no disponible.");
                         reject(err);
                     });
             });
     },
-    authenticateexternal: function () {
+    authenticateexternal: function (_this) {
         return new Promise(
             function (resolve, reject) {
-                /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
-                if (!_API.tools.validate(".validateLogin", false)) { return false; }
-                var data = {
-                    "id_user": _API.authentication.data.id,
-                    "token_authentication": _API.authentication.data.token_authentication,
-                    "id_app": _API.id_app_external,
-                    "username": $(".Username").val(),
-                    "password": $(".Password").val(),
-                    "external_operator": _API.externalUserMode
-                };
-                _API.call("production/authenticateexternal", data)
-                    .then(function (response) {
-                        _API.id_user_log = response.data.id;
-                        _API.username_log = response.data.username;
-                        _API.authentication.data.id = response.data.id;
-                        _API.authentication.data.token_authentication = response.data.token_authentication;
-                        _API.authentication.data.token_authentication_created = response.data.token_authentication_created;
-                        _API.authentication.data.token_authentication_expired = response.data.token_authentication_expired;
-                        _API.telemedicina.atendiendo = response.data.atendiendo;
-                        _API.telemedicina.isDoctor = response.data.isDoctor;
-                        _API.telemedicina.doctorName = response.data.doctorName;
-                        _API.telemedicina.doctorFirma = response.data.firma;
-                        _API.telemedicina.doctorMatricula = response.data.matricula;
-
-                        //_API.telemedicina.isDoctor = 0;
-
-                        if (response.status != "OK") {
-                            /* si no autentica, alerta y sale del form */
-                            alert(response.message);
-                        } else {
-                            /* Selector de sucursales, ver de controlar si se solicita o no */
-                            _API.onSucursalChooser(response).then(function (_ret) {
-                                _API.onDestroyModal("#modalLogin");
-                                /* Si pasa la autenticación ok, destruye el modal y ejecuta el loader */
-                                _API.loaderFile(_API.configuration.fileLoader).then(function () {
-                                    _API.logStatus();
+                try {
+                    /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
+                    if (!_API.tools.validate(".validateLogin", false)) { return false; }
+                    _this.hide();
+                    var data = {
+                        "id_user": _API.authentication.data.id,
+                        "token_authentication": _API.authentication.data.token_authentication,
+                        "id_app": _API.id_app_external,
+                        "username": $(".Username").val(),
+                        "password": $(".Password").val(),
+                        "external_operator": _API.externalUserMode
+                    };
+                    _API.call("production/authenticateexternal", data)
+                        .then(function (response) {
+                            _API.id_user_log = response.data.id;
+                            _API.username_log = response.data.username;
+                            _API.authentication.data.id = response.data.id;
+                            _API.authentication.data.token_authentication = response.data.token_authentication;
+                            _API.authentication.data.token_authentication_created = response.data.token_authentication_created;
+                            _API.authentication.data.token_authentication_expired = response.data.token_authentication_expired;
+                            _API.telemedicina.atendiendo = response.data.atendiendo;
+                            _API.telemedicina.isDoctor = response.data.isDoctor;
+                            _API.telemedicina.doctorName = response.data.doctorName;
+                            _API.telemedicina.doctorFirma = response.data.firma;
+                            _API.telemedicina.doctorMatricula = response.data.matricula;
+                            if (response.status != "OK") {
+                                /* si no autentica, alerta y sale del form */
+                                _API.onShowUnauthorized(response.message);
+                            } else {
+                                /* Selector de sucursales, ver de controlar si se solicita o no */
+                                _API.onSucursalChooser(response).then(function (_ret) {
+                                    _API.onDestroyModal("#modalLogin");
+                                    /* Si pasa la autenticación ok, destruye el modal y ejecuta el loader */
+                                    _API.loaderFile(_API.configuration.fileLoader).then(function () {
+                                        _API.logStatus();
+                                    });
                                 });
-                            });
-                        }
-                        resolve(response);
-                    })
-                    .catch(function (err) {
-                        reject(err);
-                    });
+                            }
+                            resolve(response);
+                        })
+                        .catch(function (err) {
+                            _this.fadeIn();
+                            _API.onShowUnauthorized("No se pudieron autenticar las credenciales provistas.");
+                            reject(err);
+                        });
+                } catch (ex) { 
+                    _API.onShowUnauthorized("Servicio de autenticación no disponible<br/>" + ex.message);
+                }
             });
     },
     verifytoken: function (params) {

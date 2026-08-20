@@ -9,7 +9,6 @@ var _F = {
 		return new Promise(
 			function (resolve, reject) {
 				try {
-					_API.telemedicina.isDoctor = 0;
 					if (_API.doctorRequired && _API.telemedicina.isDoctor != 1) {
 						_API.onShowUnauthorized("El usuario autenticado no es un médico.");
 						reject(null);
@@ -224,7 +223,8 @@ var _F = {
 						$(".tIndicaciones").html(data.records[0].indicaciones);
 						$(".tCierreIrregular").html(data.records[0].note_close);
 						$(".tEmail").html(data.records[0].Email);
-						$(".tTelefono").html(data.records[0].Telefono);
+						$(".tTelefono").html(data.records[0].telefono);
+						if (data.records[0].telefono != "") { $(".telApp").html("Telefono desde la app: " + data.records[0].telefono).addClass("badge badge-info");}
 						$(".tEstado").css({ "background-color": "red" });
 						if (data.records[0].Estado == "VIG") { $(".tEstado").css({ "background-color": "lightgreen" }); }
 						$(".tEstado").html(data.records[0].Estado);
@@ -822,6 +822,7 @@ var _F = {
 		});
 	},
 	onDoctorAtencion: function (_this) {
+		_this.hide();
 		_API.onWait(true);
 		var _params = {
 			"idUser": _API.id_user_log,
@@ -830,14 +831,16 @@ var _F = {
 		_API.method("/telemedicina/cambiarestadodoctor", _params).then(function (response) {
 			_API.telemedicina.atendiendo = parseInt(response.records[0].active);
 			_F.onDrawStatusDoctor();
+			_this.show();
 			_API.onWait(false);
 		}).catch(function (error) {
 			alert(error.message);
+			_this.show();
 			_API.onWait(false);
 		});
 	},
 	onUploadReceta: function (_this) {
-		var _message = "";
+		var _message = ""; 
 		var reader = new FileReader();
 		reader.readAsDataURL($(".btnUploadReceta").prop('files')[0]);
 		reader.onload = function () {

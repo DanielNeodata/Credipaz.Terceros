@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="audio\vintage.mp3" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\carpetadigital.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\archivo.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\empresas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\entidadesCesion.html" />
@@ -254,6 +255,7 @@
     <Content Include="Credipaz.AccesoSistemaInterno\js\functions.js" />
     <Content Include="Credipaz.AccesoSistemaInterno\js\loader.js" />
     <Content Include="html\choose.html" />
+    <Content Include="img\test-credipaz.png" />
     <Content Include="js\media.js" />
     <Content Include="js\Neodata\NEOAUTHENTICATION.js" />
     <Content Include="js\Neodata\NEOVIDEO-jvideo1.js" />
