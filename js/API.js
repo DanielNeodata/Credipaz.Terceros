@@ -159,7 +159,7 @@ var _API = {
                     return false;
                 }
                 /*Resuelve la navegación y display de la url de Interfaces */
-                if (!_url.includes("?")) { _url += "?"; }
+                if (!_url.includes("?")) { _url += "?"; } else { _url += "&"; }
                 _url += ("id_user_active=" + _API.id_user_log + "&username=" + _API.username_log + "&id_sucursal=" + _API.id_sucursal + "&sucursal=" + _API.sucursal);
                 var _html = "<iframe id='neoweb_iframe' class='neoweb_iframe' src='" + encodeURI(_url) + "' frameborder='0' style='height:500vh;width:100%;'></iframe>";
                 $(".areaResultado").html(_html).removeClass("d-none");
@@ -362,7 +362,7 @@ var _API = {
     onSucursalChooser: function (_auth) {
         return new Promise(
             function (resolve, reject) {
-                if (!_API.postLogin || _auth.data.details.length == 0) {
+                if (!_API.postLogin || _auth.data.details == undefined || _auth.data.details == null || _auth.data.details.length == 0) {
                     resolve(true);
                     return false;
                 }
