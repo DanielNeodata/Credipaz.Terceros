@@ -138,11 +138,20 @@ var _F = {
 	onBridgeFile: function (_this) {
 		var _mime = _this.attr("data-mime");
 		var _params = { "Key": _this.attr("data-path"), "File": _this.attr("data-fullfilename") };
-		var _url = "/credipaz/archivo";
+		var _url = "/credipaz/archivourl";
 		$(".areaArchivo").addClass("d-none");
 		_API.call(_url, _params).then(function (data) {
-			var _fullmime = "";
-			if (!data.base64.includes("base64,")) { _fullmime = ("data:" + _mime + ";base64,"); }
+			//var _fullmime = "";
+			//if (!data.base64.includes("base64,")) { _fullmime = ("data:" + _mime + ";base64,"); }
+			switch (_mime) {
+				case "application/pdf":
+					$(".areaArchivo").html("<embed type='" + _mime + "' src='" + data.url + "' style='height:850px;width:100%;'/>").removeClass("d-none");
+					break;
+				default:
+					$(".areaArchivo").html("<embed type='" + _mime + "' src='" + data.url + "' style='height:100%;width:100%;'/>").removeClass("d-none");
+					break;
+			}
+			/*
 			switch (_mime) {
 				case "application/pdf":
 					$(".areaArchivo").html("<embed type='" + _mime + "' src='" + _fullmime + data.base64 + "' style='height:850px;width:100%;'/>").removeClass("d-none");
@@ -151,6 +160,7 @@ var _F = {
 					$(".areaArchivo").html("<embed type='" + _mime + "' src='" + _fullmime + data.base64 + "' style='height:100%;width:100%;'/>").removeClass("d-none");
 					break;
 			}
+			*/
 			//$(".areaArchivo").html("<embed type='" + _mime + "' src='" + data.url + "' style='height:850px;width:100%;'/>").removeClass("d-none");
 		});
 	},
