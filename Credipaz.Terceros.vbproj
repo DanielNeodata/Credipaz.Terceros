@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="audio\vintage.mp3" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\archivourl.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\carpetadigital.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\archivo.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\auxiliares\empresas.html" />
