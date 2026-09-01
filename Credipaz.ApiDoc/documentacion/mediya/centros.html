@@ -32,6 +32,12 @@
                             <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Radio en km. del área de volver según valores de latitud y longitud</p></td>
                             <td><span class="badge badge-secondary">opcional</span></td>
                         </tr>
+                        <tr>
+                            <td><b>Buscar</b></td>
+                            <td><input class="form-control" id="search" name="search" type="text" placeholder="Texto a localizar" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="footerEndpoint" style="width:100%;"></div>
@@ -47,6 +53,7 @@
             "longitud": $("#longitud").val(),
             "radio": $("#radio").val(),
             "idTipoCentroMedico": $("#idTipoCentroMedico").val(),
+            "search": $("#search").val(),
         };
         _F.onUiExecute(_json).then(function (data) { });
     });

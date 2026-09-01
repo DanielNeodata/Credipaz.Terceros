@@ -16,13 +16,13 @@
                         </tr>
                         <tr>
                             <td><b>Canal</b></td>
-                            <td><input disabled class="form-control" id="Channel" name="Channel" type="number" placeholder="Canal" value=""/></td>
+                            <td><input class="form-control" id="Channel" name="Channel" type="number" placeholder="Canal" value=""/></td>
                             <td style="width:25%;"><i>string</i><p style="font-size:0.6rem;">Valores posibles <b>FSRV</b></p></td>
                             <td><span class="badge badge-danger">requerido</span></td>
                         </tr>
                         <tr>
                             <td><b>ID tipo de canal</b></td>
-                            <td><input disabled class="form-control" id="Id_type_channel" name="Id_type_channel" type="number" placeholder="Tipo de canal" value="1"/></td>
+                            <td><input class="form-control" id="Id_type_channel" name="Id_type_channel" type="number" placeholder="Tipo de canal" value="1"/></td>
                             <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Valor fijo <b>1</b></p></td>
                             <td><span class="badge badge-danger">requerido</span></td>
                         </tr>
@@ -64,11 +64,10 @@
             "NroDocumento": $("#NroDocumento").val(),
             "Id_type_channel": $("#Id_type_channel").val(),
             "Identificacion": $("#Identificacion").val(),
-            "Currency_request": $("#Currency_request").val(),
-            "Dni_request": $("#Dni_request").val(),
-            "Amount_request": $("#Amount_request").val(),
             "Raw_request": $("#Raw_request").val(),
             "Channel": $("#Channel").val(),
+            "Moneda": $("#Moneda").val(),
+            "Monto": $("#Monto").val(),
         };
         _F.onUiExecute(_json).then(function (data) { });
     });

@@ -1,0 +1,94 @@
+<form>
+    <div class="container-full">
+        <h5 class="apiTitle"></h5>
+        <p>Permite obtener realizar autenticación para aplicaciones móviles.</p>
+        <div class="row">
+            <div class="col-6 shadow pt-2">
+                <table class="table table-borderless hdrEnd"></table>
+                <table class="table table-borderless">
+                    <thead class="thead-light hdrParam"></thead>
+                    <tbody class="bodyParam">
+                        <tr>
+                            <td><b>Id app mobile</b></td>
+                            <td><input class="form-control" id="id_app_mobile" name="id_app_mobile" type="number" placeholder="Id de la aplicación mobile" value=""/></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Campo</b></td>
+                            <td><input class="form-control" id="field" name="field" type="text" placeholder="Nombre del campo" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Valor</b></td>
+                            <td><input class="form-control" id="value" name="value" type="text" placeholder="Valor" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Contraseña</b></td>
+                            <td><input class="form-control" id="password" name="password" type="text" placeholder="Contraseña" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>DNI</b></td>
+                            <td><input class="form-control" id="dni" name="dni" type="number" placeholder="DNI" value="" autocomplete="new-password" /></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Sexo</b></td>
+                            <td><input class="form-control" id="sexo" name="sexo" type="text" placeholder="Sexo" value="" autocomplete="new-password" /></td>
+                            <td style="width:25%;"><i>string</i><p style="font-size:0.6rem;">Valores permitidos: M/F</p></td>
+                            <td><span class="badge badge-danger">requerido</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nombre</b></td>
+                            <td><input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre" value=""/></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Email</b></td>
+                            <td><input class="form-control" id="email" name="email" type="email" placeholder="Email" value="" autocomplete="new-password" /></td>
+                            <td><i>string</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Prefijo telefónico</b></td>
+                            <td><input class="form-control" id="area" name="area" type="number" placeholder="Prefijo telefónico" value="" autocomplete="new-password" /></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                        <tr>
+                            <td><b>Teléfono</b></td>
+                            <td><input class="form-control" id="telefono" name="telefono" type="number" placeholder="Teléfono" value="" autocomplete="new-password" /></td>
+                            <td><i>integer</i></td>
+                            <td><span class="badge badge-secondary">opcional</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footerEndpoint" style="width:100%;"></div>
+            </div>
+            <div class="col-6 p-3 shadow areaAjax"></div>
+        </div>
+    </div>
+</form>
+<script>
+    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
+        var _json = {
+            "id_app_mobile": $("#id_app_mobile").val(),
+            "field": $("#field").val(),
+            "value": $("#value").val(),
+            "password": $("#password").val(),
+            "dni": $("#dni").val(),
+            "sexo": $("#sexo").val(),
+            "email": $("#email").val(),
+            "area": $("#area").val(),
+            "telefono": $("#telefono").val()
+        };
+        _F.onUiExecute(_json).then(function (data) { });
+    });
+</script>
