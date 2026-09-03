@@ -28,12 +28,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "dni": $("#dni").val(),
-            "sexo": $("#sexo").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

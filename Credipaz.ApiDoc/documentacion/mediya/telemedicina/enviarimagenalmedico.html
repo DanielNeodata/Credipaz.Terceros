@@ -14,7 +14,6 @@
                             <td><i>integer</i></td>
                             <td><span class="badge badge-secondary">opcional</span></td>
                         </tr>
-
                         <tr>
                             <td><b>Datos crudos</b></td>
                             <td><input class="form-control" id="Raw_data" name="Raw_data" type="text" placeholder="Datos crudos" value=""/></td>
@@ -29,12 +28,3 @@
         </div>
     </div>
 </form>
-<script>
-$("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-    var _json = {
-            "idChargeCode": $("#idChargeCode").val(),
-            "Raw_data": $("#Raw_data").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

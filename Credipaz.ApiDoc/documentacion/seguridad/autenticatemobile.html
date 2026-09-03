@@ -76,19 +76,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "id_app_mobile": $("#id_app_mobile").val(),
-            "field": $("#field").val(),
-            "value": $("#value").val(),
-            "password": $("#password").val(),
-            "dni": $("#dni").val(),
-            "sexo": $("#sexo").val(),
-            "email": $("#email").val(),
-            "area": $("#area").val(),
-            "telefono": $("#telefono").val()
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

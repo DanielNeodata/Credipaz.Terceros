@@ -132,9 +132,13 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\iniciarTransaccionPago.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\resumenTarjeta.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\segmentosDeuda.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\obtenerUserAreas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\credenciales.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\especialidades.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\imagenbeneficio.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\obtenerrecetas.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\obtenercomprobantes.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\estadocolaatencion.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\estadosolicitudmobile.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabaratencion.html" />

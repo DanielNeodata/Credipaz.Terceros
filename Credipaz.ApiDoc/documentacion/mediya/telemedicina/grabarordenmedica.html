@@ -46,15 +46,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "idUser": $("#idUser").val(),
-            "idChargeCode": $("#idChargeCode").val(),
-            "carbonCopy": $("#carbonCopy").val(),
-            "Message": $("#Message").val(),
-            "Raw_data": $("#Raw_data").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

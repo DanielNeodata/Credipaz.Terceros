@@ -40,14 +40,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "idSocio": $("#idSocio").val(),
-            "idChargeCode": $("#idChargeCode").val(),
-            "idTypeDirection": $("#idTypeDirection").val(),
-            "idTypeItem": $("#idTypeItem").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

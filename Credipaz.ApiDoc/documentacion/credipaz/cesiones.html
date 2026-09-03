@@ -10,7 +10,7 @@
                     <tbody class="bodyParam">
                         <tr>
                             <td><b>Entidad</b></td>
-                            <td><input class="form-control" id="idEntidad" name="idEntidad" type="number" placeholder="Entidad" value=""/></td>
+                            <td><input class="form-control" id="IdEntidad" name="IdEntidad" type="number" placeholder="Entidad" value=""/></td>
                             <td style="width:25%;"><i>integer</i><p style="font-size:0.6rem;">Tomar valor a enviar de <b>credipaz/auxiliares/entidadescesion</b></p></td>
                             <td><span class="badge badge-danger">requerido</span></td>
                         </tr>
@@ -22,11 +22,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "IdEntidad": $("#idEntidad").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

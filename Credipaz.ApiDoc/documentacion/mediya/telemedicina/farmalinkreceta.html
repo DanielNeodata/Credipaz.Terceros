@@ -64,18 +64,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "idUser": $("#idUser").val(),
-            "idChargeCode": $("#idChargeCode").val(),
-            "dni": $("#dni").val(),
-            "sexo": $("#sexo").val(),
-            "nombre": $("#nombre").val(),
-            "apellido": $("#apellido").val(),
-            "panswiss": $("#panswiss").val(),
-            "fechaNacimiento": $("#fechaNacimiento").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

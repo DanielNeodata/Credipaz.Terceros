@@ -82,21 +82,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "id_socio": $("#id_socio").val(),
-            "id_tipo_adicional": $("#id_tipo_adicional").val(),
-            "nombre": $("#nombre").val(),
-            "apellido": $("#apellido").val(),
-            "dni": $("#dni").val(),
-            "sexo": $("#sexo").val(),
-            "email": $("#email").val(),
-            "area": $("#area").val(),
-            "telefono": $("#telefono").val(),
-            "fechaNacimiento": $("#fechaNacimiento").val(),
-            "id_parentesco": $("#id_parentesco").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

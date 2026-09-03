@@ -34,13 +34,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "Cuenta": $("#Cuenta").val(),
-            "iYear": $("#iYear").val(),
-            "iMonth": $("#iMonth").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

@@ -22,11 +22,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "id_empresa": $("#id_empresa").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

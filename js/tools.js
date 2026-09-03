@@ -138,7 +138,7 @@ var _T = {
         if (!_ret) { _API.log("formatValidation, elemento en FALSE", property); }
         return _ret;
     },
-    getFormValues: function (_selector, _this) {
+    getFormValues: function (_selector) {
         try {
             var _jsonSave = {};
             $(_selector).each(function () {

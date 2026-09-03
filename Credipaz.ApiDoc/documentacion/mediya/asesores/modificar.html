@@ -76,20 +76,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "idAsesor": $("#id_asesor").val(),
-            "username": $("#username").val(),
-            "password": $("#password").val(),
-            "dni": $("#dni").val(),
-            "sexo": $("#sexo").val(),
-            "area": $("#area").val(),
-            "telefono": $("#telefono").val(),
-            "nombre": $("#nombre").val(),
-            "apellido": $("#apellido").val(),
-            "email": $("#email").val(),
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

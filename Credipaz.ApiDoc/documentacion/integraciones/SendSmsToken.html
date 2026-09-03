@@ -62,17 +62,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "IdCliente": $("#IdCliente").val(),
-            "NroDocumento": $("#NroDocumento").val(),
-            "Sexo": $("#Sexo").val(),
-            "email": $("#email").val(),
-            "area": $("#area").val(),
-            "telefono": $("#telefono").val(),
-            "token": $("#token").val()
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>

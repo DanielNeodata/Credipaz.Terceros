@@ -10,7 +10,7 @@
                     <tbody class="bodyParam">
                         <tr>
                             <td><b>ID socio</b></td>
-                            <td><input class="form-control" id="id_socio" name="id_socio" type="number" placeholder="ID socio" value="" /></td>
+                            <td><input class="form-control" id="idSocio" name="idSocio" type="number" placeholder="ID socio" value="" /></td>
                             <td><i>integer</i></td>
                             <td><span class="badge badge-danger">requerido</span></td>
                         </tr>
@@ -190,39 +190,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
-        var _json = {
-            "idSocio": $("#id_socio").val(),
-            "nombre": $("#nombre").val(),
-            "apellido": $("#apellido").val(),
-            "dni": $("#dni").val(),
-            "sexo": $("#sexo").val(),
-            "email": $("#email").val(),
-            "area": $("#area").val(),
-            "telefono": $("#telefono").val(),
-            "fechaNacimiento": $("#fechaNacimiento").val(),
-            "id_nacionalidad": $("#id_nacionalidad").val(),
-            "id_estado_civil": $("#id_estado_civil").val(),
-            "id_ocupacion": $("#id_ocupacion").val(),
-            "cuil": $("#cuil").val(),
-            "calle": $("#calle").val(),
-            "numeroPuerta": $("#numeroPuerta").val(),
-            "piso": $("#piso").val(),
-            "departamento": $("#departamento").val(),
-            "torre": $("#torre").val(),
-            "codigoPostal": $("#codigoPostal").val(),
-            "provincia": $("#provincia").val(),
-            "localidad": $("#localidad").val(),
-            "id_modo_pago": $("#id_modo_pago").val(),
-            "identificacion": $("#identificacion").val(),
-            "marca": $("#marca").val(),
-            "pan": $("#pan").val(),
-            "panSocio": $("#panSocio").val(),
-            "nombreEnTarjeta": $("#nombreEnTarjeta").val(),
-            "mesVencimiento": $("#mesVencimiento").val(),
-            "anioVencimiento": $("#anioVencimiento").val()
-        };
-        _F.onUiExecute(_json).then(function (data) { });
-    });
-</script>
