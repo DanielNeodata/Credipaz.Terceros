@@ -116,6 +116,11 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\cedidos.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\cesiones.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\consultarEstadoTransaccionPago.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\obtenerFormulario.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\firmarFormulario.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\grabarRequest.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\finalVerificacion.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\obtenerRequest.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalAdicional.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalFechasImportantes.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCabalLimites.html" />
@@ -133,10 +138,12 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\resumenTarjeta.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\segmentosDeuda.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\obtenerUserAreas.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\finalRequest.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\tokenizarTarjeta.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\credenciales.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\especialidades.html" />
-    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\imagenbeneficio.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\imagenbeneficio.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\obtenerrecetas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\obtenercomprobantes.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\estadocolaatencion.html" />

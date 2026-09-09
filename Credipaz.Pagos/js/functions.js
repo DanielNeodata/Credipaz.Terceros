@@ -241,7 +241,7 @@ var _F = {
 				try {
 					var hostURI = _API.branchConfiguration.URL_NOTIFY;
 					var transactionNotificationURL = _API.branchConfiguration.URL_NOTIFY;
-					var txndatetime = _API.getToday();
+					var txndatetime = _API.tools.getToday();
 					var currency = "032";
 					var chargetotal = _API.tools.formatChargeTotal(values.total.toString());
 					if (values.itemsPagos == undefined || values.itemsPagos == null || values.itemsPagos.length == 0) {
