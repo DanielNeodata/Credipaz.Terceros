@@ -2,8 +2,10 @@
 var _F = {
 	/* VARIABLES ACCESIBLES EN TODA LA RAMA VA OBETO _F */
 	_itemsPagos: [],
+	_showLink:false,
 	_TMR_PAY_BOTONPAGO: 0,
 	DNI: "",
+	_segmentos:"",
 
 	/* FUNCION DE INICIALIZACION */
 	onInit: function () {
@@ -58,6 +60,9 @@ var _F = {
 		return new Promise(
 			function (resolve, reject) {
 				try {
+				    /*Asignación de segmentos recibidos via url*/
+					_F._showLink = false;
+					if (_API.urlParameters["segmentos"] != undefined) { _F._segmentos = _API.urlParameters["segmentos"]; }
 					/*Automatización de acceso con dni en el parametro code de la url */
 					if (_API.urlParameters["code"] != undefined) {
 						$(".headerImage").addClass("d-none");
@@ -74,17 +79,31 @@ var _F = {
 						$(".headerImage").remove();
 						$(".areaSelector").remove();
 					} else {
-						if (_API.urlParameters["data"] != undefined) {
-							var _data = decodeURIComponent(_API.urlParameters["data"].toString());
-							var _json = JSON.parse(_API.tools.b64_to_string(_data));
-							/*Verify id_user & token*/
-							_API.verifytoken(_json).then(function (verify) {
+                        /*Evaluar si viene de sitio publico donde se va a pedir el dni*/
+						if (_API.urlParameters["etsi"] != undefined) {
+							var _etsi = decodeURIComponent(_API.urlParameters["etsi"].toString());
+							_API.log("ETSI->", _API.tools.b64_to_string(_etsi) + " " + _API._ROOT);
+							if (_API._ROOT == _API.tools.b64_to_string(_etsi)) {
 								$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
-							}).catch(function (err) {
+							} else {
 								_API.onShowUnauthorized("Verificaciones no aprobadas.");
-							});
+							}
 						} else {
-							_API.onShowUnauthorized("Parámetros no enviados.");
+                            /*Si es link de acceso desde la red interna o via vpn*/ 
+							if (_API.urlParameters["data"] != undefined) {
+								_F._showLink = true;
+								var _data = decodeURIComponent(_API.urlParameters["data"].toString());
+								_API.log("DATA->", _data);
+								var _json = JSON.parse(_API.tools.b64_to_string(_data));
+								/*Verify id_user & token*/
+								_API.verifytoken(_json).then(function (verify) {
+									$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
+								}).catch(function (err) {
+									_API.onShowUnauthorized("Verificaciones no aprobadas.");
+								});
+							} else {
+								_API.onShowUnauthorized("Parámetros no enviados.");
+							}
 						}
 					}
 					resolve(null);
@@ -101,12 +120,17 @@ var _F = {
 					if (!_API.tools.validate(".validateFirst", false)) { throw null; }
 					_this.fadeOut("fast");
 					_F.DNI = $(".Documento").val();
-					var data = { "NroDocumento": _F.DNI };
+					var data = { "NroDocumento": _F.DNI, "Segmentos": _F._segmentos };
 					_API.method("credipaz/segmentosDeuda", data)
 						.then(function (response) {
 							$(".divIFrame").addClass("d-none");
 							if (response.estado == "OK") {
 								$(".areaResultado").html(response.html).removeClass("d-none");
+								if (_F._showLink) {
+									$(".myInput").val(("https://pagos.mediya.com.ar?code=" + encodeURIComponent(_API.tools.string_to_b64(_F.DNI))));
+									var _btnLink = "<a href='#' class='btn bt-raised btn-sm btn-primary btn-raised btn-copyClip' data-source='myInput'><i class='material-symbols-outlined'>share</i> Copiar Link de pago</a>";
+									$(".areaResultado").prepend(_btnLink);
+								}
 								var element = document.getElementById('otro_monto');
 								if (element != null) {
 									var maskOptions = { mask: Number, scale: 2, thousandsSeparator: '.', padFractionalZeros: true, normalizeZeros: true, radix: ',', mapToRadix: ['.'], min: 0, max: 999999999, autofix: true, };

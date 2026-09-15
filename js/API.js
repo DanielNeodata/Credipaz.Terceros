@@ -161,7 +161,7 @@ var _API = {
                 /*Resuelve la navegación y display de la url de Interfaces */
                 if (!_url.includes("?")) { _url += "?"; } else { _url += "&"; }
                 _url += ("id_user_active=" + _API.id_user_log + "&username=" + _API.username_log + "&id_sucursal=" + _API.id_sucursal + "&sucursal=" + _API.sucursal);
-                var _html = "<iframe id='neoweb_iframe' class='neoweb_iframe' src='" + encodeURI(_url) + "' frameborder='0' style='height:500vh;width:100%;'></iframe>";
+                var _html = "<iframe id='neoweb_iframe' class='neoweb_iframe' src='" + encodeURIComponent(_url) + "' frameborder='0' style='height:500vh;width:100%;'></iframe>";
                 $(".areaResultado").html(_html).removeClass("d-none");
                 setTimeout(function () { _API.onWait(false); }, 500);
                 break;
@@ -354,9 +354,12 @@ var _API = {
             response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
             response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
             var _encoded_authentication_data = { "Id_user": _API.id_user_log, "Token": _API.authentication.data.token_authentication, "Id_app": data.id_app };
-            response.html = response.html.replaceAll("[ENCODED_AUTHENTICATION_DATA]", encodeURI(_API.tools.string_to_b64(JSON.stringify(_encoded_authentication_data))));
+            response.html = response.html.replaceAll("[ENCODED_AUTHENTICATION_DATA]", encodeURIComponent(_API.tools.string_to_b64(JSON.stringify(_encoded_authentication_data))));
             $(_target).html(response.html).removeClass("d-none");
+            /*Setea el color del menú de acuerdo a la configuración de la rama*/
             if (_API.branchConfiguration.menuColor != "") { $(".itemMenu").addClass(_API.branchConfiguration.menuColor); }
+            /*Remueve items del menú que aún apuntan al esquema PHP de acceso a models y controllers*/
+            $(".deprecated").remove();
         });
     },
     onSucursalChooser: function (_auth) {
