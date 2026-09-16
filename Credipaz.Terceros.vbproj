@@ -288,7 +288,6 @@
     <Content Include="img\clubredondo.png" />
     <Content Include="img\credipaz.png" />
     <Content Include="img\mediya.png" />
-    <Content Include="img\wait.gif" />
     <Content Include="index.css" />
     <Content Include="index.js" />
     <Content Include="index.html" />

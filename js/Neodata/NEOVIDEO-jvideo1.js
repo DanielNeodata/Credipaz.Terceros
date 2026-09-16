@@ -606,7 +606,6 @@ var _NEOVIDEO = {
 									$(".splash").remove();
 									$(".login").remove();
 									$(".main").remove();
-									$(".deprecated").removeClass("d-none").fadeIn("fast");
 								}
 								reject(datajson);
 							}

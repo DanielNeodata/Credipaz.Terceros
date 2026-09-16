@@ -125,9 +125,9 @@ var _F = {
 						.then(function (response) {
 							$(".divIFrame").addClass("d-none");
 							if (response.estado == "OK") {
-								$(".areaResultado").html(response.html).removeClass("d-none");
+								_API.onLoadAreaResultado(response.html);
 								if (_F._showLink) {
-									$(".myInput").val(("https://pagos.mediya.com.ar?code=" + encodeURIComponent(_API.tools.string_to_b64(_F.DNI))));
+									$(".myInput").val(("https://pagos.mediya.com.ar?segmentos="+_F._segmentos+"&code=" + encodeURIComponent(_API.tools.string_to_b64(_F.DNI))));
 									var _btnLink = "<a href='#' class='btn bt-raised btn-sm btn-primary btn-raised btn-copyClip' data-source='myInput'><i class='material-symbols-outlined'>share</i> Copiar Link de pago</a>";
 									$(".areaResultado").prepend(_btnLink);
 								}

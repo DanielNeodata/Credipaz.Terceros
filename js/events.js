@@ -10,6 +10,9 @@ $("body").off("click", ".itemMenu").on("click", ".itemMenu", function () {
 $("body").off("click", ".itemSubMenu").on("click", ".itemSubMenu", function () {
     _API.onClickSubMenu($(this));
 });
+$("body").off("click", ".directLink").on("click", ".directLink", function () {
+    _API.onDirectLink($(this));
+});
 
 /*Evento ok por default de las ventanas modal*/
 $("body").off("click", ".btn-ok-modal").on("click", ".btn-ok-modal", function () {
@@ -63,4 +66,9 @@ $("body").off("click", ".btnSearchCliente").on("click", ".btnSearchCliente", fun
 /*Evento para acceso a la configuración del usuario*/
 $("body").off("click", ".btnSettings").on("click", ".btnSettings", function () {
     _API.onSettings($(this));
+});
+
+/*Evento para ver el detalle completo de la notificación*/
+$("body").off("click", ".btnVerNotificacion").on("click", ".btnVerNotificacion", function () {
+    _F.onVerNotificacion($(this));
 });

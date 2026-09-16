@@ -3,31 +3,44 @@
     <audio autoplay id='ringerAlertas' class='d-none'><source src='' type='audio/mpeg'></audio>
     <div class="row p-0 m-0 mt-1">
         <div class="col-2 p-0 pl-1">
-            <img src="" class="logoImage img-thumbnail shadow-sm mb-1" style="width:100%;"/>
+            <div class="card shadow-sm p-1 m-0 areaLogo">
+                <img src="" class="logoImage mx-auto d-block" style="height:30px;"/>
+            </div>
+            <div class="card shadow-sm p-1 my-1 mt-2 areaUser">
+                <table class="table table-sm table-condensed table-borderless p-0 m-0">
+                    <tr class="p-0 m-0">
+                        <td class="p-0 m-0"><label>Usuario activo:</label></td><td class="p-0 m-0"><span class="badge badge-light badgeUsername" style="display:inline;"></span></td>
+                    </tr>
+                    <tr class="p-0 m-0">
+                        <td class="p-0 m-0"><label>Presente en:</label></td><td class="p-0 m-0"><span class="badge badge-light badgeSucursal" style="display:inline;"></span></td>
+                    </tr>
+                </table>
+            </div>
             <div class="card shadow-sm p-1 my-1 areaDoctor d-none">
-                <a href="#" data-action="pause" class="btnDoctorAtencion btn btn-sm mb-2"></a>
-                <div class="row">
-                    <div class="col-9">
+                <div class="row p-0 m-0">
+                    <div class="col-9 p-0 m-0">
+                        <a href="#" data-action="pause" class="btnDoctorAtencion btn btn-sm mb-2 btn-block"></a>
                         <span class="badge badge-light doctorName" style="display:block;"></span>
                         <span class="badge badge-light doctorMatricula" style="display:block;"></span>
+                        <span class="badge badge-dark enEspera blink" style="display:block;">...conectando</span>
+                        <span class="badge badge-info conDemora d-none mt-1" style="display:block;"></span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 p-0 m-0 my-auto pl-1">
                        <img class="doctorFirma shadow-sm p-1" style="width:100%;"/>
                     </div>
                 </div>
-                <span class="badge badge-dark enEspera blink" style="display:block;">...conectando</span>
-                <span class="badge badge-info conDemora d-none mt-1" style="display:block;"></span>
             </div>
             <div class="areaMenu"></div>
         </div>
         <div class="col-10 p-0 pl-1">
-            <div class="container-full areaStatus blink text-right p-1 mb-1 shadow-sm">
-                <span class="badge badge-light badgeUsername" style="display:inline;"></span>
-                <span class="badge badge-light badgeSucursal" style="display:inline;"></span>
-
-                <a href="#" class="btn btn-dark btn-sm btnSettings m-0 p-1"><span class="material-symbols-outlined" style="font-size: 1rem;">settings</span></a>
-                <a href="#" class="btn btn-danger btn-sm btnLogout m-0 p-1"><span class="material-symbols-outlined" style="font-size: 1rem;">logout</span></a>
-
+            <div class="container-full areaStatus blink text-right p-1 mb-1 shadow-sm" style="height:38px;max-height:38px;">
+                <div class="row p-0 m-0">
+                    <div class="col-10 p-1 text-left areaNews"></div>
+                    <div class="col-2">
+                        <a href="#" class="btn btn-dark btn-sm btnSettings m-0 p-1"><span class="material-symbols-outlined" style="font-size: 1rem;">settings</span></a>
+                        <a href="#" class="btn btn-danger btn-sm btnLogout m-0 p-1"><span class="material-symbols-outlined" style="font-size: 1rem;">logout</span></a>
+                    </div>
+                </div>
             </div>
             <div class="container-full areaResultado d-none"></div>
         </div>

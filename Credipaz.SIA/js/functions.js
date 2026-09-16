@@ -17,7 +17,6 @@ var _F = {
 							$(".qspacer").addClass("d-none");
 							$(".qfunc").removeClass("col-2");
 							$(".qfunc").addClass("col-4");
-							//$(".areaDatos").css({ "style": "100%" });
 						}
 						else {
 							$(".img2").attr("src", _API._ROOT + "/img/logo.png");
@@ -25,7 +24,6 @@ var _F = {
 							$(".qfunc").removeClass("col-4");
 							$(".qfunc").addClass("col-2");
 							$(".qfunc").addClass("col-4");
-							//$(".areaResultado").css({ "style": "50%" });
 						}
 						$(".img3").attr("src", _API._ROOT + "/img/clubredondo.png");
 						// Carga imagen de botones
@@ -113,7 +111,7 @@ var _F = {
 				_html += "<tr><td align=center><b>" + msg.records[0].Nombre + "</b></td><td align=center><b>" + msg.records[0].NroAutorizacion + "</b></td></tr>";
 				_html += "</table>";
 				$(".qhr").html("<hr />");
-				$(".areaResultado").html(_html);
+				_API.onLoadAreaResultado(_html);
 				$(".btnBuscarAutorizacion").fadeIn();
 			})
 			.catch(function (retError) {

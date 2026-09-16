@@ -41,6 +41,50 @@ var _API = {
     },
 
     /* Funciones de ventanas poup y alertas */
+    onWait: function (_on) {
+        return new Promise(
+            function (resolve, reject) {
+                try {
+                    if (_on) {
+                        $.blockUI({ message: '<div class="spinner-grow spinner-grow-lg text-info" role="status"></div>', css: { border: 'none', backgroundColor: 'transparent', opacity: 1, color: 'transparent' } });
+                        $(".blockOverlay").css({ "z-index": 9999999, "opacity": 0.5 });
+                        $(".blockPage").css({ "z-index": 9999999, "opacity": 0.5 });
+                    } else {
+                        _API.onSpinner(null, false);
+                        $.unblockUI();
+                    }
+                    resolve(true);
+                } catch (ex) {
+                    reject(ex);
+                }
+            });
+    },
+    onSpinner: function (_this, _on) {
+        return new Promise(
+            function (resolve, reject) {
+                try {
+                    if (_on) {
+                        _this.append("<div class='spnBtn spinner-border text-dark' role='status' style='position:absolute;right:5px;display:inline;'></div>");
+                    } else {
+                        $(".spnBtn").remove();
+                    }
+                    resolve(true);
+                } catch (ex) {
+                    reject(ex);
+                }
+            });
+    },
+    onGotoPosY: function (_posY) {
+        return new Promise(
+            function (resolve, reject) {
+                try {
+                    document.body.scrollTop = document.documentElement.scrollTop = _posY;
+                    resolve(true);
+                } catch (ex) {
+                    reject(ex);
+                }
+            });
+    },
     onAlert: function (_json) {
         try {
             clearTimeout(_API._TIMER_ALERT);
@@ -131,16 +175,20 @@ var _API = {
         $("body").addClass("modal-open");
         $("#" + $(".modal").attr("id")).fadeIn("fast");
     },
+    onLoadAreaResultado: function (_html) {
+        $(".areaResultado").hide().html(_html).removeClass("d-none").fadeIn("fast");
+        _API.onGotoPosY(0).then(function () { _API.onWait(false); });
+    },
     
     /* Funciones de acciones sobre menues y entorno */
     onClickMenu: function (_this) {
-        _this.parent().addClass("blink");
-        setTimeout(function () { _this.parent().removeClass("blink"); }, 1000);
+        _this.addClass("blink");
+        setTimeout(function () {
+            _this.removeClass("blink");
+        }, 1000);
     },
     onClickSubMenu: async function (_this) {
-        _API.onWait(true);
-        _this.addClass("blink");
-        setTimeout(function () { _this.removeClass("blink"); }, 1000);
+        _API.onWait(true).then(function () { _API.onSpinner(_this, true); });
         switch (_this.attr("data-mode")) {
             case "interfaces":
                 var _url = _this.attr("data-url");
@@ -162,16 +210,25 @@ var _API = {
                 if (!_url.includes("?")) { _url += "?"; } else { _url += "&"; }
                 _url += ("id_user_active=" + _API.id_user_log + "&username=" + _API.username_log + "&id_sucursal=" + _API.id_sucursal + "&sucursal=" + _API.sucursal);
                 var _html = "<iframe id='neoweb_iframe' class='neoweb_iframe' src='" + encodeURI(_url) + "' frameborder='0' style='height:500vh;width:100%;'></iframe>";
-                $(".areaResultado").html(_html).removeClass("d-none");
-                setTimeout(function () { _API.onWait(false); }, 500);
+                setTimeout(function () { _API.onLoadAreaResultado(_html); }, 1000);
+                break;
+            default:
+                setTimeout(function () { 
+                    _API.onGotoPosY(0).then(function () { _API.onSpinner(null, false); });
+                }, 2000);
                 break;
         }
     },
+    onDirectLink: function (_this) { 
+        _API.onGotoPosY(0);
+        _API.onWait(true);
+        _API.onSpinner(_this, true);
+        setTimeout(function () { _API.onSpinner(null, false); _API.onWait(false); }, 1000);
+    },
+
     onLoginReturn: function (_this, key) {
         var keyCode = (key.keyCode || key.which);
-        if (keyCode === 13) {
-            $(".btn-AuthenticateExternal").click();
-        }
+        if (keyCode === 13) { $(".btn-AuthenticateExternal").click(); }
     },
     onLogout: function (_this) {
         var _html = "<h4 class='pl-2 magenta msgOut blink'></h4>";
@@ -189,15 +246,6 @@ var _API = {
     },
 
     /* Funciones con interface específica */
-    onWait: function (_on) {
-        if (_on) {
-            $.blockUI({ message: '<img src="/img/wait.gif" />', css: { border: 'none', backgroundColor: 'transparent', opacity: 1, color: 'transparent' } });
-            $(".blockOverlay").css({ "z-index": 9999999 });
-            $(".blockPage").css({ "z-index": 9999999 });
-        } else {
-            $.unblockUI();
-        }
-    },
     onSettings: async function (_this) {
         _API.onWait(true);
         var _html = "";
@@ -380,7 +428,7 @@ var _API = {
                         $(".btn-cancel-modalall").remove();
                         $("#modalSelectSucursal").css({ "top": "200px" });
                         $("body").off("click", ".btnSelectSucursal").on("click", ".btnSelectSucursal", function () {
-                            $(this).hide();
+                            $(this).prop("disabled", true).addClass("disabled");
                             _API.id_sucursal = $(this).attr("data-id");
                             _API.sucursal = $(this).attr("data-name");
                             _API.onDestroyModal("#modalSelectSucursal");
@@ -584,9 +632,12 @@ var _API = {
         return new Promise(
             function (resolve, reject) {
                 try {
+                    _this.prop("disabled", true).addClass("disabled");
                     /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
-                    if (!_API.tools.validate(".validateLogin", false)) { return false; }
-                    _this.hide();
+                    if (!_API.tools.validate(".validateLogin", false)) { 
+                        _this.prop("disabled", false).removeClass("disabled");
+                        return false;
+                    }
                     var data = {
                         "id_user": _API.authentication.data.id,
                         "token_authentication": _API.authentication.data.token_authentication,
@@ -613,8 +664,8 @@ var _API = {
                                 _API.onShowUnauthorized(response.message);
                             } else {
                                 /* Selector de sucursales, ver de controlar si se solicita o no */
+                                _API.onDestroyModal("#modalLogin");
                                 _API.onSucursalChooser(response).then(function (_ret) {
-                                    _API.onDestroyModal("#modalLogin");
                                     /* Si pasa la autenticación ok, destruye el modal y ejecuta el loader */
                                     _API.loaderFile(_API.configuration.fileLoader).then(function () {
                                         _API.logStatus();

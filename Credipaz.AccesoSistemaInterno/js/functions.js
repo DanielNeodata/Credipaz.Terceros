@@ -24,6 +24,10 @@ var _F = {
 							_API._TIMER_ALERT = setInterval(function () { _F.onEstadoColaAtencion(); }, 10000);
 							_F.onDrawStatusDoctor();
 							_API.onMenuIntranet(".areaMenu");
+
+							_F.onNotificaciones();
+							setInterval(function () { F.onNotificaciones(); }, 600000);
+
 							resolve(null);
 						});
 					}
@@ -59,7 +63,7 @@ var _F = {
 		_html += "<div class='col-5 areaResultado-2 p-1 shadow-sm'></div>";
 		_html += "<div class='col-5 areaResultado-3 p-1 shadow-sm'></div>";
 		_html += "</div>";
-		$(".areaResultado").html(_html).removeClass("d-none");
+		_API.onLoadAreaResultado(_html);
 		_F.onBuildArea(1, "En Espera");
 		_F.onBuildArea(2, "Siendo atendidos");
 		_F.onBuildArea(3, "Últimas atenciones");
@@ -77,7 +81,7 @@ var _F = {
 				} else {
 					_html = _API.onNoTablaForTable("");
 				}
-				$(".areaResultado").html(_html).removeClass("d-none");
+				_API.onLoadAreaResultado(_html);
 			});
 	},
 	onConsultas: function (_this) {
@@ -100,10 +104,42 @@ var _F = {
 				} else {
 					_html = _API.onNoTablaForTable("");
 				}
-				$(".areaResultado").html(_html).removeClass("d-none");
+				_API.onLoadAreaResultado(_html);
 			});
 	},
 
+	onNotificaciones: function () {
+		$.fn.ticker.defaults = {
+			random: false,itemSpeed: 5000,
+			cursorSpeed: 50,
+			pauseOnHover: true,
+			finishOnHover: false,
+			cursorOne: '_',
+			cursorTwo: '-',
+			fade: true,
+			fadeInSpeed: 1000,
+			fadeOutSpeed: 500
+		};
+		var _html = "<div class='ticker text-left p-0 m-0'>";
+		_html += "<b class='pr-1'>Notificaciones:</b>";
+		_html += "<ul>";
+		_html += "<li>Ticker item #1 <a href='#' class='btn btn-sm btn-primary btnVerNotificacion p-0 m-0 px-1' data-html='Detalles de la notificación'>ver más</a></li>";
+		_html += "<li>Ticker item #2</li>";
+		_html += "<li>Ticker item #3</li>";
+		_html += "</ul>";
+		_html += "</div>";
+		$(".areaNews").html(_html);
+
+		$('.ticker').ticker();
+	},
+	onVerNotificacion: function (_this) {
+		var _html = _this.attr("data-html");
+		_API.onShowModal("modalNotificacion", "Detalle de la notificación", _html, "modal-lg").then(function (_ret) {
+			$(".wfooter").remove();
+		    $(".btn-cancel-modal").html("X");
+			$(".btn-cancel-modal").attr("data-modal", "modalNotificacion");
+		});
+	},
 	onCancelTelemedicina: function (_this) {
 		if (!confirm("Se cancelará la atención seleccionada. ¿Confirma?")) { return false; }
 		_API.onWait(true);

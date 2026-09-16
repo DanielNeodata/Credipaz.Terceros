@@ -77,34 +77,6 @@ var _F = {
 							// No es necesario filtrar
 							const orderedList = response.data.sort((a, b) => a.fFecha - b.fFecha);
 							if (orderedList.length > 1) {
-								console.log(orderedList);
-/*
-								_qstr = "";
-								_qstr += "<div class='form-group'>\n";
-								_qstr += "<table class='table-striped table-hover table-responsive dataTable table-sm'>\n";
-								_qstr += "<thead class='p-1 mb-1 bg-primary text-white'>\n";
-								_qstr += "<tr>\n";
-								_qstr += "<th class='col-2'>Fecha</th>\n";
-								_qstr += "<th class='col-2'>DNI</th>\n";
-								_qstr += "<th class='col-2'>Titular</th>\n";
-								_qstr += "<th class='col-4'></th>\n";
-								_qstr += "</tr>\n";
-								_qstr += "</thead>\n";
-								_qstr += "<tbody>\n";
-								orderedList.forEach((obj, index) => {
-									_qstr += "<tr>\n";
-									_qstr += "<td class='col-2'><small>" + obj.fFecha + "</small></td>\n";
-									_qstr += "<td class='col-2'><small>" + obj.NroDocumento + "</small></td>\n";
-									_qstr += "<td class='col-2'><small>" + obj.Nombre + "</small></td>\n";
-									//_qstr += "<td class='col-4'><small>" + "<a class='btnCarpetaDigital btn btn-dark btn-sm' data-idrequest='" + obj.idRequest + "' data-dni='" + obj.NroDocumento + "' data-segmento='1557023' data-idtransaccion='" + obj.idTransaccion + "' href='#'>Informes</a>" + "</small></td>\n";
-									_qstr += "<td class='col-4'><small>" + obj.fInformes + "</small></td>\n";
-									_qstr += "</tr>\n";
-								});
-								_qstr += "</tbody>\n";
-								_qstr += "</table>\n";
-								_qstr += "</div>\n";
-								//console.log("Cesiones: " + _qstr);
-*/
 								var vHeaders = [];
 								var vColumns = [];
 								var vRules = [];
@@ -114,17 +86,7 @@ var _F = {
 							} else {
 								_qstr = _API.onNoTablaForTable("<b>No se encontraron créditos cedidos en la fecha</b>");
 							}
-/*
-							}
-							else {
-								_qstr = "";
-								_qstr += "<p class='lead' style='color:blue'>\n";
-								_qstr += "<b>No se encontraron créditos cedidos en la fecha</b>\n";
-								_qstr += "</p>\n";
-								_qstr += "</div>\n";
-							}
-*/
-							$(".areaResultado").html(_qstr).removeClass("d-none");
+							_API.onLoadAreaResultado(_qstr);
 						}
 					});
 					resolve(null);

@@ -11,7 +11,7 @@ var _F = {
 						_API.call("production/documentationinterface", data).then(function (response) {
 							response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
 							response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
-							$(".areaResultado").html(response.html).removeClass("d-none");
+							_API.onLoadAreaResultado(response.html);
 						});
 						resolve(null);
 					});
