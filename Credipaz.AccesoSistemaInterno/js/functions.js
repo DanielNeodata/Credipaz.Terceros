@@ -110,33 +110,48 @@ var _F = {
 
 	onNotificaciones: function () {
 		$.fn.ticker.defaults = {
-			random: false,itemSpeed: 5000,
-			cursorSpeed: 50,
+			random: false,
+			itemSpeed: 10000,
+			cursorSpeed: 10,
 			pauseOnHover: true,
 			finishOnHover: false,
 			cursorOne: '_',
-			cursorTwo: '-',
+			cursorTwo: '<div class="spinner-grow spinner-grow-sm text-dark" role="status"></div>',
 			fade: true,
-			fadeInSpeed: 1000,
-			fadeOutSpeed: 500
+			fadeInSpeed: 5000,
+			fadeOutSpeed: 1500
 		};
-		var _html = "<div class='ticker text-left p-0 m-0'>";
-		_html += "<b class='pr-1'>Notificaciones:</b>";
-		_html += "<ul>";
-		_html += "<li>Ticker item #1 <a href='#' class='btn btn-sm btn-primary btnVerNotificacion p-0 m-0 px-1' data-html='Detalles de la notificación'>ver más</a></li>";
-		_html += "<li>Ticker item #2</li>";
-		_html += "<li>Ticker item #3</li>";
-		_html += "</ul>";
-		_html += "</div>";
-		$(".areaNews").html(_html);
-
-		$('.ticker').ticker();
+		_API.call("/credipaz/notificacionesIntranet", {}).then(function (_notif) {
+			var _html = "<div class='ticker text-left p-0 m-0'>";
+			_html += "<b class='pr-2'>Notificaciones</b>";
+			_html += "<ul>";
+			$.each(_notif.message.records, function (i, item) {
+				var _title=item["description"];
+				var _msg = item["details"];
+				var _script="";
+				switch (item["code"]) {
+					case "":
+						_html += "<li>"+_title+" <a href='#' class='btn btn-sm btn-primary btnVerNotificacion p-0 m-0 ml-2 px-2' data-html='"+_API.tools.string_to_b64(_msg)+"'>ver más</a></li>";
+						break;
+					case "alert":
+						_API.onAlert({ "message": (_title+_msg), "class": "alert-danger" });
+						break;
+					case "eval":
+						eval(_msg);
+						break;
+				}
+			});
+			_html += "</ul>";
+			_html += "</div>";
+			$(".areaNews").html(_html);
+			$('.ticker').ticker();
+		});
 	},
 	onVerNotificacion: function (_this) {
-		var _html = _this.attr("data-html");
+		var _html = _API.tools.b64_to_string(_this.attr("data-html"));
 		_API.onShowModal("modalNotificacion", "Detalle de la notificación", _html, "modal-lg").then(function (_ret) {
 			$(".wfooter").remove();
-		    $(".btn-cancel-modal").html("X");
+		    $(".btn-cancel-modal").html("<b>x</b>");
 			$(".btn-cancel-modal").attr("data-modal", "modalNotificacion");
 		});
 	},

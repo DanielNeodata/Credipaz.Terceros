@@ -135,6 +135,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCreditoDeuda.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\infoCreditoPagoLink.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\iniciarTransaccionPago.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\notificacionesintranet.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\resumenTarjeta.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\segmentosDeuda.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\obtenerUserAreas.html" />
@@ -170,7 +171,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\resetusermobile.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\userinformation.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\uservaluepwa.html" />
-    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticatemobile.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\authenticatemobile.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\websites\webpost.html" />
     <Content Include="Credipaz.ApiDoc\html\index.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\integraciones\GetClientsByDocument.html" />
