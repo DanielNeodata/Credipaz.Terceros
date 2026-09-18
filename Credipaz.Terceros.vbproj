@@ -156,7 +156,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\grabarordenmedica.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\atencionespontanea.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\farmalinkreceta.html" />
-    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\enviarimagenalmedico.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\enviarfoto.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\mensajes.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\cancelar.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\atencionesanteriores.html" />
