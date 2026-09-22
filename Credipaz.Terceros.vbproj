@@ -141,7 +141,6 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\obtenerUserAreas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\finalRequest.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\tokenizarTarjeta.html" />
-    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\credenciales.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\especialidades.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\imagenbeneficio.html" />
