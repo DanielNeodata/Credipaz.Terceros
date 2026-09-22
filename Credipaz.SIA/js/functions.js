@@ -96,7 +96,7 @@ var _F = {
 				_mode = 2;
                 break;
 		}
-		var params = { "Modo": _mode, "NroDocumento": $(".DNI").val() };
+		var params = { "modo": _mode, "nroDocumento": $(".DNI").val() };
 		_API.method("/asesores/socios/autorizar", params)
 			.then(function (msg) {
 				_API.log("Content:", msg);
@@ -118,8 +118,6 @@ var _F = {
 				_API.log("Se ha producido un error: " + retError.message);
 				$(".btnBuscarAutorizacion").fadeIn();
 			});
-
 		console.error("Token: " + _API.authentication.data.token_authentication);
-
 	}
 }

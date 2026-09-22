@@ -120,9 +120,6 @@ var _API = {
                         var _back = "<div id='" + _id_container + "' style=' background-color: rgba(0, 0, 0, 0.5);position:absolute;left:0px;top:0px;width:100%;height:100%;z-index:999998;'></div>";
                         $("body").append(_back);
                         $("#" + _id_container).append(_html);
-
-                        //$("body").append(_html);
-
                         if (_title == "") { $(".modalall-header").remove(); } else { $(".modalall-title").html(_title); }
                         $(".modalall-body").html(_body);
                         $(".modalall").attr("id", _name);
@@ -382,7 +379,7 @@ var _API = {
             if (keyCode !== 13) { return false; }
         }
         if (!_API.tools.validate(".dniCliente", true)) { return false; }
-        var _params = { "NroDocumento": $(".dniCliente").val() };
+        var _params = { "nroDocumento": $(".dniCliente").val() };
         _API.method("/credipaz/getdatacliente", _params).then(function (data) {
             if (data.status == "OK" && data.message.records.length != 0) {
                 _API.onShowModalOverAll("modalDatosCliente", "", data.message.html).then(function (_ret) {
@@ -445,7 +442,7 @@ var _API = {
         var check = await _API.tools.isUrlAvailable(_url);
         if (check) { _style = "color:green;"; _estado = "Online"; }
         _html += "   <tr>";
-        _html += "      <td>" + _servicio +"</td>";
+        _html += "      <td>" + _servicio + "</td>";
         _html += "      <td><b style='" + _style + "'>" + _estado + "</b></td>";
         _html += "   </tr>";
         return _html;
@@ -642,8 +639,8 @@ var _API = {
                         "id_user": _API.authentication.data.id,
                         "token_authentication": _API.authentication.data.token_authentication,
                         "id_app": _API.id_app_external,
-                        "username": $(".Username").val(),
-                        "password": $(".Password").val(),
+                        "username": $(".username").val(),
+                        "password": $(".password").val(),
                         "external_operator": _API.externalUserMode
                     };
                     _API.call("production/authenticateexternal", data)

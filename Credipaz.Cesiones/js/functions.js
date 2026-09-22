@@ -9,7 +9,7 @@ var _F = {
 //						$(".logoImage").attr("src", _API.imageLogin);
 						_API.inited = true;
 						// Tomar ID de la tabla de Entidades
-						var data = { "IdEntidad": 1 };
+						var data = { "idEntidad": 1 };
 						_API.method("credipaz/cesiones", data).then(function (response) {
 							console.log("Lista cruda: " + JSON.stringify(response));
 							// No es necesario aplicar el filtro
@@ -70,7 +70,7 @@ var _F = {
 			function (resolve, reject) {
 				try {
 					// Carga lista de Cedidos
-					var data = { "IdEntidad": "1", "Cesion": _this.val(), "Download": "N" };
+					var data = { "idEntidad": "1", "cesion": _this.val(), "download": "N" };
 					_API.method("credipaz/cedidos", data).then(function (response) {
 						console.log(response);
 						if (response.data) {
@@ -99,7 +99,7 @@ var _F = {
 
 	onBridgeFile: function (_this) {
 		var _mime = _this.attr("data-mime");
-		var _params = { "Key": _this.attr("data-path"), "File": _this.attr("data-fullfilename") };
+		var _params = { "key": _this.attr("data-path"), "file": _this.attr("data-fullfilename") };
 		var _url = "/credipaz/archivourl";
 		$(".areaArchivo").addClass("d-none");
 		_API.call(_url, _params).then(function (data) {
@@ -131,7 +131,7 @@ var _F = {
 		try {
 			_API.onWait(true);
 			_this.fadeOut("fast");
-			var _params = { "IdTransaccion": _this.attr("data-idtransaccion"), "NroDocumento": _this.attr("data-dni"), "Segmento": _this.attr("data-segmento"), "IdRequest": _this.attr("data-idrequest") };
+			var _params = { "idTransaccion": _this.attr("data-idtransaccion"), "nroDocumento": _this.attr("data-dni"), "segmento": _this.attr("data-segmento"), "idRequest": _this.attr("data-idrequest") };
 			_API.call("/credipaz/carpetadigital", _params).then(function (data) {
 				if (data.status != "OK") { throw data; }
 				var _styleDiv = "width:100%;height:100%;";
