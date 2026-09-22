@@ -118,6 +118,6 @@ var _F = {
 				_API.log("Se ha producido un error: " + retError.message);
 				$(".btnBuscarAutorizacion").fadeIn();
 			});
-		console.error("Token: " + _API.authentication.data.token_authentication);
+		console.error("Token: " + _API.authentication.userdata.token_authentication);
 	}
 }
