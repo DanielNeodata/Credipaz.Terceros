@@ -382,8 +382,8 @@ var _API = {
             if (keyCode !== 13) { return false; }
         }
         if (!_API.tools.validate(".dniCliente", true)) { return false; }
-        var _params = { "NroDocumento": $(".dniCliente").val() };
-        _API.method("/credipaz/getdatacliente", _params).then(function (data) {
+        var _params = { "nroDocumento": $(".dniCliente").val() };
+        _API.method("credipaz/getdatacliente", _params).then(function (data) {
             if (data.status == "OK" && data.message.records.length != 0) {
                 _API.onShowModalOverAll("modalDatosCliente", "", data.message.html).then(function (_ret) {
                     $(".btn-ok-modalall").remove();
@@ -397,11 +397,11 @@ var _API = {
     },
     onMenuIntranet: function (_target) {
         /*Armado del menu completo*/
-        var data = { "id_user_activate": _API.id_user_log, "id_app": 7, "token_authentication": _API.authentication.data.token_authentication };
+        var data = { "id_user_activate": _API.id_user_log, "id_app": 7, "token_authentication": _API.authentication.userdata.token_authentication };
         _API.call("production/menuinterface", data).then(function (response) {
             response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
             response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
-            var _encoded_authentication_data = { "Id_user": _API.id_user_log, "Token": _API.authentication.data.token_authentication, "Id_app": data.id_app };
+            var _encoded_authentication_data = { "Id_user": _API.id_user_log, "Token": _API.authentication.userdata.token_authentication, "Id_app": data.id_app };
             response.html = response.html.replaceAll("[ENCODED_AUTHENTICATION_DATA]", encodeURIComponent(_API.tools.string_to_b64(JSON.stringify(_encoded_authentication_data))));
             $(_target).html(response.html).removeClass("d-none");
             /*Setea el color del menú de acuerdo a la configuración de la rama*/
@@ -411,13 +411,13 @@ var _API = {
     onSucursalChooser: function (_auth) {
         return new Promise(
             function (resolve, reject) {
-                if (!_API.postLogin || _auth.data.details == undefined || _auth.data.details == null || _auth.data.details.length == 0) {
+                if (!_API.postLogin || _auth.userdata.details == undefined || _auth.userdata.details == null || _auth.userdata.details.length == 0) {
                     resolve(true);
                     return false;
                 }
                 /*Sucursales disponibles para ingreso, dado el usuario autenticado */
                 var _sucursales = "";
-                $.each(_auth.data.details, function (i, item) {
+                $.each(_auth.userdata.details, function (i, item) {
                     if (parseInt(item.nIDSucursal) != 0) { item.sSucursal = _API.sucursal; item.nIDSucursal = _API.id_sucursal; }
                     _sucursales += '<a class="list-group-item btn btn-sm bg-magenta white bold btnSelectSucursal p-1 m-0" style="color:white;" href="#" data-name="' + item.sSucursal + '" data-id="' + item.nIDSucursal + '">' + item.sSucursal + '</div>';
                 });
@@ -640,8 +640,8 @@ var _API = {
                         return false;
                     }
                     var data = {
-                        "id_user": _API.authentication.data.id,
-                        "token_authentication": _API.authentication.data.token_authentication,
+                        "id_user": _API.authentication.userdata.id,
+                        "token_authentication": _API.authentication.userdata.token_authentication,
                         "id_app": _API.id_app_external,
                         "username": $(".Username").val(),
                         "password": $(".Password").val(),
@@ -649,17 +649,17 @@ var _API = {
                     };
                     _API.call("production/authenticateexternal", data)
                         .then(function (response) {
-                            _API.id_user_log = response.data.id;
-                            _API.username_log = response.data.username;
-                            _API.authentication.data.id = response.data.id;
-                            _API.authentication.data.token_authentication = response.data.token_authentication;
-                            _API.authentication.data.token_authentication_created = response.data.token_authentication_created;
-                            _API.authentication.data.token_authentication_expired = response.data.token_authentication_expired;
-                            _API.telemedicina.atendiendo = response.data.atendiendo;
-                            _API.telemedicina.isDoctor = response.data.isDoctor;
-                            _API.telemedicina.doctorName = response.data.doctorName;
-                            _API.telemedicina.doctorFirma = response.data.firma;
-                            _API.telemedicina.doctorMatricula = response.data.matricula;
+                            _API.id_user_log = response.userdata.id;
+                            _API.username_log = response.userdata.username;
+                            _API.authentication.userdata.id = response.userdata.id;
+                            _API.authentication.userdata.token_authentication = response.userdata.token_authentication;
+                            _API.authentication.userdata.token_authentication_created = response.userdata.token_authentication_created;
+                            _API.authentication.userdata.token_authentication_expired = response.userdata.token_authentication_expired;
+                            _API.telemedicina.atendiendo = response.userdata.atendiendo;
+                            _API.telemedicina.isDoctor = response.userdata.isDoctor;
+                            _API.telemedicina.doctorName = response.userdata.doctorName;
+                            _API.telemedicina.doctorFirma = response.userdata.firma;
+                            _API.telemedicina.doctorMatricula = response.userdata.matricula;
                             if (response.status != "OK") {
                                 /* si no autentica, alerta y sale del form */
                                 _API.onShowUnauthorized(response.message);
@@ -727,8 +727,8 @@ var _API = {
                 _API.authenticate()
                     .then(function (auth) {
                         /* Agregado de valores de la autenticación correcta al objeto data */
-                        data["id_user_active"] = _API.authentication.data.id;
-                        data["token_authentication"] = _API.authentication.data.token_authentication;
+                        data["id_user_active"] = _API.authentication.userdata.id;
+                        data["token_authentication"] = _API.authentication.userdata.token_authentication;
                         data["id_app"] = _API.configuration.id_app;
                         /* Llamada directa al método de la API con los valores completos */
                         _API.call(endpoint, data)

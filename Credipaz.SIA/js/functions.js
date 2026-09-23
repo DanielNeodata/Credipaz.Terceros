@@ -96,8 +96,8 @@ var _F = {
 				_mode = 2;
                 break;
 		}
-		var params = { "Modo": _mode, "NroDocumento": $(".DNI").val() };
-		_API.method("/asesores/socios/autorizar", params)
+		var params = { "modo": _mode, "nroDocumento": $(".DNI").val() };
+		_API.method("asesores/socios/autorizar", params)
 			.then(function (msg) {
 				_API.log("Content:", msg);
 				var _html = "<table class='table table-condensed'>";
@@ -119,7 +119,7 @@ var _F = {
 				$(".btnBuscarAutorizacion").fadeIn();
 			});
 
-		console.error("Token: " + _API.authentication.data.token_authentication);
+		console.error("Token: " + _API.authentication.userdata.token_authentication);
 
 	}
 }

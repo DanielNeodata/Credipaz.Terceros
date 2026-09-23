@@ -126,7 +126,7 @@ var _F = {
 					_this.fadeOut("fast");
 					_F.DNI = $(".Documento").val();
 					if (_F._segmentos==null || _F._segmentos==""){_F._segmentos="TAR,CRE,CRDO,SAM,MOR";}
-					var data = { "NroDocumento": _F.DNI, "Segmentos": _F._segmentos };
+					var data = { "nroDocumento": _F.DNI, "segmentos": _F._segmentos };
 					_API.method("credipaz/segmentosDeuda", data)
 						.then(function (response) {
 							$(".divIFrame").addClass("d-none");
@@ -324,13 +324,13 @@ var _F = {
 	onPagarFiserv: function (_this) {
 		$(".ocultarEnFISERV").hide();
 		var data = {
-			"Id_type_channel": 1,
-			"Identificacion": _F._itemsPagos[0]["Identificacion"],
-			"Moneda": $("#currency").val(),
-			"NroDocumento": _F.DNI,
-			"Monto": $("#chargetotal").val(),
-			"Raw_request": JSON.stringify(_API.tools.getFormValues(".dataPost", $(this))),
-			"Channel": "FSRV"
+			"idTypeChannel": 1,
+			"identificacion": _F._itemsPagos[0]["Identificacion"],
+			"moneda": $("#currency").val(),
+			"nroDocumento": _F.DNI,
+			"monto": $("#chargetotal").val(),
+			"rawRequest": JSON.stringify(_API.tools.getFormValues(".dataPost", $(this))),
+			"channel": "FSRV"
 		};
 		_API.method("credipaz/iniciarTransaccionPago", data).then(function (response) {
 			_idTransaction = response.id;
@@ -347,7 +347,7 @@ var _F = {
 		});
 	},
 	onCheckStatusPaymentBotonPago: function (_idTransaction, _dni) {
-		var data = { "IdTransaccion": _idTransaction };
+		var data = { "idTransaccion": _idTransaction };
 		_API.method("credipaz/consultarEstadoTransaccionPago", data).then(function (response) {
 			if (datajson.data[0].status != "INICIADO") {
 				clearInterval(_F._TMR_PAY_BOTONPAGO);
