@@ -8,7 +8,8 @@ var _F = {
 					$("body").load((_API._ROOT + "/html/index.html?" + _API._TS), function () {
 						$(".logoImage").attr("src", _API.imageLogin);
 						_API.inited = true;
-						var data = { "id_user_activate": _API.authentication.userdata.id, "id_app": _API.configuration.id_app, "token_authentication": _API.authentication.userdata.token_authentication };
+						var data = { "id_user_active": _API.authentication.userdata.id, "id_app": _API.configuration.id_app, "token_authentication": _API.authentication.userdata.token_authentication };
+						console.log(data);
 						_API.call("production/documentationinterface", data).then(function (response) {
 							response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
 							response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));

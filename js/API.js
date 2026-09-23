@@ -397,7 +397,7 @@ var _API = {
     },
     onMenuIntranet: function (_target) {
         /*Armado del menu completo*/
-        var data = { "id_user_activate": _API.id_user_log, "id_app": 7, "token_authentication": _API.authentication.userdata.token_authentication };
+        var data = { "id_user_active": _API.id_user_log, "id_app": 7, "token_authentication": _API.authentication.userdata.token_authentication };
         _API.call("production/menuinterface", data).then(function (response) {
             response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
             response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
@@ -691,7 +691,7 @@ var _API = {
                 /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
                 if (!_API.tools.validate(".validateLogin", false)) { return false; }
                 var data = {
-                    "id_user_activate": params.Id_user,
+                    "id_user_active": params.Id_user,
                     "token_authentication": params.Token,
                     "id_app": params.Id_app,
                 };
