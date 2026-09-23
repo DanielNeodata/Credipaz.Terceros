@@ -611,7 +611,8 @@ var _API = {
                     "id_app": _API.configuration.id_app,
                     "username": _API.configuration.username,
                     "password": _API.configuration.password,
-                    "version": _API.configuration.version
+                    "version": _API.configuration.version,
+                    "external_operator": 1
                 };
                 /* Llamada a la autenticación */
                 _API.call("production/authenticate", data)
