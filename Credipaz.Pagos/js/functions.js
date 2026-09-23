@@ -93,8 +93,13 @@ var _F = {
 							if (_API.urlParameters["data"] != undefined) {
 								_F._showLink = true;
 								var _data = decodeURIComponent(_API.urlParameters["data"].toString());
+
+
 								_API.log("DATA->", _data);
 								var _json = JSON.parse(_API.tools.b64_to_string(_data));
+
+								_API.log("JSON->", _json);
+
 								/*Verify id_user & token*/
 								_API.verifytoken(_json).then(function (verify) {
 									$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
@@ -120,7 +125,8 @@ var _F = {
 					if (!_API.tools.validate(".validateFirst", false)) { throw null; }
 					_this.fadeOut("fast");
 					_F.DNI = $(".Documento").val();
-					var data = { "nroDocumento": _F.DNI, "segmentos": _F._segmentos };
+					if (_F._segmentos==null || _F._segmentos==""){_F._segmentos="TAR,CRE,CRDO,SAM,MOR";}
+					var data = { "NroDocumento": _F.DNI, "Segmentos": _F._segmentos };
 					_API.method("credipaz/segmentosDeuda", data)
 						.then(function (response) {
 							$(".divIFrame").addClass("d-none");
@@ -318,13 +324,13 @@ var _F = {
 	onPagarFiserv: function (_this) {
 		$(".ocultarEnFISERV").hide();
 		var data = {
-			"idTypeChannel": 1,
-			"identificacion": _F._itemsPagos[0]["Identificacion"],
-			"moneda": $("#currency").val(),
-			"nroDocumento": _F.DNI,
-			"monto": $("#chargetotal").val(),
-			"rawRequest": JSON.stringify(_API.tools.getFormValues(".dataPost", $(this))),
-			"channel": "FSRV"
+			"Id_type_channel": 1,
+			"Identificacion": _F._itemsPagos[0]["Identificacion"],
+			"Moneda": $("#currency").val(),
+			"NroDocumento": _F.DNI,
+			"Monto": $("#chargetotal").val(),
+			"Raw_request": JSON.stringify(_API.tools.getFormValues(".dataPost", $(this))),
+			"Channel": "FSRV"
 		};
 		_API.method("credipaz/iniciarTransaccionPago", data).then(function (response) {
 			_idTransaction = response.id;
@@ -341,7 +347,7 @@ var _F = {
 		});
 	},
 	onCheckStatusPaymentBotonPago: function (_idTransaction, _dni) {
-		var data = { "idTransaccion": _idTransaction };
+		var data = { "IdTransaccion": _idTransaction };
 		_API.method("credipaz/consultarEstadoTransaccionPago", data).then(function (response) {
 			if (datajson.data[0].status != "INICIADO") {
 				clearInterval(_F._TMR_PAY_BOTONPAGO);

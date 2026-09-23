@@ -158,7 +158,7 @@ var _F = {
 	onCancelTelemedicina: function (_this) {
 		if (!confirm("Se cancelará la atención seleccionada. ¿Confirma?")) { return false; }
 		_API.onWait(true);
-		_API.method("/telemedicina/cancelar", { "id": _this.attr("data-id") })
+		_API.method("/telemedicina/cancelar", { "Id": _this.attr("data-id") })
 			.then(function (data) {
 				_F.onMonitoreo(null);
 				_API.onWait(false);
@@ -167,7 +167,7 @@ var _F = {
 			});
 	},
 	onBuildArea: function (iModo, _title) {
-		_API.method("/telemedicina/monitoreo", { "modo": iModo, "idUser": _API.id_user_log })
+		_API.method("/telemedicina/monitoreo", { "iModo": iModo, "idUser": _API.id_user_log })
 			.then(function (data) {
 				var _html = "";
 				if (data.records.length > 0) {
@@ -196,7 +196,7 @@ var _F = {
 		var _id = _this.attr("data-id");
 		$.get((_API._ROOT + "/html/postclose.html?" + _API._TS), function (_html) {
 			_API.onShowModal("modalPostClose", "", _html, "modal-lg").then(function (_ret) {
-				_API.method("/telemedicina/monitoreo", { "modo": 4, "id": _id, "idUser": _API.id_user_log })
+				_API.method("/telemedicina/monitoreo", { "iModo": 4, "Id": _id, "idUser": _API.id_user_log })
 					.then(function (data) {
 						if (data.records[0].post_close != "") { $(".tNotasAnteriores").html("Notas anteriores:<br/>" + data.records[0].post_close); }
 						$(".tPaciente").html(data.records[0].name_club_redondo);
@@ -223,7 +223,7 @@ var _F = {
 		var _id = _this.attr("data-id");
 		$.get((_API._ROOT + "/html/editchargecode.html?" + _API._TS), function (_html) {
 			_API.onShowModal("modalEditChargeCode", "", _html, "modal-xl").then(function (_ret) {
-				_API.method("/telemedicina/monitoreo", { "modo": 4, "id": _id, "idUser": _API.id_user_log })
+				_API.method("/telemedicina/monitoreo", { "iModo": 4, "Id": _id, "idUser": _API.id_user_log })
 					.then(function (data) {
 						$(".wfooter").remove();
 						$(".btn-cancel-modal").attr("data-modal", "modalEditChargeCode");
@@ -311,7 +311,7 @@ var _F = {
 						_API.onLoadComboAjax("/telemedicina/tiposcierre", ".tCierre", data.records[0].type_task_close, "");
 
 						//EVALUAR DESDE ACA PORQUE NO CARGA COMBO PARA RESOLVER SOCIO!
-						var _pCred = { "tipo": "SWISS", "nroDocumento": data.records[0].NroDocumento, "sexo": data.records[0].Sexo };
+						var _pCred = { "Tipo": "SWISS", "NroDocumento": data.records[0].NroDocumento, "Sexo": data.records[0].Sexo };
 						_API.method("/asesores/socios/credenciales", _pCred)
 							.then(function (data) {
 								$.each(data.records, function (i, item) {
@@ -335,7 +335,7 @@ var _F = {
 	onSaveNuevaNota: function (_this) {
 		if (!_API.tools.validate(".validatePostClose", false)) { return false; }
 		var _id = _this.attr("data-id");
-		_API.method("/telemedicina/postcierre", { "id": _id, "nota": $(".nuevaNota").val() })
+		_API.method("/telemedicina/postcierre", { "Id": _id, "Nota": $(".nuevaNota").val() })
 			.then(function (data) {
 				$(".btn-cancel-modal").click();
 			});
@@ -391,7 +391,7 @@ var _F = {
 	onSaveAmbulancia: function (_this) {
 		if (!_API.tools.validate(".validateAmbulancia", false)) { return false; }
 		var _id = _this.attr("data-id");
-		_API.method("/telemedicina/solicitarambulancia", { "id": _id, "tipo": $(".tEmergencia").val(), "nota": $(".tNota").val() })
+		_API.method("/telemedicina/solicitarambulancia", { "Id": _id, "Tipo": $(".tEmergencia").val(), "Nota": $(".tNota").val() })
 			.then(function (data) {
 				_F.onDrawAmbulance(data.records[0]["emergency_details"]);
 				$(".btn-cancel-modalall").click();
@@ -534,7 +534,7 @@ var _F = {
 			"apellido": _this.attr("data-apellido"),
 			"sexo": _this.attr("data-sexo"),
 			"fechaNacimiento": _fnac,
-			"panSwiss": _this.attr("data-panswiss"),
+			"panswiss": _this.attr("data-panswiss"),
 			"idChargeCode": _id_charge_code,
 			"idUser": _API.id_user_log
 		}
@@ -803,8 +803,8 @@ var _F = {
 		var _message = $("#message").html();
 		var _params = {
 			"carbonCopy": _carbon_copy,
-			"message": _message,
-			"rawData": JSON.stringify(_raw_data),
+			"Message": _message,
+			"Raw_data": JSON.stringify(_raw_data),
 			"idChargeCode": _this.attr("data-id-charge-code"),
 			"idUser": _API.id_user_log
 		};
@@ -858,7 +858,7 @@ var _F = {
 			"ta_constatada": $('input[name="ta_constatada"]:checked').val(),
 			"otras_evaluaciones": $(".otras_evaluaciones").val()
 		};
-		if (_idTypeClose != "") { _params["idTypeTaskClose"] = _idTypeClose; }
+		if (_idTypeClose != "") { _params["id_type_task_close"] = _idTypeClose; }
 		_API.method("/telemedicina/grabaratencion", _params).then(function (response) {
 			if (response.estado == "OK") {
 				$(".btn-cancel-modal").click();
@@ -877,7 +877,7 @@ var _F = {
 		_API.onWait(true);
 		var _params = {
 			"idUser": _API.id_user_log,
-			"estado": _this.attr("data-action")
+			"Estado": _this.attr("data-action")
 		};
 		_API.method("/telemedicina/cambiarestadodoctor", _params).then(function (response) {
 			_API.telemedicina.atendiendo = parseInt(response.records[0].active);
@@ -897,7 +897,7 @@ var _F = {
 		reader.onload = function () {
 			_message = reader.result;
 			var _params = {
-				"message": _message,
+				"Message": _message,
 				"idChargeCode": _this.attr("data-id-charge-code"),
 				"idUser": _API.id_user_log
 			};

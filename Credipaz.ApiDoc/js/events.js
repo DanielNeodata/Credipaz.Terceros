@@ -8,3 +8,7 @@ $("body").off("click", ".btnUiExecute").on("click", ".btnUiExecute", function ()
 $("body").off("click", ".btnExec").on("click", ".btnExec", function () {
     _F.onUiExecute().then(function (data) { });
 });
+
+$("body").off("change", ".chkToMemoy").on("change", ".chkToMemoy", function () {
+    _F.onToMemory($(this));
+});

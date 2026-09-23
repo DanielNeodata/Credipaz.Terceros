@@ -8,4 +8,4 @@
 /web.Debug.config
 /web.Release.config
 /bin
-/Recursos
+/Recursos/configServers.json

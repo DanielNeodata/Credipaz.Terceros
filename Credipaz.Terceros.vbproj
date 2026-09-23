@@ -141,6 +141,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\obtenerUserAreas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\finalRequest.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\tokenizarTarjeta.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\terminarTransaccionPago.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\credenciales.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\especialidades.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\imagenbeneficio.html" />
@@ -167,6 +168,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\consultas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\monitoreo.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\marcarmensajeleido.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticatemobile.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\resetusermobile.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\userinformation.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\uservaluepwa.html" />

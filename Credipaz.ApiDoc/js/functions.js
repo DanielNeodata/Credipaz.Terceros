@@ -1,5 +1,6 @@
 /* Objeto con todas las funciones de la rama */
 var _F = {
+	_persist: null,
 	onInit: function () {
 		return new Promise(
 			function (resolve, reject) {
@@ -7,7 +8,7 @@ var _F = {
 					$("body").load((_API._ROOT + "/html/index.html?" + _API._TS), function () {
 						$(".logoImage").attr("src", _API.imageLogin);
 						_API.inited = true;
-						var data = { "id_user_activate": _API.authentication.userdata.id, "id_app": _API.configuration.id_app, "token_authentication": _API.authentication.userdata.token_authentication };
+						var data = { "id_user_activate": _API.authentication.data.id, "id_app": _API.configuration.id_app, "token_authentication": _API.authentication.data.token_authentication };
 						_API.call("production/documentationinterface", data).then(function (response) {
 							response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
 							response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
@@ -45,6 +46,7 @@ var _F = {
 			$(".areaAjax").html(_F.onBuildAreaAjax());
 			$("#endpoint").val(_this.attr("data-endpoint"));
 			$(".apiTitle").html(_this.html());
+			_F.onControlPersist();
 		});
 	},
 	onUiExecute: function () {
@@ -64,6 +66,11 @@ var _F = {
 					data: _json,
 					error: function (xhr, ajaxOptions, thrownError) { reject(thrownError); },
 					success: function (datajson) {
+						if ($(".chkToMemoy").prop("checked")) {
+							_F._persist = datajson.data;
+							_F._persist["id_app"] = _json["id_app"];
+						}
+						_F.onControlPersist();
 						$("#response").html("<pre>" + JSON.stringify(datajson, undefined, 2) + "</pre>");
 						$(".titleCall").removeClass("d-none");
 						resolve(datajson);
@@ -102,7 +109,7 @@ var _F = {
 		_html += "</tr>";
 		_html += "<tr>";
 		_html += "<td><b>ID application</b></td>";
-		_html += "<td><input disabled class='form-control' id='id_app' name='id_app' type='number' placeholder='ID application' value='11'/></td>";
+		_html += "<td><input class='form-control' id='id_app' name='id_app' type='number' placeholder='ID application' value=''/></td>";
 		_html += "<td><i>integer</i></td>";
 		_html += "<td><span class='badge badge-danger'>requerido</span></td>";
 		_html += "</tr>";
@@ -134,5 +141,25 @@ var _F = {
 		_html += "<h5 class='p-0 m-0 titleCall d-none'>Respuesta</h5>";
 		_html += "<div id='response' class='titleCall d-none'></div>";
 		return _html;
+	},
+	onToMemory: function (_this) {
+		if (!_this.prop("checked")) {
+			_F._persist = null;
+			_F.onControlPersist();
+		}
+	},
+	onControlPersist: function () {
+		$(".areaPersist").html("").addClass("d-none");
+		if (_F._persist != null) {
+			$(".chkToMemoy").prop("checked", true);
+			$("#token_authentication").val(_F._persist.token_authentication);
+			$("#id_user_active").val(_F._persist.id);
+			$("#id_app").val(_F._persist.id_app);
+			var _html = "<span class='badge badge-light p-2 ml-1'>En memoria:</span>";
+			_html += "<span class='badge badge-success p-2 ml-1 blink'>token_authentication</span>";
+			_html += "<span class='badge badge-success p-2 ml-1 blink'>id_user_active</span>";
+			_html += "<span class='badge badge-success p-2 ml-1 blink'>id_app</span>";
+			$(".areaPersist").html(_html).removeClass("d-none");
+		}
 	},
 }

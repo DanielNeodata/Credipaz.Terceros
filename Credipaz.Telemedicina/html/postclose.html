@@ -1,0 +1,58 @@
+<div class="container-full px-3 py-2">
+    <h4 class="magenta">Nota post cierre</h4>
+    <div class="row">
+        <div class="col-6">
+            <table class="table table-sm table-condensed table-borderless">
+                <tr>
+                    <td><label>Paciente:</label></td>
+                    <td class="tPaciente"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="tRefiere"></td>
+                </tr>
+                <tr>
+                    <td><label>Motivo:</label></td>
+                    <td class="tMotivo bold"></td>
+                </tr>
+                <tr>
+                    <td><label>Evolución:</label></td>
+                    <td class="tEvolucion bold"></td>
+                </tr>
+                <tr>
+                    <td><label>Diagnóstico:</label></td>
+                    <td class="tDiagnostico bold"></td>
+                </tr>
+                <tr>
+                    <td><label>Indicaciones:</label></td>
+                    <td class="tIndicaciones bold"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><label>Derivaciones:</label></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="tDerivaciones bold"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-6">
+            <table class="table table-sm table-condensed table-borderless">
+                <tr>
+                    <td colspan="2" class="tNotasAnteriores"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label>Agregar nueva nota:</label><br />
+                        <textarea id="nuevaNota" name="nuevaNota" rows="10" class="nuevaNota form-control validatePostClose"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-12 text-right">
+            <a href="#" data-modal="" class="btn btn-sm btn-danger btn-cancel-modal">Cancelar</a>
+            <a href="#" data-modal="" data-id="" class="btn btn-md btn-success btnSaveNuevaNota">Aceptar</a>
+        </div>
+    </div>
+</div>
