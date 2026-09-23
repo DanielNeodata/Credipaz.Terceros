@@ -97,7 +97,7 @@ var _F = {
                 break;
 		}
 		var params = { "modo": _mode, "nroDocumento": $(".DNI").val() };
-		_API.method("/asesores/socios/autorizar", params)
+		_API.method("asesores/socios/autorizar", params)
 			.then(function (msg) {
 				_API.log("Content:", msg);
 				var _html = "<table class='table table-condensed'>";

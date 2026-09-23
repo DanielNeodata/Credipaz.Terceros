@@ -380,7 +380,7 @@ var _API = {
         }
         if (!_API.tools.validate(".dniCliente", true)) { return false; }
         var _params = { "nroDocumento": $(".dniCliente").val() };
-        _API.method("/credipaz/getdatacliente", _params).then(function (data) {
+        _API.method("credipaz/getdatacliente", _params).then(function (data) {
             if (data.status == "OK" && data.message.records.length != 0) {
                 _API.onShowModalOverAll("modalDatosCliente", "", data.message.html).then(function (_ret) {
                     $(".btn-ok-modalall").remove();
@@ -394,7 +394,7 @@ var _API = {
     },
     onMenuIntranet: function (_target) {
         /*Armado del menu completo*/
-        var data = { "id_user_activate": _API.id_user_log, "id_app": 7, "token_authentication": _API.authentication.userdata.token_authentication };
+        var data = { "id_user_active": _API.id_user_log, "id_app": 7, "token_authentication": _API.authentication.userdata.token_authentication };
         _API.call("production/menuinterface", data).then(function (response) {
             response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
             response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
@@ -408,13 +408,13 @@ var _API = {
     onSucursalChooser: function (_auth) {
         return new Promise(
             function (resolve, reject) {
-                if (!_API.postLogin || _auth.data.details == undefined || _auth.data.details == null || _auth.data.details.length == 0) {
+                if (!_API.postLogin || _auth.userdata.details == undefined || _auth.userdata.details == null || _auth.userdata.details.length == 0) {
                     resolve(true);
                     return false;
                 }
                 /*Sucursales disponibles para ingreso, dado el usuario autenticado */
                 var _sucursales = "";
-                $.each(_auth.data.details, function (i, item) {
+                $.each(_auth.userdata.details, function (i, item) {
                     if (parseInt(item.nIDSucursal) != 0) { item.sSucursal = _API.sucursal; item.nIDSucursal = _API.id_sucursal; }
                     _sucursales += '<a class="list-group-item btn btn-sm bg-magenta white bold btnSelectSucursal p-1 m-0" style="color:white;" href="#" data-name="' + item.sSucursal + '" data-id="' + item.nIDSucursal + '">' + item.sSucursal + '</div>';
                 });
@@ -608,7 +608,8 @@ var _API = {
                     "id_app": _API.configuration.id_app,
                     "username": _API.configuration.username,
                     "password": _API.configuration.password,
-                    "version": _API.configuration.version
+                    "version": _API.configuration.version,
+                    "external_operator": 1
                 };
                 /* Llamada a la autenticación */
                 _API.call("production/authenticate", data)
@@ -645,6 +646,8 @@ var _API = {
                     };
                     _API.call("production/authenticateexternal", data)
                         .then(function (response) {
+
+
                             _API.id_user_log = response.userdata.id;
                             _API.username_log = response.userdata.username;
                             _API.authentication.userdata.id = response.userdata.id;
@@ -687,7 +690,7 @@ var _API = {
                 /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
                 if (!_API.tools.validate(".validateLogin", false)) { return false; }
                 var data = {
-                    "id_user_activate": params.Id_user,
+                    "id_user_active": params.Id_user,
                     "token_authentication": params.Token,
                     "id_app": params.Id_app,
                 };
