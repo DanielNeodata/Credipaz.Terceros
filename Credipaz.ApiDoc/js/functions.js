@@ -9,7 +9,6 @@ var _F = {
 						$(".logoImage").attr("src", _API.imageLogin);
 						_API.inited = true;
 						var data = { "id_user_active": _API.authentication.userdata.id, "id_app": _API.configuration.id_app, "token_authentication": _API.authentication.userdata.token_authentication };
-						console.log(data);
 						_API.call("production/documentationinterface", data).then(function (response) {
 							response.html = response.html.replaceAll("[ROOT]", _API._ROOT);
 							response.html = response.html.replaceAll("[SERVER]", _API.configuration.server.slice(0, -1));
@@ -58,6 +57,7 @@ var _F = {
 				if ($("#token_authentication").val() != undefined) { _json["token_authentication"] = $("#token_authentication").val(); }
 				if ($("#id_user_active").val() != undefined) { _json["id_user_active"] = $("#id_user_active").val(); }
 				if ($("#id_app").val() != undefined) { _json["id_app"] = $("#id_app").val(); }
+				_json["external_operator"] = 1;
 				var _call = { type: "POST", dataType: "json", url: _endpoint, data: _json };
 				$("#request").html("<pre>" + JSON.stringify(_call, undefined, 2) + "</pre>");
 				var ajaxRq = $.ajax({
@@ -68,8 +68,7 @@ var _F = {
 					error: function (xhr, ajaxOptions, thrownError) { reject(thrownError); },
 					success: function (datajson) {
 						if ($(".chkToMemoy").prop("checked")) {
-							_F._persist = datajson.data;
-							_F._persist["id_app"] = _json["id_app"];
+							_F._persist = { "id_app": _json["id_app"], "id": datajson.userdata.id, "token_authentication": datajson.userdata.token_authentication };
 						}
 						_F.onControlPersist();
 						$("#response").html("<pre>" + JSON.stringify(datajson, undefined, 2) + "</pre>");
