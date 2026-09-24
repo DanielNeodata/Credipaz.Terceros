@@ -169,6 +169,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\monitoreo.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\marcarmensajeleido.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticatemobile.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\menuinterface.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\resetusermobile.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\userinformation.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\uservaluepwa.html" />
