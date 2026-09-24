@@ -207,9 +207,13 @@ var _API = {
                     return false;
                 }
                 /*Resuelve la navegación y display de la url de Interfaces */
+                var _h = "500vh";
+                /*Excepciones de tamaño de alto, para acomodar fullscreen de cámara*/
+                if (!_url.includes("Mil/Grilla")) { _h = "100vh"; }
+
                 if (!_url.includes("?")) { _url += "?"; } else { _url += "&"; }
                 _url += ("id_user_active=" + _API.id_user_log + "&username=" + _API.username_log + "&id_sucursal=" + _API.id_sucursal + "&sucursal=" + _API.sucursal);
-                var _html = "<iframe id='neoweb_iframe' class='neoweb_iframe' src='" + encodeURI(_url) + "' frameborder='0' style='height:500vh;width:100%;'></iframe>";
+                var _html = "<iframe id='neoweb_iframe' class='neoweb_iframe' src='" + encodeURI(_url) + "' allow='display-capture; autoplay; camera; microphone' frameborder='0' style='height:" + _h + ";width:100%;'></iframe>";
                 setTimeout(function () { _API.onLoadAreaResultado(_html); }, 1000);
                 break;
             default:

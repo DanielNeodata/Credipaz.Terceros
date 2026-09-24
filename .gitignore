@@ -9,3 +9,4 @@
 /web.Release.config
 /bin
 /Recursos/configServers.json
+/obj/Release
