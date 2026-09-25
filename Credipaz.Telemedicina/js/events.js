@@ -1,10 +1,5 @@
 /* Archivo con todos los eventos implementados en la rama */
 
-/* EVENTO DE TESTEO */
-$("body").off("click", ".btnTest").on("click", ".btnTest", function () {
-	_F.onTest($(this));
-});
-
 /* EVENTOS IMPLEMENTADOS */
 $("body").off("click", ".btnCancelTelemedicina").on("click", ".btnCancelTelemedicina", function () {
 	_F.onCancelTelemedicina($(this));
