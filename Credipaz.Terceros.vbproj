@@ -169,7 +169,11 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\monitoreo.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\marcarmensajeleido.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticatemobile.html" />
+<<<<<<< HEAD
+    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\interfacedocumentacion.html" />
+=======
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\menuinterface.html" />
+>>>>>>> 72be2d5eb49b12f389261c03bff6955cc6eee423
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\resetusermobile.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\userinformation.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\uservaluepwa.html" />
@@ -230,7 +234,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\tiposDeCentros.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticar.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticarexterno.html" />
-    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\interfacedocumentacion.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\seguridad\menuinterface.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\verificartoken.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\websites\acciones.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\websites\canalesDeAcciones.html" />

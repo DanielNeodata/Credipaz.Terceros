@@ -96,13 +96,11 @@ var _F = {
 			}
 		);
 	},
-
 	onBridgeFile: function (_this) {
+		$(".areaArchivo").addClass("d-none");
 		var _mime = _this.attr("data-mime");
 		var _params = { "key": _this.attr("data-path"), "file": _this.attr("data-fullfilename") };
-		var _url = "/credipaz/archivourl";
-		$(".areaArchivo").addClass("d-none");
-		_API.call(_url, _params).then(function (data) {
+		_API.method("credipaz/archivourl", _params).then(function (data) {
 			//var _fullmime = "";
 			//if (!data.base64.includes("base64,")) { _fullmime = ("data:" + _mime + ";base64,"); }
 			switch (_mime) {
@@ -132,7 +130,7 @@ var _F = {
 			_API.onWait(true);
 			_this.fadeOut("fast");
 			var _params = { "idTransaccion": _this.attr("data-idtransaccion"), "nroDocumento": _this.attr("data-dni"), "segmento": _this.attr("data-segmento"), "idRequest": _this.attr("data-idrequest") };
-			_API.call("/credipaz/carpetadigital", _params).then(function (data) {
+			_API.method("credipaz/carpetadigital", _params).then(function (data) {
 				if (data.status != "OK") { throw data; }
 				var _styleDiv = "width:100%;height:100%;";
 				var _body = "";

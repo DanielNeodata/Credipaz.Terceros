@@ -93,13 +93,7 @@ var _F = {
 							if (_API.urlParameters["data"] != undefined) {
 								_F._showLink = true;
 								var _data = decodeURIComponent(_API.urlParameters["data"].toString());
-
-
-								_API.log("DATA->", _data);
 								var _json = JSON.parse(_API.tools.b64_to_string(_data));
-
-								_API.log("JSON->", _json);
-
 								/*Verify id_user & token*/
 								_API.verifytoken(_json).then(function (verify) {
 									$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
@@ -332,7 +326,7 @@ var _F = {
 			"rawRequest": JSON.stringify(_API.tools.getFormValues(".dataPost", $(this))),
 			"channel": "FSRV"
 		};
-		_API.method("credipaz/iniciarTransaccionPago", data).then(function (response) {
+		_API.call("credipaz/iniciarTransaccionPago", data).then(function (response) {
 			_idTransaction = response.id;
 			_F._itemsPagos[0]["idTransfer"] = _idTransaction;
 			$("#referencedMerchantTransactionID").val(_idTransaction);
@@ -348,7 +342,7 @@ var _F = {
 	},
 	onCheckStatusPaymentBotonPago: function (_idTransaction, _dni) {
 		var data = { "idTransaccion": _idTransaction };
-		_API.method("credipaz/consultarEstadoTransaccionPago", data).then(function (response) {
+		_API.call("credipaz/consultarEstadoTransaccionPago", data).then(function (response) {
 			if (datajson.data[0].status != "INICIADO") {
 				clearInterval(_F._TMR_PAY_BOTONPAGO);
 				if (datajson.data[0].status == "APROBADO") {

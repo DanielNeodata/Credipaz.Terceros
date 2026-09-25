@@ -86,7 +86,8 @@ var _F = {
 	},
 	onConsultas: function (_this) {
 		_F._interfaceActiva = "consultas";
-		_API.method("telemedicina/consultas", { "idUser": _API.id_user_log })
+		var _params = { "idUser": _API.id_user_log };
+		_API.method("telemedicina/consultas", _params)
 			.then(function (data) {
 				var _html = "";
 				if (data.records.length > 0) {
@@ -121,7 +122,7 @@ var _F = {
 			fadeInSpeed: 5000,
 			fadeOutSpeed: 1500
 		};
-		_API.call("/credipaz/notificacionesIntranet", {}).then(function (_notif) {
+		_API.call("credipaz/notificacionesIntranet", {}).then(function (_notif) {
 			var _html = "<div class='ticker text-left p-0 m-0'>";
 			_html += "<b class='pr-2'>Notificaciones</b>";
 			_html += "<ul>";
@@ -158,7 +159,8 @@ var _F = {
 	onCancelTelemedicina: function (_this) {
 		if (!confirm("Se cancelará la atención seleccionada. ¿Confirma?")) { return false; }
 		_API.onWait(true);
-		_API.method("telemedicina/cancelar", { "id": _this.attr("data-id") })
+		var _params = { "id": _this.attr("data-id") };
+		_API.method("telemedicina/cancelar", _params)
 			.then(function (data) {
 				_F.onMonitoreo(null);
 				_API.onWait(false);
@@ -167,7 +169,8 @@ var _F = {
 			});
 	},
 	onBuildArea: function (iModo, _title) {
-		_API.method("telemedicina/monitoreo", { "modo": iModo, "idUser": _API.id_user_log })
+		var _params = { "modo": iModo, "idUser": _API.id_user_log };
+		_API.method("telemedicina/monitoreo", _params)
 			.then(function (data) {
 				var _html = "";
 				if (data.records.length > 0) {
@@ -194,9 +197,10 @@ var _F = {
 	},
 	onPostClose: function (_this) {
 		var _id = _this.attr("data-id");
+		var _params = { "modo": 4, "id": _id, "idUser": _API.id_user_log };
 		$.get((_API._ROOT + "/html/postclose.html?" + _API._TS), function (_html) {
 			_API.onShowModal("modalPostClose", "", _html, "modal-lg").then(function (_ret) {
-				_API.method("telemedicina/monitoreo", { "modo": 4, "id": _id, "idUser": _API.id_user_log })
+				_API.method("telemedicina/monitoreo", _params)
 					.then(function (data) {
 						if (data.records[0].post_close != "") { $(".tNotasAnteriores").html("Notas anteriores:<br/>" + data.records[0].post_close); }
 						$(".tPaciente").html(data.records[0].name_club_redondo);
@@ -221,9 +225,10 @@ var _F = {
 	},
 	onEditChargeCode: function (_this) {
 		var _id = _this.attr("data-id");
+		var _params = { "modo": 4, "id": _id, "idUser": _API.id_user_log };
 		$.get((_API._ROOT + "/html/editchargecode.html?" + _API._TS), function (_html) {
 			_API.onShowModal("modalEditChargeCode", "", _html, "modal-xl").then(function (_ret) {
-				_API.method("telemedicina/monitoreo", { "modo": 4, "id": _id, "idUser": _API.id_user_log })
+				_API.method("telemedicina/monitoreo", _params)
 					.then(function (data) {
 						$(".wfooter").remove();
 						$(".btn-cancel-modal").attr("data-modal", "modalEditChargeCode");
@@ -334,8 +339,8 @@ var _F = {
 	},
 	onSaveNuevaNota: function (_this) {
 		if (!_API.tools.validate(".validatePostClose", false)) { return false; }
-		var _id = _this.attr("data-id");
-		_API.method("telemedicina/postcierre", { "id": _id, "nota": $(".nuevaNota").val() })
+		var _params = { "id": _this.attr("data-id"), "nota": $(".nuevaNota").val() };
+		_API.method("telemedicina/postcierre", _params)
 			.then(function (data) {
 				$(".btn-cancel-modal").click();
 			});
@@ -390,8 +395,8 @@ var _F = {
 	},
 	onSaveAmbulancia: function (_this) {
 		if (!_API.tools.validate(".validateAmbulancia", false)) { return false; }
-		var _id = _this.attr("data-id");
-		_API.method("telemedicina/solicitarambulancia", { "id": _id, "tipo": $(".tEmergencia").val(), "nota": $(".tNota").val() })
+		var _params = { "id": _this.attr("data-id"), "tipo": $(".tEmergencia").val(), "nota": $(".tNota").val() }
+		_API.method("telemedicina/solicitarambulancia", _params)
 			.then(function (data) {
 				_F.onDrawAmbulance(data.records[0]["emergency_details"]);
 				$(".btn-cancel-modalall").click();
@@ -523,7 +528,6 @@ var _F = {
 	},
 	onBuildReceta: function (_this) {
 		_API.onWait(true);
-		var _id_type_item = parseInt(_this.attr("data-id-type-item"));
 		var _id_charge_code = parseInt(_this.attr("data-id-charge-code"));
 		var _fnac = _this.attr("data-fechanacimiento");
 		var _arr = _fnac.split("/");
@@ -537,7 +541,7 @@ var _F = {
 			"panswiss": _this.attr("data-panswiss"),
 			"idChargeCode": _id_charge_code,
 			"idUser": _API.id_user_log
-		}
+		};
 		_API.method("telemedicina/farmalinkreceta", _params).then(function (response) {
 			if (response.url != null) {
 				var _html = "<div class='container-full'>";
@@ -567,7 +571,8 @@ var _F = {
 		});
 	},
 	onImagenes: function (_this) {
-		_API.method("telemedicina/mensajes", { "idChargeCode": _this.attr("data-id"), "idTypeDirection": 1, "idTypeItem": 1 })
+		var _params = { "idChargeCode": _this.attr("data-id"), "idTypeDirection": 1, "idTypeItem": 1 };
+		_API.method("telemedicina/mensajes", _params)
 			.then(function (data) {
 				var _html = "<ul class='list-group'>";
 				$.each(data.records, function (i, item) {
@@ -602,7 +607,8 @@ var _F = {
 		}
 	},
 	onRecetas: function (_this) {
-		_API.method("telemedicina/mensajes", { "idChargeCode": _this.attr("data-id"), "idTypeDirection": 2, "idTypeItem": 2 })
+		var _params = { "idChargeCode": _this.attr("data-id"), "idTypeDirection": 2, "idTypeItem": 2 };
+		_API.method("telemedicina/mensajes", _params)
 			.then(function (data) {
 				var _html = "<ul class='list-group'>";
 				$.each(data.records, function (i, item) {
@@ -661,7 +667,8 @@ var _F = {
 		}
 	},
 	onAtenciones: function (_this) {
-		_API.method("telemedicina/atencionesanteriores", { "idSocio": _this.attr("data-id_socio") })
+		var _params = { "idSocio": _this.attr("data-id_socio") };
+		_API.method("telemedicina/atencionesanteriores", _params)
 			.then(function (data) {
 				var _html = "<ul class='list-group'>";
 				$.each(data.records, function (i, item) {
@@ -759,11 +766,7 @@ var _F = {
 		var _idSocio = $(".nroSocioEspontanea").val();
 		if (_dni == "" && _idSocio == "") { alert("Debe indicar DNI o Nºde socio"); return false; }
 		_API.onWait(true);
-		var _params = {
-			"dni": _dni,
-			"idSocio": _idSocio,
-			"idUser": _API.id_user_log
-		}
+		var _params = { "dni": _dni, "idSocio": _idSocio, "idUser": _API.id_user_log };
 		_API.method("telemedicina/atencionespontanea", _params).then(function (response) {
 			_API.log("atencionespontanea_>", response);
 			$(".shadowInput").attr("data-id", response.records[0]["id_ot"]);
@@ -776,10 +779,6 @@ var _F = {
 	},
 	onGrabarOrdenMedica: function (_this) {
 		var _indicacion = $("#indicacion").val();
-		var _iface = _this.attr("data-iface");
-		var _obra_social = $("#obra_social").val();
-		var _obra_social_plan = $("#obra_social_plan").val();
-		var _nro_obra_social = $("#nro_obra_social").val();
 		var _carbon_copy = 0;
 		if ($("#carbon_copy").prop("checked")) { _carbon_copy = 1; }
 		if (_indicacion == "") {
@@ -791,19 +790,17 @@ var _F = {
 		$(".editable").attr("contenteditable", false);
 		$(".pIndicacion").html(_indicacion);
 		$("#indicacion").remove();
-
 		var _raw_data = {
-			"obra_social": _obra_social,
-			"obra_social_plan": _obra_social_plan,
-			"nro_obra_social": _nro_obra_social,
+			"obra_social": $("#obra_social").val(),
+			"obra_social_plan": $("#obra_social_plan").val(),
+			"nro_obra_social": $("#nro_obra_social").val(),
 			"indicacion": _indicacion
 		};
 		$(".attach").each(function () { _raw_data = _this.attr("data-url"); });
 		$(".autofill").remove();
-		var _message = $("#message").html();
 		var _params = {
 			"carbonCopy": _carbon_copy,
-			"message": _message,
+			"message": $("#message").html(),
 			"rawData": JSON.stringify(_raw_data),
 			"idChargeCode": _this.attr("data-id-charge-code"),
 			"idUser": _API.id_user_log
@@ -875,10 +872,7 @@ var _F = {
 	onDoctorAtencion: function (_this) {
 		_this.hide();
 		_API.onWait(true);
-		var _params = {
-			"idUser": _API.id_user_log,
-			"estado": _this.attr("data-action")
-		};
+		var _params = { "idUser": _API.id_user_log, "estado": _this.attr("data-action") };
 		_API.method("telemedicina/cambiarestadodoctor", _params).then(function (response) {
 			_API.telemedicina.atendiendo = parseInt(response.records[0].active);
 			_F.onDrawStatusDoctor();
@@ -891,16 +885,10 @@ var _F = {
 		});
 	},
 	onUploadReceta: function (_this) {
-		var _message = ""; 
 		var reader = new FileReader();
 		reader.readAsDataURL($(".btnUploadReceta").prop('files')[0]);
 		reader.onload = function () {
-			_message = reader.result;
-			var _params = {
-				"message": _message,
-				"idChargeCode": _this.attr("data-id-charge-code"),
-				"idUser": _API.id_user_log
-			};
+			var _params = { "message": reader.result, "idChargeCode": _this.attr("data-id-charge-code"), "idUser": _API.id_user_log };
 			_API.method("telemedicina/grabarreceta", _params).then(function (response) {
 				if (response.estado == "OK") {
 					alert("¡Se ha adjuntado la receta correctamente!");
@@ -934,10 +922,8 @@ var _F = {
 
 	},
 	onEstadoColaAtencion: function () {
-		var _params = {
-			"idUser": _API.id_user_log
-		};
-		_API.method("telemedicina/estadocolaatencion", _params).then(function (response) {
+		var _params = { "idUser": _API.id_user_log };
+		_API.call("telemedicina/estadocolaatencion", _params).then(function (response) {
 			_API.telemedicina.atendiendo = parseInt(response.records[0].activo);
 			_F.onDrawStatusDoctor();
 			var _total = parseInt(response.records[0].total);
