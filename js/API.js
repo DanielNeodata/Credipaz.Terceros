@@ -580,6 +580,30 @@ var _API = {
             }
         )
     },
+    callraw: function (endpoint, data) {
+        /* NO AUTENTICA
+        Función directa para llamadas genéricas, sin autenticación previa 
+        Parámetros:
+        endpoint: punto de acceso a la API
+        data: objeto json con los parámetros a enviar en la llamada, deben incluirse id_user, token y id_app
+        */
+        return new Promise(
+            function (resolve, reject) {
+                var _url = endpoint;
+                _API.log("callraw->data->" + _url, data);
+                $.ajax({
+                    "type": "POST",
+                    "dataType": "json",
+                    "url": _url,
+                    "data": data,
+                    "success": function (response) {
+                        _API.log("callraw->response", response);
+                        resolve(response);
+                    },
+                    "error": function (xhr, status, error) { reject(error); }
+                });
+            });
+    },
     call: function (endpoint, data) {
         /* NO AUTENTICA
         Función directa para llamadas genéricas, sin autenticación previa 

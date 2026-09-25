@@ -60,21 +60,18 @@ var _F = {
 				_json["external_operator"] = 1;
 				var _call = { type: "POST", dataType: "json", url: _endpoint, data: _json };
 				$("#request").html("<pre>" + JSON.stringify(_call, undefined, 2) + "</pre>");
-				var ajaxRq = $.ajax({
-					type: "POST",
-					dataType: "json",
-					url: _endpoint,
-					data: _json,
-					error: function (xhr, ajaxOptions, thrownError) { reject(thrownError); },
-					success: function (datajson) {
-						if ($(".chkToMemoy").prop("checked")) {
-							_F._persist = { "id_app": _json["id_app"], "id": datajson.userdata.id, "token_authentication": datajson.userdata.token_authentication };
-						}
-						_F.onControlPersist();
-						$("#response").html("<pre>" + JSON.stringify(datajson, undefined, 2) + "</pre>");
-						$(".titleCall").removeClass("d-none");
-						resolve(datajson);
+
+				_API.callraw(_endpoint, _json).then(function (datajson) {
+					if ($(".chkToMemoy").prop("checked")) {
+						_F._persist = { "id_app": _json["id_app"], "id": datajson.userdata.id, "token_authentication": datajson.userdata.token_authentication };
 					}
+					_F.onControlPersist();
+					$("#response").html("<pre>" + JSON.stringify(datajson, undefined, 2) + "</pre>");
+					$(".titleCall").removeClass("d-none");
+					resolve(datajson);
+
+				}).catch(function (err) {
+					reject(err);
 				});
 			});
 	},
