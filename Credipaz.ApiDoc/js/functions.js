@@ -66,6 +66,7 @@ var _F = {
 						_F._persist = { "id_app": _json["id_app"], "id": datajson.userdata.id, "token_authentication": datajson.userdata.token_authentication };
 					}
 					_F.onControlPersist();
+					_API.log("onUiExecute->datajson->", datajson);
 					$("#response").html("<pre>" + JSON.stringify(datajson, undefined, 2) + "</pre>");
 					$(".titleCall").removeClass("d-none");
 					resolve(datajson);

@@ -3,6 +3,8 @@ var _API = {
     _ROOT: "",
     _TIMER_ALERT: 0,
     _TIMER_LAZY: 0,
+    _TIMER_REFRESH: 0,
+    _HASH_CACHE: "",
     tools: null,
     id_user_log: null,
     id_app_external: 0,
@@ -11,7 +13,7 @@ var _API = {
     loginRequired: false,
     postLogin: false,
     externalUserMode: 0,
-    doctorRequired:false,
+    doctorRequired: false,
     imageLogin: "./img/loginDefault.png",
     subsystem: "",
     configuration: null,
@@ -179,7 +181,7 @@ var _API = {
         $(".areaResultado").hide().html(_html).removeClass("d-none").fadeIn("fast");
         _API.onGotoPosY(0).then(function () { _API.onWait(false); });
     },
-    
+
     /* Funciones de acciones sobre menues y entorno */
     onClickMenu: function (_this) {
         _this.addClass("blink");
@@ -188,6 +190,8 @@ var _API = {
         }, 1000);
     },
     onClickSubMenu: async function (_this) {
+        clearInterval(_F._TIMER_REFRESH);
+        _API._HASH_CACHE = "";
         _API.onWait(true).then(function () { _API.onSpinner(_this, true); });
         switch (_this.attr("data-mode")) {
             case "interfaces":
@@ -217,13 +221,13 @@ var _API = {
                 setTimeout(function () { _API.onLoadAreaResultado(_html); }, 1000);
                 break;
             default:
-                setTimeout(function () { 
+                setTimeout(function () {
                     _API.onGotoPosY(0).then(function () { _API.onSpinner(null, false); });
                 }, 2000);
                 break;
         }
     },
-    onDirectLink: function (_this) { 
+    onDirectLink: function (_this) {
         _API.onGotoPosY(0);
         _API.onWait(true);
         _API.onSpinner(_this, true);
@@ -415,13 +419,13 @@ var _API = {
     onSucursalChooser: function (_auth) {
         return new Promise(
             function (resolve, reject) {
-                if (!_API.postLogin || _auth.userdata.details == undefined || _auth.userdata.details == null || _auth.userdata.details.length == 0) {
+                if (!_API.postLogin || _auth.data == undefined || _auth.data == null || _auth.data.length == 0) {
                     resolve(true);
                     return false;
                 }
                 /*Sucursales disponibles para ingreso, dado el usuario autenticado */
                 var _sucursales = "";
-                $.each(_auth.userdata.details, function (i, item) {
+                $.each(_auth.data, function (i, item) {
                     if (parseInt(item.nIDSucursal) != 0) { item.sSucursal = _API.sucursal; item.nIDSucursal = _API.id_sucursal; }
                     _sucursales += '<a class="list-group-item btn btn-sm bg-magenta white bold btnSelectSucursal p-1 m-0" style="color:white;" href="#" data-name="' + item.sSucursal + '" data-id="' + item.nIDSucursal + '">' + item.sSucursal + '</div>';
                 });
@@ -449,7 +453,7 @@ var _API = {
         var check = await _API.tools.isUrlAvailable(_url);
         if (check) { _style = "color:green;"; _estado = "Online"; }
         _html += "   <tr>";
-        _html += "      <td>" + _servicio +"</td>";
+        _html += "      <td>" + _servicio + "</td>";
         _html += "      <td><b style='" + _style + "'>" + _estado + "</b></td>";
         _html += "   </tr>";
         return _html;
@@ -634,27 +638,44 @@ var _API = {
         */
         return new Promise(
             function (resolve, reject) {
-                /* Se auto asignan los parámetros basados en los datos de configServers.js */
-                var data = {
-                    "id_app": _API.configuration.id_app,
-                    "username": _API.configuration.username,
-                    "password": _API.configuration.password,
-                    "version": _API.configuration.version,
-                    "external_operator": 1
-                };
-                /* Llamada a la autenticación */
-                _API.call("production/authenticate", data)
-                    .then(function (auth) {
-                        /* Asignación de valores de autenticación */
-                        _API.authentication = auth;
-                        resolve(auth);
-                    })
-                    .catch(function (err) {
-                        _API.auth = null;
-                        _API.log("authenticate error", err);
-                        _API.onShowUnauthorized("Servicio de autenticación no disponible.");
-                        reject(err);
-                    });
+                /*Verificar si el token actual aún está vigente*/
+                var _now = new Date();
+                /*Default de expired ya vencido - muy importante!*/
+                var _expired = new Date(_now.setHours(_now.getHours() - 1));
+                /*Si ya se ha autenticado, se recupera el expired de la autenticación inicial*/
+                if (_API.authentication != null) { _expired = new Date(_API.authentication.userdata.token_authentication_expire); }
+                /*Se resuelve la diferencia del utc puesto en el server y la hora del cliente js*/
+                var _offset = (parseInt(_now.toString().split("GMT")[1].split(" ")[0]) / 100);
+                var _now = parseInt(_now.setSeconds(_now.getSeconds()));
+                var _expired = parseInt(_expired.setHours(_expired.getHours() + _offset));
+                console.log(_now);
+                console.log(_expired);
+                if (_now > _expired) {
+                    /* Se auto asignan los parámetros basados en los datos de configServers.js */
+                    var data = {
+                        "id_app": _API.configuration.id_app,
+                        "username": _API.configuration.username,
+                        "password": _API.configuration.password,
+                        "version": _API.configuration.version,
+                        "external_operator": 1
+                    };
+                    /* Llamada a la autenticación */
+                    _API.call("production/authenticate", data)
+                        .then(function (auth) {
+                            /* Asignación de valores de autenticación */
+                            _API.authentication = auth;
+                            resolve(auth);
+                        })
+                        .catch(function (err) {
+                            _API.auth = null;
+                            _API.log("authenticate error", err);
+                            _API.onShowUnauthorized("Servicio de autenticación no disponible.");
+                            reject(err);
+                        });
+                } else { 
+                    /*Se devuelven los valors de la autenticación aún activa*/
+                    resolve(_API.authentication);
+                }
             });
     },
     authenticateexternal: function (_this) {
@@ -663,7 +684,7 @@ var _API = {
                 try {
                     _this.prop("disabled", true).addClass("disabled");
                     /* llamada a la API para autenticar credenciales de usuario, segun modo configurado en el switch */
-                    if (!_API.tools.validate(".validateLogin", false)) { 
+                    if (!_API.tools.validate(".validateLogin", false)) {
                         _this.prop("disabled", false).removeClass("disabled");
                         return false;
                     }
@@ -708,7 +729,7 @@ var _API = {
                             _API.onShowUnauthorized("No se pudieron autenticar las credenciales provistas.");
                             reject(err);
                         });
-                } catch (ex) { 
+                } catch (ex) {
                     _API.onShowUnauthorized("Servicio de autenticación no disponible<br/>" + ex.message);
                 }
             });

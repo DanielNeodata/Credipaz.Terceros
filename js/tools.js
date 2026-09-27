@@ -289,4 +289,10 @@ var _T = {
         str = str.replace(/\s/g, '');
         return decodeURIComponent(escape(window.atob(str)));
     },
+    hashCode:function (s) {
+        return s.split("").reduce(function (a, b) {
+            a = ((a << 5) - a) + b.charCodeAt(0);
+            return a & a;
+        }, 0);
+    },
 };
