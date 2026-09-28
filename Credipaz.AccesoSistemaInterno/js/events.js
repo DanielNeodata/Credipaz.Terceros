@@ -70,12 +70,12 @@ $("body").off("click", ".btnDoctorAtencion").on("click", ".btnDoctorAtencion", f
 $("body").off("click", ".btnVideo").on("click", ".btnVideo", function () {
 	_F.onVideo($(this));
 });
-
 $("body").off("click", ".btnUploadReceta").on("click", ".btnUploadReceta", function (event) {
 	$(this).val(null);
 });
-
-
+$("body").off("click", ".btnRefresh").on("click", ".btnRefresh", function (event) {
+	_F.onRefresh();
+});
 
 $("body").off("change", ".btnUploadReceta").on("change", ".btnUploadReceta", function (event) {
 	_F.onUploadReceta($(this));
