@@ -47,12 +47,14 @@ $(document).ready(function () {
                 case "pagos.credipaz.com": //Botón de pago credipaz- producción
                 case "localhost:4444": //Botón de pago Credipaz - dev daniel
                 case "localhost:54444": //Botón de pago Credipaz - dev ruben
+                    _API._TITLE = "Pagos Credipaz";
                     _headerProductionKey = "pagos.credipaz.com";
                     break;
                 case "testpagos.mediya.com.ar": //Botón de pago - testing
                 case "pagos.mediya.com.ar": //Botón de pago - producción
                 case "localhost:4445": //Botón de pago Mediya - dev daniel
                 case "localhost:54445": //Botón de pago Mediya - dev ruben
+                    _API._TITLE = "Pagos Mediya";
                     _headerProductionKey = "pagos.mediya.com.ar";
                     break;
                 case "testtelemedicina.mediya.com.ar": //Telemedicina externo - testing

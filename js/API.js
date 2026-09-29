@@ -1,4 +1,5 @@
 var _API = {
+    _TITLE:"",
     _TS: 0,
     _ROOT: "",
     _TIMER_ALERT: 0,

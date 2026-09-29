@@ -16,6 +16,7 @@ var _F = {
 						/* evalua los parámetros y realiza las acciones que correspondan según lo recibido */
 						_F.onEvalParameters().then(function (response) {
 							_API.inited = true;
+							$(".titlePagos").html(_API._TITLE);
 							resolve(null);
 						});
 					});
