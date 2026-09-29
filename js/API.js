@@ -648,8 +648,6 @@ var _API = {
                 var _offset = (parseInt(_now.toString().split("GMT")[1].split(" ")[0]) / 100);
                 var _now = parseInt(_now.setSeconds(_now.getSeconds()));
                 var _expired = parseInt(_expired.setHours(_expired.getHours() + _offset));
-                console.log(_now);
-                console.log(_expired);
                 if (_now > _expired) {
                     /* Se auto asignan los parámetros basados en los datos de configServers.js */
                     var data = {
