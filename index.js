@@ -74,7 +74,7 @@ $(document).ready(function () {
             Seteo de valores específicos de comportamiento de la rama mediante readConfigBranches
             Parámetros:
             key = encabezado de producción*/
-            _API.readConfigBranches(_headerProductionKey).then(function (_branchConfig) {
+            _API.readConfigBranches(_headerProductionKey).then(function(_branchConfig) {
                 _API.activateBranch(_branchConfig);
             })
         });

@@ -14,8 +14,8 @@ var _F = {
 				try {
 					$("body").load((_API._ROOT + "/html/index.html?" + _API._TS), function () {
 						/* evalua los parámetros y realiza las acciones que correspondan según lo recibido */
-						_F.onEvalParameters().then(function (response) {
-							_API.inited = true;
+						_F.onEvalParameters().then(function(response) {
+							_API.inited=true;
 							$(".titlePagos").html(_API._TITLE);
 							resolve(null);
 						});
@@ -122,23 +122,23 @@ var _F = {
 					_F.DNI = $(".Documento").val();
 					if (_F._segmentos==null || _F._segmentos==""){_F._segmentos="TAR,CRE,CRDO,SAM,MOR";}
 					var data = { "nroDocumento": _F.DNI, "segmentos": _F._segmentos };
-					_API.method("credipaz/segmentosDeuda", data)
-						.then(function (response) {
+					_API.method("credipaz/segmentosDeuda",data)
+						.then(function(response) {
 							$(".divIFrame").addClass("d-none");
-							if (response.estado == "OK") {
+							if(response.estado=="OK") {
 								_API.onLoadAreaResultado(response.html);
 								if (_F._showLink) {
 									$(".myInput").val(("https://pagos.mediya.com.ar?segmentos="+_F._segmentos+"&code=" + encodeURIComponent(_API.tools.string_to_b64(_F.DNI))));
 									var _btnLink = "<a href='#' class='btn bt-raised btn-sm btn-primary btn-raised btn-copyClip' data-source='myInput'><i class='material-symbols-outlined'>share</i> Copiar Link de pago</a>";
 									$(".areaResultado").prepend(_btnLink);
 								}
-								var element = document.getElementById('otro_monto');
+								var element=document.getElementById('otro_monto');
 								if (element != null) {
 									var maskOptions = { mask: Number, scale: 2, thousandsSeparator: '.', padFractionalZeros: true, normalizeZeros: true, radix: ',', mapToRadix: ['.'], min: 0, max: 999999999, autofix: true, };
 									var mask = IMask(element, maskOptions);
 								}
-								if ($(".samImporte").val() != undefined) { _F.onTotalizePayment($(".samImporte")); }
-								if ($(".moraImporte").val() != undefined) { _F.onTotalizePayment($(".moraImporte")); }
+								if($(".samImporte").val()!=undefined) {_F.onTotalizePayment($(".samImporte"));}
+								if($(".moraImporte").val()!=undefined) {_F.onTotalizePayment($(".moraImporte"));}
 							}
 							_this.fadeIn("slow");
 							resolve(response);
@@ -160,9 +160,8 @@ var _F = {
 		var _reset = _this.attr("data-reset");
 		var _sort = parseInt(_this.attr("data-sort"));
 		var _total = 0;
-		var _color = "";
-		var _rec = "";
-
+		var _color="";
+		var _rec="";
 		_F._itemsPagos = [];
 		if (_reset != "") {
 			$(_reset).prop("checked", false);
@@ -179,8 +178,7 @@ var _F = {
 				}
 			});
 		}
-		if (_reset == ".chkTarMin" || _reset == ".chkTarTot") { $(".otro_monto").val(""); }
-
+		if(_reset==".chkTarMin"||_reset==".chkTarTot") {$(".otro_monto").val("");}
 		if ($(".samImporte").val() != undefined) {
 			$(".samImporte").css("background-color", "white");
 			$(".samImporte").each(function () {
