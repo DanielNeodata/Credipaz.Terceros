@@ -848,7 +848,7 @@ var _F = {
 				alert(response.message);
 				$(".btnGrabarOrdenMedica").fadeIn("fast");
 			}
-		}).catch(function (error) { alert(error.message); });
+		}).catch(function (error) {  });
 	},
 	onGrabarAtencion: function (_this) {
 		_API.onWait(true);
@@ -900,7 +900,7 @@ var _F = {
 			}
 			_API.onWait(false);
 		}).catch(function (error) {
-			alert(error.message);
+			
 			_API.onWait(false);
 		});
 	},
@@ -914,7 +914,7 @@ var _F = {
 			_this.show();
 			_API.onWait(false);
 		}).catch(function (error) {
-			alert(error.message);
+			
 			_this.show();
 			_API.onWait(false);
 		});
@@ -931,7 +931,7 @@ var _F = {
 				} else {
 					alert(response.message);
 				}
-			}).catch(function (error) { alert(error.message); });
+			}).catch(function (error) {  });
 		};
 	},
 	onVideo: function (_this) {
@@ -974,7 +974,7 @@ var _F = {
 				}
 			}
 		}).catch(function (error) {
-			alert(error.message);
+			
 		});
 	},
 	onDrawStatusDoctor: function () {

@@ -8,6 +8,10 @@ var _API = {
     _HASH_CACHE: "",
     tools: null,
     id_user_log: null,
+    username_log:null,
+    token_authentication_log:null,
+    token_authentication_created_log:null,
+    token_authentication_expired_log:null,
     id_app_external: 0,
     id_sucursal: 100,
     sucursal: "CASA CENTRAL",
@@ -697,9 +701,12 @@ var _API = {
                     };
                     _API.call("production/authenticateexternal", data)
                         .then(function (response) {
-                            _API.id_user_log = response.userdata.id;
-                            _API.username_log = response.userdata.username;
-                            _API.authentication.userdata.id = response.userdata.id;
+                            _API.id_user_log=response.userdata.id;
+                            _API.username_log=response.userdata.username;
+                            _API.token_authentication_log=response.userdata.token_authentication;
+                            _API.token_authentication_created_log=response.userdata.token_authentication_created;
+                            _API.token_authentication_expired_log=response.userdata.token_authentication_expired;
+                            _API.authentication.userdata.id=response.userdata.id;
                             _API.authentication.userdata.token_authentication = response.userdata.token_authentication;
                             _API.authentication.userdata.token_authentication_created = response.userdata.token_authentication_created;
                             _API.authentication.userdata.token_authentication_expired = response.userdata.token_authentication_expired;
@@ -761,8 +768,22 @@ var _API = {
                     });
             });
     },
+    externalTokenStatus: function() {
+        return new Promise(
+            function (resolve, reject) {
+                var data={"id_user_active": _API.id_user_log,"token_authentication": _API.token_authentication_log,"id_app": _API.id_app_external};
+                _API.call("production/verifytoken",data)    
+                    .then(function(response) {
+                        resolve(response);
+                    })
+                    .catch(function(err) {
+                        reject(err);
+                    });
+           });
+    },
+
     method: function (endpoint, data) {
-        /* AUTOAUTENTICA
+        /* AUTOAUTENTICA                                                                                             f
         Función genérica para hacer cualquier llamada a la API, 
         incluyendo la autenticación previa con los datos del desarrollador tomados de configServers.js
         Parámetros:
@@ -771,6 +792,22 @@ var _API = {
         */
         return new Promise(
             function (resolve, reject) {
+                /*Verificacion del token externo, si hay login externo realizado*/
+                if (_API.id_user_log!=null) {
+                    _API.externalTokenStatus()
+                        .then(function(data){})
+                        .catch(function(err) {
+                            var _html="<h5>El token de autenticación no es correcto</h5>";
+                            _html+="   <div class='card p-2 mt-3' style='font-size:0.85rem;color:black;'>";
+                            _html+="      <p>Se ha iniciado una sesión con sus credenciales en otra ubicación</p>";
+                            _html+="      <p>Si no ha sido Ud. quien lo hizo, <span style='color:red;font-weight:bold;' class='blink'>AVISE A SISTEMAS</span></p>";
+                            _html+="      <p>Si ha sido Ud. recuerde que solo puede operar con una sesión activa a la vez</p>";
+                            _html+="      <p class='p-0 m-0'><a href='\' target='_self' class='btn btn-light btn-sm' style='color:blue;'>Vuelva a autenticarse</a></p>";
+                            _html+="   </div>";
+                            _API.onShowUnauthorized(_html);
+                            reject(err);
+                        });
+                }
                 /* Llamada de auto autenticación */
                 _API.authenticate()
                     .then(function (auth) {
