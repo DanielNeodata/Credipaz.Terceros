@@ -9,7 +9,7 @@ var _F = {
 //						$(".logoImage").attr("src", _API.imageLogin);
 						_API.inited = true;
 						// Tomar ID de la tabla de Entidades
-						var data = { "idEntidad": 1 };
+						var data={"idEntidad": 1};
 						_API.method("credipaz/cesiones", data).then(function (response) {
 							console.log("Lista cruda: " + JSON.stringify(response));
 							// No es necesario aplicar el filtro
@@ -54,14 +54,6 @@ var _F = {
 		$("body").html("");
 		_API.inited = false;
 		_API._ROOT = "";
-	},
-
-	onTest: function (_this) {
-		var _target = _this.attr("data-target");
-		var _alert = _this.attr("data-alert");
-		var _message = _this.attr("data-message");
-		alert(_alert);
-		$(_target).html(_message);
 	},
 
 	/* FUNCIONES IMPLEMENTADAS */
@@ -124,8 +116,7 @@ var _F = {
 			//$(".areaArchivo").html("<embed type='" + _mime + "' src='" + data.url + "' style='height:850px;width:100%;'/>").removeClass("d-none");
 		});
 	},
-
-	onTraerCarpetaDigital: function (_this) {
+ 	onTraerCarpetaDigital: function (_this) {
 		try {
 			_API.onWait(true);
 			_this.fadeOut("fast");
