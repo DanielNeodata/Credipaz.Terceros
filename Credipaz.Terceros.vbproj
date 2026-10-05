@@ -144,6 +144,8 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\credenciales.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\especialidades.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\imagenbeneficio.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\enviarimagenalmedico.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\imagenbeneficio.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\obtenerrecetas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\obtenercomprobantes.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\estadocolaatencion.html" />
@@ -167,6 +169,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\consultas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\monitoreo.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\marcarmensajeleido.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\typeclose.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticatemobile.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\menuinterface.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\resetusermobile.html" />
