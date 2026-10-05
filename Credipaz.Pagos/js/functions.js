@@ -235,8 +235,8 @@ var _F = {
 			var _rec = JSON.parse(_API.tools.b64_to_string($(this).attr("data-record")));
 			if ($(this).prop("checked")) {
 				if (_rec.Importe == null || _rec.Importe == "") { _rec.Importe = 0; }
-				if (parseFloat(_rec.Importe) != 0) {
-					_rec.Importe = parseInt(_rec.Importe).toFixed(2).toString();
+				if(parseFloat(_rec.Importe) != 0) {
+					_rec.Importe = parseFloat(_rec.Importe).toFixed(2).toString();
 					_F._itemsPagos.push(_rec);
 					_total += parseFloat(this.value);
 				}
