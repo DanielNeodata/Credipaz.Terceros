@@ -120,7 +120,7 @@ var _F = {
 					if (!_API.tools.validate(".validateFirst", false)) { throw null; }
 					_this.fadeOut("fast");
 					_F.DNI = $(".Documento").val();
-					if (_F._segmentos==null || _F._segmentos==""){_F._segmentos="TAR,CRE,CRDO,SAM,MOR";}
+					if(_F._segmentos==null||_F._segmentos=="") {_F._segmentos="TAR,CRE,CRDO,CICR,SAM,MOR";}
 					var data = { "nroDocumento": _F.DNI, "segmentos": _F._segmentos };
 					_API.method("credipaz/segmentosDeuda",data)
 						.then(function(response) {
@@ -139,6 +139,10 @@ var _F = {
 								}
 								if($(".samImporte").val()!=undefined) {_F.onTotalizePayment($(".samImporte"));}
 								if($(".moraImporte").val()!=undefined) {_F.onTotalizePayment($(".moraImporte"));}
+							}
+							if(_F._segmentos=="CICR") {
+								$(".chkPay").click();
+								$(".chkPay").prop("disabled",true);
 							}
 							_this.fadeIn("slow");
 							resolve(response);
@@ -269,7 +273,7 @@ var _F = {
 					var chargetotal = _API.tools.formatChargeTotal(values.total.toString());
 					if (values.itemsPagos == undefined || values.itemsPagos == null || values.itemsPagos.length == 0) {
 						values.itemsPagos = [];
-						var _rec = { "Tipo": "TAR", "Identificacion": (_F.DNI + " Pago tarjeta"), "Importe": chargetotal, "idTransfer": 0 };
+						var _rec = { "Tipo": "TAR", "identificacion": (_F.DNI + " Pago tarjeta"), "Importe": chargetotal, "idTransfer": 0 };
 						values.itemsPagos.push(_rec);
 						values.itemsPagos = JSON.stringify(values.itemsPagos);
 					}
@@ -290,7 +294,7 @@ var _F = {
 							html += "    <tr><td>txndatetime</td><td><input class='dataPost' type='text' id='txndatetime' name='txndatetime' value='" + txndatetime + "'/></td></tr>";
 							html += "    <tr><td>currency</td><td><input class='dataPost' type='text' id='currency' name='currency' value='" + currency + "'/></td></tr>";
 							html += "    <tr><td>chargetotal</td><td><input class='dataPost' type='text' id='chargetotal' name='chargetotal' value='" + chargetotal + "'/></td></tr>";
-							html += "    <tr><td>customerid</td><td><input sclass='dataPost' tyle='width:100%;' type='text' id='customerid' name='customerid' value='" + values.itemsPagos[0].Identificacion + "'/></td></tr>";
+							html += "    <tr><td>customerid</td><td><input sclass='dataPost' tyle='width:100%;' type='text' id='customerid' name='customerid' value='" + values.itemsPagos[0].identificacion + "'/></td></tr>";
 							html += "    <tr><td>hash</td><td><input class='dataPost' type='text' id='hash' name='hash' value='" + extendedHash + "'/></td></tr>";
 							html += "    <tr><td>mode</td><td><input class='dataPost' type='text' id='mode' name='mode' value='payonly'/></td></tr>";
 							html += "    <tr><td>comments</td><td><input class='dataPost' type='text' id='comments' name='comments' value=''/></td></tr>";
@@ -318,7 +322,7 @@ var _F = {
 		$(".ocultarEnFISERV").hide();
 		var data = {
 			"idTypeChannel": 1,
-			"identificacion": _F._itemsPagos[0]["Identificacion"],
+			"identificacion": _F._itemsPagos[0]["identificacion"],
 			"moneda": $("#currency").val(),
 			"nroDocumento": _F.DNI,
 			"monto": $("#chargetotal").val(),
@@ -415,7 +419,7 @@ var _F = {
 			_html += "   <td align='center' valign='middle' style='font-weight:bold;font-size:12px;'>(Importe sujeto a confirmación de cobro)</td>";
 			_html += "</tr>";
 			if (_identificaciones != "") { _identificaciones += ", " }
-			_identificaciones += _item.Identificacion;
+			_identificaciones += _item.identificacion;
 		}
 		_html += "      <tr>";
 		_html += "         <td align='center' valign='middle'>";
