@@ -120,7 +120,7 @@ var _F = {
 					if (!_API.tools.validate(".validateFirst", false)) { throw null; }
 					_this.fadeOut("fast");
 					_F.DNI = $(".Documento").val();
-					if (_F._segmentos==null || _F._segmentos==""){_F._segmentos="TAR,CRE,CRDO,SAM,MOR";}
+					if(_F._segmentos==null||_F._segmentos=="") {_F._segmentos="TAR,CRE,CRDO,CICR,SAM,MOR";}
 					var data = { "nroDocumento": _F.DNI, "segmentos": _F._segmentos };
 					_API.method("credipaz/segmentosDeuda",data)
 						.then(function(response) {
@@ -139,6 +139,10 @@ var _F = {
 								}
 								if($(".samImporte").val()!=undefined) {_F.onTotalizePayment($(".samImporte"));}
 								if($(".moraImporte").val()!=undefined) {_F.onTotalizePayment($(".moraImporte"));}
+							}
+							if(_F._segmentos=="CICR") {
+								$(".chkPay").click();
+								$(".chkPay").prop("disabled",true);
 							}
 							_this.fadeIn("slow");
 							resolve(response);
