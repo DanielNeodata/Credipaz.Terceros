@@ -116,6 +116,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\cedidos.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\cesiones.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\consultarEstadoTransaccionPago.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\getdatacliente.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\obtenerFormulario.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\firmarFormulario.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\grabarRequest.html" />
