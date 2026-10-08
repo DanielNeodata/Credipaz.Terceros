@@ -96,11 +96,11 @@ var _F = {
 								var _data = decodeURIComponent(_API.urlParameters["data"].toString());
 								var _json = JSON.parse(_API.tools.b64_to_string(_data));
 								/*Verify id_user & token*/
-								_API.verifytoken(_json).then(function (verify) {
+								//_API.verifytoken(_json).then(function (verify) {
 									$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
-								}).catch(function (err) {
-									_API.onShowUnauthorized("Verificaciones no aprobadas.");
-								});
+								//}).catch(function (err) {
+								//	_API.onShowUnauthorized("Verificaciones no aprobadas.");
+								//});
 							} else {
 								_API.onShowUnauthorized("Parámetros no enviados.");
 							}
@@ -123,7 +123,8 @@ var _F = {
 					if(_F._segmentos==null||_F._segmentos=="") {_F._segmentos="TAR,CRE,CRDO,CICR,SAM,MOR";}
 					var data = { "nroDocumento": _F.DNI, "segmentos": _F._segmentos };
 					_API.method("credipaz/segmentosDeuda",data)
-						.then(function(response) {
+						.then(function(response)
+						{
 							$(".divIFrame").addClass("d-none");
 							if(response.estado=="OK") {
 								_API.onLoadAreaResultado(response.html);
@@ -139,8 +140,8 @@ var _F = {
 								}
 								if($(".samImporte").val()!=undefined) {_F.onTotalizePayment($(".samImporte"));}
 								if($(".moraImporte").val()!=undefined) {_F.onTotalizePayment($(".moraImporte"));}
-							}
-							if(_F._segmentos=="CICR") {
+							}						  	   
+							if(_F._segmentos=="CICR"||_F._segmentos=="CRDO") {
 								$(".chkPay").click();
 								$(".chkPay").prop("disabled",true);
 							}
