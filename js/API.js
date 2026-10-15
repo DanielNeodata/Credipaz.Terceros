@@ -23,7 +23,8 @@ var _API = {
     subsystem: "",
     configuration: null,
     authentication: null,
-    telemedicina: { "isDoctor": 0, "doctorName": "", "doctorFirma": "", "doctorMatricula": "" },
+    telemedicina: {"isDoctor": 0,"doctorName": "","doctorFirma": "","doctorMatricula": ""},
+    inactivityOptions:{"timeout": 360000,"mouse": true,"keyboard": true,"touch": true,"customEvents": "","triggerAll": true},
     branchConfiguration: null,
     urlParameters: null,
     inited: false,
@@ -184,9 +185,8 @@ var _API = {
     },
     onLoadAreaResultado: function (_html) {
         $(".areaResultado").hide().html(_html).removeClass("d-none").fadeIn("fast");
-        _API.onGotoPosY(0).then(function () { _API.onWait(false); });
+        _API.onGotoPosY(0).then(function() {_API.onWait(false);});
     },
-
     /* Funciones de acciones sobre menues y entorno */
     onClickMenu: function (_this) {
         _this.addClass("blink");
@@ -243,12 +243,13 @@ var _API = {
         var keyCode = (key.keyCode || key.which);
         if (keyCode === 13) { $(".btn-AuthenticateExternal").click(); }
     },
-    onLogout: function (_this) {
+    onLogout: function (_this, _idle) {
         var _html = "<h4 class='pl-2 magenta msgOut blink'></h4>";
         _html += "<div class='progress' style='height:2px;'><div class='progress-bar progress-bar-striped progress-bar-animated bg-dark' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style='width: 0%'></div></div>";
         _API.onShowModal("modalLogout", "", _html, "").then(function (_ret) {
             $(".wfooter").remove();
-            var _messages = ["Desconectando de red...", "Reseteando variables...", "Liberando memoria..."]
+            var _messages=["Desconectando de red...","Reseteando variables...","Liberando memoria..."];
+            if (_idle){_messages = ["Tiempo de inactividad excedido..."];}
             var _timeOut = 3000;
             var _interval = (_timeOut / _messages.length);
             var i = 0;
@@ -484,7 +485,7 @@ var _API = {
                         var data = JSON.parse(config);
                         var _item = data.find(item => item.key === key);
                         /* Asignación de valores de configuración */
-                        _API.configuration = _item;
+                        _API.configuration=_item;
                         $.getScript(("js/media.js?" + _API._TS), function () {
                             $.getScript(("js/events.js?" + _API._TS), function () {
                                 $.getScript(("js/tools.js?" + _API._TS), function () {

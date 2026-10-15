@@ -115,6 +115,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\cedidos.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\cesiones.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\consultarEstadoTransaccionPago.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\credipaz\getdatacliente.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\obtenerFormulario.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\firmarFormulario.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\credipaz\grabarRequest.html" />
@@ -291,6 +292,7 @@
     <Content Include="html\choose.html" />
     <Content Include="img\test-credipaz.png" />
     <Content Include="js\media.js" />
+    <Content Include="js\Neodata\jquery.inactivity.min.js" />
     <Content Include="js\Neodata\jquery.ticker.min.js" />
     <Content Include="js\Neodata\NEOAUTHENTICATION.js" />
     <Content Include="js\Neodata\NEOVIDEO-jvideo1.js" />

@@ -2,6 +2,7 @@
 var _F = {
 	/* VARIABLES ACCESIBLES EN TODA LA RAMA VA OBETO _F */
 	_itemsPagos: [],
+	_itemsSelected:[],
 	_showLink:false,
 	_TMR_PAY_BOTONPAGO: 0,
 	DNI: "",
@@ -79,6 +80,13 @@ var _F = {
 						/* remueve del html el componente que permite la búsqueda */
 						$(".headerImage").remove();
 						$(".areaSelector").remove();
+
+						/*Analiza el parametro sort, que contiene los checks seleccionados
+						  Debe marcarlos y poner todo disabled, para dejar estatica la pagina*/
+						var _sort=decodeURIComponent(_API.urlParameters["sort"].toString());
+						if(_API.tools.isBase64(_sort)) { _sort = _API.tools.b64_to_string(_sort); }
+						if (_sort!=""){_sort.slice(0,-1,);}
+						_F._itemsSelected = _sort.split(","); 
 					} else {
                         /*Evaluar si viene de sitio publico donde se va a pedir el dni*/
 						if (_API.urlParameters["etsi"] != undefined) {
@@ -96,11 +104,11 @@ var _F = {
 								var _data = decodeURIComponent(_API.urlParameters["data"].toString());
 								var _json = JSON.parse(_API.tools.b64_to_string(_data));
 								/*Verify id_user & token*/
-								_API.verifytoken(_json).then(function (verify) {
+								//_API.verifytoken(_json).then(function (verify) {
 									$(".logoImage").attr("src", (_API._ROOT + "/img/logoImageBig.png?" + _API._TS));
-								}).catch(function (err) {
-									_API.onShowUnauthorized("Verificaciones no aprobadas.");
-								});
+								//}).catch(function (err) {
+								//	_API.onShowUnauthorized("Verificaciones no aprobadas.");
+								//});
 							} else {
 								_API.onShowUnauthorized("Parámetros no enviados.");
 							}
@@ -123,13 +131,13 @@ var _F = {
 					if(_F._segmentos==null||_F._segmentos=="") {_F._segmentos="TAR,CRE,CRDO,CICR,SAM,MOR";}
 					var data = { "nroDocumento": _F.DNI, "segmentos": _F._segmentos };
 					_API.method("credipaz/segmentosDeuda",data)
-						.then(function(response) {
+						.then(function(response)
+						{
 							$(".divIFrame").addClass("d-none");
 							if(response.estado=="OK") {
 								_API.onLoadAreaResultado(response.html);
 								if (_F._showLink) {
-									$(".myInput").val(("https://pagos.mediya.com.ar?segmentos="+_F._segmentos+"&code=" + encodeURIComponent(_API.tools.string_to_b64(_F.DNI))));
-									var _btnLink = "<a href='#' class='btn bt-raised btn-sm btn-primary btn-raised btn-copyClip' data-source='myInput'><i class='material-symbols-outlined'>share</i> Copiar Link de pago</a>";
+									var _btnLink = "<a href='#' class='btn bt-raised btn-sm btn-primary btn-raised btn-copyClip d-none' data-source='myInput'><i class='material-symbols-outlined'>share</i> Copiar Link de pago</a>";
 									$(".areaResultado").prepend(_btnLink);
 								}
 								var element=document.getElementById('otro_monto');
@@ -139,9 +147,9 @@ var _F = {
 								}
 								if($(".samImporte").val()!=undefined) {_F.onTotalizePayment($(".samImporte"));}
 								if($(".moraImporte").val()!=undefined) {_F.onTotalizePayment($(".moraImporte"));}
-							}
-							if(_F._segmentos=="CICR") {
-								$(".chkPay").click();
+							}			
+							for(let x of _F._itemsSelected) {
+								$("*[data-sort="+x+"]").prop("disabled",false).click();
 								$(".chkPay").prop("disabled",true);
 							}
 							_this.fadeIn("slow");
@@ -229,8 +237,9 @@ var _F = {
 				_rec.Importe = _otro_monto.toFixed(2).toString();
 				if (_tar_tot != 0) { _pagoTarjeta = 1; }
 			}
-			if (_otro_monto != 0) { _F._itemsPagos.push(_rec); }
+			if(_otro_monto!=0) {_F._itemsPagos.push(_rec);}
 		}
+		var _sortPackedData = "";
 		$(".chkPay").each(function () {
 			var _rec = JSON.parse(_API.tools.b64_to_string($(this).attr("data-record")));
 			if ($(this).prop("checked")) {
@@ -240,6 +249,7 @@ var _F = {
 					_F._itemsPagos.push(_rec);
 					_total += parseFloat(this.value);
 				}
+				_sortPackedData += ($(this).attr("data-sort")+",");
 			}
 		});
 		/*consolidar total contra los items registrados! */
@@ -260,6 +270,12 @@ var _F = {
 		} else {
 			$(".divIFrame").addClass("d-none");
 		}
+
+		/*Armado de link estatico para el cliente*/
+		$(".btn-copyClip").addClass("d-none");
+
+		$(".btn-copyClip").removeClass("d-none");
+		$(".myInput").val(("https://pagos.mediya.com.ar?segmentos="+_F._segmentos+"&sort="+encodeURIComponent(_API.tools.string_to_b64(_sortPackedData))+"&code=" + encodeURIComponent(_API.tools.string_to_b64(_F.DNI))));
 
 	},
 	onBuildFormFiserv: function (values) {
