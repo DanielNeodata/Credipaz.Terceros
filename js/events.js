@@ -3,6 +3,9 @@
 /* EVENTOS COMUNES A TODAS LAS RAMAS */
 
 /*Evento click sobre elemento de menu*/
+$(document).on("inactivity",function() {
+    _API.onLogout($(this),true)
+});
 $("body").off("click", ".itemMenu").on("click", ".itemMenu", function () {
     _API.onClickMenu($(this));
 });
@@ -47,7 +50,7 @@ $("body").off("click", ".btn-AuthenticateExternal").on("click", ".btn-Authentica
 
 /*Evento que dispara el boton de reinicio de la interface para logout*/
 $("body").off("click", ".btnLogout").on("click", ".btnLogout", function () {
-    _API.onLogout($(this));
+    _API.onLogout($(this),false);
 });
 
 /*Evento que copia el contenido del elemento al portapapeles*/

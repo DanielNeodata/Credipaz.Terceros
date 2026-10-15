@@ -6,7 +6,10 @@ $(document).ready(function () {
            Lee valores de parámetros de acceso en la url 
            Setea la verbosity de la función log, solo generando logs en ambientes de desarrollo
            Setea timestamp para saltear los cachés*/
-        _API.readConfigServers("API", _TS).then(function () {
+        _API.readConfigServers("API",_TS).then(function() {
+            /* Inicializar control de idle state*/
+            $(document).inactivity(_API.inactivityOptions);
+
             /*Carga de librerias de terceros y configuracion de las mismas */
             _API.loadExternalLibraries();
 
