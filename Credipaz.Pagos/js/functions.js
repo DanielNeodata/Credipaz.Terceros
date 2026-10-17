@@ -66,7 +66,7 @@ var _F = {
 					_F._showLink = false;
 					if (_API.urlParameters["segmentos"] != undefined) { _F._segmentos = _API.urlParameters["segmentos"]; }
 					/*Automatización de acceso con dni en el parametro code de la url */
-					if (_API.urlParameters["code"] != undefined) {
+					if(_API.urlParameters["code"]!=undefined) {
 						$(".headerImage").addClass("d-none");
 						$(".areaSelector").addClass("d-none");
 						/* url decoding del valor del parametro */
@@ -83,10 +83,12 @@ var _F = {
 
 						/*Analiza el parametro sort, que contiene los checks seleccionados
 						  Debe marcarlos y poner todo disabled, para dejar estatica la pagina*/
-						var _sort=decodeURIComponent(_API.urlParameters["sort"].toString());
-						if(_API.tools.isBase64(_sort)) { _sort = _API.tools.b64_to_string(_sort); }
-						if (_sort!=""){_sort.slice(0,-1,);}
-						_F._itemsSelected = _sort.split(","); 
+						if(_API.urlParameters["sort"]!=undefined) {
+							var _sort=decodeURIComponent(_API.urlParameters["sort"].toString());
+							if(_API.tools.isBase64(_sort)) { _sort = _API.tools.b64_to_string(_sort); }
+							if(_sort!="") {_sort.slice(0,-1,);}
+							_F._itemsSelected=_sort.split(","); 
+						}
 					} else {
                         /*Evaluar si viene de sitio publico donde se va a pedir el dni*/
 						if (_API.urlParameters["etsi"] != undefined) {
