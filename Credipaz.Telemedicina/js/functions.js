@@ -260,7 +260,7 @@ var _F = {
 						_F.onDrawAmbulance(data.records[0]["emergency_details"]);
 						_F.onCheckFromValue(data.records[0].derivado_consulta, "#chkPresencial");
 						_F.onCheckFromValue(data.records[0].derivado_especialista, "#chkEspecialista");
-						_API.onLoadComboAjax("/telemedicina/tiposcierre", ".tCierre", data.records[0].type_task_close, "");
+						_API.onLoadComboAjax("telemedicina/tiposcierre", ".tCierre", data.records[0].type_task_close, "");
 						
 						//EVALUAR DESDE ACA PORQUE NO CARGA COMBO PARA RESOLVER SOCIO!
 						var _pCred = { "tipo": "SWISS", "nroDocumento": data.records[0].NroDocumento, "sexo": data.records[0].Sexo };
@@ -334,7 +334,7 @@ var _F = {
 				$(".btn-cancel-modalall").attr("data-modal", "modalAmbulancia");
 				$(".btnSaveAmbulancia").attr("data-modal", "modalAmbulancia");
 				$(".btnSaveAmbulancia").attr("data-id", _id);
-				_API.onLoadComboAjax("/telemedicina/tiposemergencia", ".tEmergencia", "", "");
+				_API.onLoadComboAjax("telemedicina/tiposemergencia", ".tEmergencia", "", "");
 			})
 		})
 	},
