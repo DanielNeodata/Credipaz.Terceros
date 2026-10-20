@@ -238,7 +238,6 @@ var _API = {
         _API.onSpinner(_this, true);
         setTimeout(function () { _API.onSpinner(null, false); _API.onWait(false); }, 1000);
     },
-
     onLoginReturn: function (_this, key) {
         var keyCode = (key.keyCode || key.which);
         if (keyCode === 13) { $(".btn-AuthenticateExternal").click(); }
@@ -371,7 +370,7 @@ var _API = {
                         $(_target).empty();
                         if (_value == -1 || _value == "") { _sel = "selected"; }
                         if (_empty != "N") { $(_target).append('<option ' + _sel + ' value="' + _valEmpty + '">[Seleccione]</option>'); }
-                        $.each(data.data, function (i, item) {
+                        $.each(data, function (i, item) {
                             _sel = "";
                             if (_value == item[_id]) {
                                 $(_target.replace("#", ".")).val(_selected);

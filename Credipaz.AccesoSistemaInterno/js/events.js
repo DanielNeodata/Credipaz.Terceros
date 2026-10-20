@@ -61,9 +61,6 @@ $("body").off("click", ".btnEspontanea").on("click", ".btnEspontanea", function 
 $("body").off("click", ".btnGrabarOrdenMedica").on("click", ".btnGrabarOrdenMedica", function () {
 	_F.onGrabarOrdenMedica($(this));
 });
-$("body").off("click", ".btnGrabarAtencion").on("click", ".btnGrabarAtencion", function () {
-	_F.onGrabarAtencion($(this));
-});
 $("body").off("click", ".btnDoctorAtencion").on("click", ".btnDoctorAtencion", function () {
 	_F.onDoctorAtencion($(this));
 });
@@ -76,7 +73,6 @@ $("body").off("click", ".btnUploadReceta").on("click", ".btnUploadReceta", funct
 $("body").off("click", ".btnRefresh").on("click", ".btnRefresh", function (event) {
 	_F.onRefresh();
 });
-
 $("body").off("change", ".btnUploadReceta").on("change", ".btnUploadReceta", function (event) {
 	_F.onUploadReceta($(this));
 });
@@ -85,4 +81,7 @@ $("body").off("change", ".tCierre").on("change", ".tCierre", function () {
 });
 $("body").off("change", ".cboSwiss").on("change", ".cboSwiss", function () {
 	_F.onChangeCboSwiss($(this));
+});
+$("body").off("click",".btnGrabarAtencion").on("click",".btnGrabarAtencion",function() {
+	_F.onGrabarAtencion($(this));
 });
