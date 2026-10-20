@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -146,6 +145,8 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\socios\credenciales.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\especialidades.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\imagenbeneficio.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\enviarimagenalmedico.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\imagenbeneficio.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\obtenerrecetas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\obtenercomprobantes.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\estadocolaatencion.html" />
@@ -169,6 +170,7 @@
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\consultas.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\monitoreo.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\marcarmensajeleido.html" />
+    <Content Include="Credipaz.ApiDoc\documentacion\mediya\telemedicina\typeclose.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\autenticatemobile.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\menuinterface.html" />
     <Content Include="Credipaz.ApiDoc\documentacion\seguridad\resetusermobile.html" />
