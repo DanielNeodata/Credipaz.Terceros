@@ -238,7 +238,6 @@ var _API = {
         _API.onSpinner(_this, true);
         setTimeout(function () { _API.onSpinner(null, false); _API.onWait(false); }, 1000);
     },
-
     onLoginReturn: function (_this, key) {
         var keyCode = (key.keyCode || key.which);
         if (keyCode === 13) { $(".btn-AuthenticateExternal").click(); }

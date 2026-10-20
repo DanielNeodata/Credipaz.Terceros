@@ -155,9 +155,6 @@ var _F = {
 			var _html = "<div class='ticker text-left p-0 m-0'>";
 			_html += "<b class='pr-2'>Notificaciones</b>";
 			_html += "<ul>";
-
-			_API.log("credipaz/notificacionesIntranet->", _notif);
-
 			$.each(_notif.records, function (i, item) {
 				var _title=item["description"];
 				var _msg = item["details"];
@@ -852,7 +849,7 @@ var _F = {
 	},
 	onGrabarAtencion: function (_this) {
 		_API.onWait(true);
-		var _idTypeClose = $(".tCierre").val();
+		var _idTypeTaskClose=$(".tCierre").val();
 		var _dPresencial = 0;
 		if ($(".chkPresencial").prop("checked")) { _dPresencial = 1; }
 		var _dEspecialista = 0;
@@ -890,7 +887,7 @@ var _F = {
 			"ta_constatada": $('input[name="ta_constatada"]:checked').val(),
 			"otras_evaluaciones": $(".otras_evaluaciones").val()
 		};
-		if (_idTypeClose != "") { _params["idTypeClose"] = _idTypeClose; }
+		if(_idTypeTaskClose!="") {_params["idTypeTaskClose"]= _idTypeTaskClose; }
 		_API.method("telemedicina/grabaratencion", _params).then(function (response) {
 			if (response.estado == "OK") {
 				$(".btn-cancel-modal").click();
