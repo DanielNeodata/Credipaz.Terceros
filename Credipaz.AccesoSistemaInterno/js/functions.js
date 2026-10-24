@@ -26,7 +26,14 @@ var _F = {
 							_API.onMenuIntranet(".areaMenu");
 
 							_F.onNotificaciones();
-							setInterval(function () { _F.onNotificaciones(); }, 600000);
+							setInterval(function() {_F.onNotificaciones();},600000);
+
+							/* Inicializar control de logout por idle state*/
+							var _inactivityTimeout=36000000;//1 hora
+							//10 horas en caso que sea médico
+							if(parseInt(_API.authentication.userdata.isDoctor)!=0){_inactivityTimeout=360000000;}
+							_API.inactivityOptions={"timeout": _inactivityTimeout,"mouse": true,"keyboard": true,"touch": true,"customEvents": "","triggerAll": true};
+				            $(document).inactivity(_API.inactivityOptions);
 
 							resolve(null);
 						});
@@ -161,10 +168,17 @@ var _F = {
 				var _script="";
 				switch (item["code"]) {
 					case "":
-						_html += "<li>"+_title+" <a href='#' class='btn btn-sm btn-primary btnVerNotificacion p-0 m-0 ml-2 px-2' data-html='"+_API.tools.string_to_b64(_msg)+"'>ver más</a></li>";
+						_html+="<li>"+_title+" <a href='#' class='btn btn-sm btn-primary btnVerNotificacion p-0 m-0 ml-2 px-2' data-html='"+_API.tools.string_to_b64(_msg)+"'>ver más</a></li>";
 						break;
-					case "alert":
-						_API.onAlert({ "message": (_title+_msg), "class": "alert-danger" });
+					case "alert-primary":
+					case "alert-secondary":
+					case "alert-light":
+					case "alert-dark":
+					case "alert-success":
+					case "alert-info":
+					case "alert-warning":
+					case "alert-danger":
+						_API.onAlert({"message": (_title+_msg), "class": item["code"] });
 						break;
 					case "eval":
 						eval(_msg);
@@ -279,7 +293,7 @@ var _F = {
 						$(".btnBuildOrden").attr("data-nro_obra_social", data.records[0].NroCredencial);
 						$(".btnBuildOrden").attr("data-matricula", _API.telemedicina.doctorMatricula);
 						$(".btnBuildOrden").attr("data-medico", _API.telemedicina.doctorName);
-						$(".btnBuildOrden").attr("data-firma", _API.telemedicina.doctorFirma);
+						//$(".btnBuildOrden").attr("data-firma", _API.telemedicina.doctorFirma);
 
 						$(".btnBuildReceta").attr("data-id-type-item", 2);
 						$(".btnBuildReceta").attr("data-id-charge-code", data.records[0].id_charges_codes);
@@ -982,7 +996,7 @@ var _F = {
 		}
 		$(".doctorName").html("Dr./Dra. " + _API.telemedicina.doctorName); 
 		$(".doctorMatricula").html("Matrícula " + _API.telemedicina.doctorMatricula);
-		$(".doctorFirma").attr("src", _API.telemedicina.doctorFirma);
+		//$(".doctorFirma").attr("src", _API.telemedicina.doctorFirma);
 		$(".btnDoctorAtencion").attr("data-action", "atender").removeClass("btn-danger").addClass("btn-info").html("En descanso");
 		if (_API.telemedicina.atendiendo == 1) { $(".btnDoctorAtencion").attr("data-action", "descansar").removeClass("btn-info").addClass("btn-danger").html("Atendiendo"); }
 		$(".areaDoctor").removeClass("d-none");

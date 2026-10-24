@@ -24,7 +24,7 @@ var _API = {
     configuration: null,
     authentication: null,
     telemedicina: {"isDoctor": 0,"doctorName": "","doctorFirma": "","doctorMatricula": ""},
-    inactivityOptions:{"timeout": 360000,"mouse": true,"keyboard": true,"touch": true,"customEvents": "","triggerAll": true},
+    inactivityOptions:{"timeout": 36000000,"mouse": true,"keyboard": true,"touch": true,"customEvents": "","triggerAll": true},
     branchConfiguration: null,
     urlParameters: null,
     inited: false,
