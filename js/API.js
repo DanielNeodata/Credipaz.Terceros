@@ -429,10 +429,10 @@ var _API = {
                     return false;
                 }
                 /*Sucursales disponibles para ingreso, dado el usuario autenticado */
-                var _sucursales = "";
-                $.each(_auth.data, function (i, item) {
-                    if (parseInt(item.nIDSucursal) != 0) { item.sSucursal = _API.sucursal; item.nIDSucursal = _API.id_sucursal; }
-                    _sucursales += '<a class="list-group-item btn btn-sm bg-magenta white bold btnSelectSucursal p-1 m-0" style="color:white;" href="#" data-name="' + item.sSucursal + '" data-id="' + item.nIDSucursal + '">' + item.sSucursal + '</div>';
+                var _sucursales="";
+                $.each(_auth.data,function(i,item) {
+                    if(parseInt(item.nIDSucursal)!=0) {item.sSucursal=_API.sucursal; item.nIDSucursal=_API.id_sucursal;}
+                    _sucursales+='<a class="list-group-item btn btn-sm bg-magenta white bold btnSelectSucursal p-1 m-0 mb-1" style="color:white;" href="#" data-name="'+item.sDescripcion+'" data-id="'+item.nIDSucursal + '">' + item.sDescripcion + '</div>';
                 });
                 $.get(("html/choose.html?" + _API._TS), function (_html) {
                     _API.onShowModalOverAll("modalSelectSucursal", "Seleccione sucursal donde se encuentra", _html).then(function (_ret) {
@@ -613,30 +613,6 @@ var _API = {
                 });
             });
     },
-    call: function (endpoint, data) {
-        /* NO AUTENTICA
-        Función directa para llamadas genéricas, sin autenticación previa 
-        Parámetros:
-        endpoint: punto de acceso a la API
-        data: objeto json con los parámetros a enviar en la llamada, deben incluirse id_user, token y id_app
-        */
-        return new Promise(
-            function (resolve, reject) {
-                var _url = (_API.configuration.server + endpoint);
-                _API.log("call->data->" + _url, data);
-                $.ajax({
-                    "type": "POST",
-                    "dataType": "json",
-                    "url": _url,
-                    "data": data,
-                    "success": function (response) {
-                        _API.log("call->response", response);
-                        resolve(response);
-                    },
-                    "error": function (xhr, status, error) { reject(error); }
-                });
-            });
-    },
     authenticate: function () {
         /*
         Función directa para llamadas de autenticación del desarrollador 
@@ -782,6 +758,30 @@ var _API = {
            });
     },
 
+    call: function(endpoint,data) {
+        /* NO AUTENTICA
+        Función directa para llamadas genéricas, sin autenticación previa 
+        Parámetros:
+        endpoint: punto de acceso a la API
+        data: objeto json con los parámetros a enviar en la llamada, deben incluirse id_user, token y id_app
+        */
+        return new Promise(
+            function(resolve,reject) {
+                var _url=(_API.configuration.server+endpoint);
+                _API.log("call->data->"+_url,data);
+                $.ajax({
+                    "type": "POST",
+                    "dataType": "json",
+                    "url": _url,
+                    "data": data,
+                    "success": function(response) {
+                        _API.log("call->response",response);
+                        resolve(response);
+                    },
+                    "error": function(xhr,status,error) {reject(error);}
+                });
+            });
+    },
     method: function (endpoint, data) {
         /* AUTOAUTENTICA                                                                                             f
         Función genérica para hacer cualquier llamada a la API, 

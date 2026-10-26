@@ -6,16 +6,11 @@ var _F = {
 			function (resolve, reject) {
 				try {
 					$("body").load((_API._ROOT + "/html/index.html?" + _API._TS), function () {
-//						$(".logoImage").attr("src", _API.imageLogin);
 						_API.inited = true;
 						// Tomar ID de la tabla de Entidades
 						var data={"idEntidad": 1};
 						_API.method("credipaz/cesiones", data).then(function (response) {
-							console.log("Lista cruda: " + JSON.stringify(response));
 							// No es necesario aplicar el filtro
-							//const filteredList = response.data.filter(item => item.Entidad === _API.username_log);
-							//listString = JSON.stringify(filteredList);
-							//console.log("Lista filtrada: " + listString);
 							if (response.data) {
 								_qstr = "<table>\n";
 								_qstr += "<tr>\n";
@@ -36,7 +31,6 @@ var _F = {
 								_qstr += "</tr>\n";
 								_qstr += "</table>\n";
 								_qstr += "<br>\n";
-								//console.log("Cesiones: " + _qstr);
 								$(".areaBusqueda").html(_qstr).removeClass("d-none");
 							}
 						});
@@ -64,7 +58,6 @@ var _F = {
 					// Carga lista de Cedidos
 					var data = { "idEntidad": "1", "cesion": _this.val(), "download": "N" };
 					_API.method("credipaz/cedidos", data).then(function (response) {
-						console.log(response);
 						if (response.data) {
 							// No es necesario filtrar
 							const orderedList = response.data.sort((a, b) => a.fFecha - b.fFecha);
@@ -146,7 +139,6 @@ var _F = {
 				_body += "   </div>";
 				_body += "</div>";
 
-				console.log(_body);
 				_API.onShowModal("modalCarpetaDigital", "Carpeta digital", _body, "modal-xl")
 					.then(function () {
 						$(".btn-ok-modal").remove();

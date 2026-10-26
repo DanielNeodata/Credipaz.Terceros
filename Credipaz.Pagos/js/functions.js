@@ -340,7 +340,7 @@ var _F = {
 		$(".ocultarEnFISERV").hide();
 		var data = {
 			"idTypeChannel": 1,
-			"identificacion": _F._itemsPagos[0]["identificacion"],
+			"identificacion": _F._itemsPagos[0]["Identificacion"],
 			"moneda": $("#currency").val(),
 			"nroDocumento": _F.DNI,
 			"monto": $("#chargetotal").val(),

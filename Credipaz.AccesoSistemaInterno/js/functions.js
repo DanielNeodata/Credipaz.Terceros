@@ -824,19 +824,6 @@ var _F = {
 		var _idSocio=$(".nroSocioEspontanea").val();
 		if(_dni==""&&_idSocio=="") {alert("Debe indicar DNI o Nºde socio"); return false;}
 		_F.onConsultas(_this);
-		/*
-		_API.onWait(true);
-		var _params={"dni": _dni,"idSocio": _idSocio,"idUser": _API.id_user_log};
-		_API.method("telemedicina/atencionespontanea",_params).then(function(response) {
-			_API.log("atencionespontanea_>",response);
-			$(".shadowInput").attr("data-id",response.records[0]["id_ot"]);
-			_API.onWait(false);
-			_F.onEditChargeCode($(".shadowInput"));
-		}).catch(function(err) {
-			alert("No se ha podido procesar la atención espontánea.");
-			_API.onWait(false);
-		});
-		*/
 	},
 	onEspontanea: function (_this) {
 		var _dni = $(".dniEspontanea").val();

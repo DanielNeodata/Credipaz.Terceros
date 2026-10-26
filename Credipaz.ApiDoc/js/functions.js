@@ -72,7 +72,6 @@ var _F = {
 					resolve(datajson);
 
 				}).catch(function (err) {
-					console.log(err);
 					alert(err.message);
 					reject(err);
 				});
