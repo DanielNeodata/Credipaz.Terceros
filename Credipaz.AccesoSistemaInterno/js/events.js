@@ -55,6 +55,9 @@ $("body").off("click", ".btnBuildReceta").on("click", ".btnBuildReceta", functio
 $("body").off("click", ".btnCambiarDatosOrden").on("click", ".btnCambiarDatosOrden", function () {
 	_F.onCambiarDatosOrden($(this));
 });
+$("body").off("click",".btnBuscarAtenciones").on("click",".btnBuscarAtenciones",function() {
+	_F.onBuscarAtenciones($(this));
+});
 $("body").off("click", ".btnEspontanea").on("click", ".btnEspontanea", function () {
 	_F.onEspontanea($(this));
 });

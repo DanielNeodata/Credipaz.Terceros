@@ -102,8 +102,12 @@ var _F = {
 	},
 	onConsultas: function (_this) {
 		clearInterval(_F._TIMER_REFRESH);
-		_F._interfaceActiva = "consultas";
-		var _params = { "idUser": _API.id_user_log };
+		_F._interfaceActiva="consultas";
+		var _dni=$(".dniEspontanea").val();
+		var _idSocio=$(".nroSocioEspontanea").val();
+		var _params={"idUser": _API.id_user_log};
+		if(_dni!="") {_params["nroDocumento"]=_dni;}
+		if(_idSocio!=""){_params["idSocio"]=_idSocio;}
 		_API.method("telemedicina/consultas", _params)
 			.then(function (data) {
 				/*Evaluar hash de respuesta para disparar o evitar la recarga*/
@@ -117,9 +121,10 @@ var _F = {
 						var vRules = [];
 						var _preHeader = "<div class='container-full my-2 p-2 shadow-sm' style='border-radius:5px;border:solid 1px gainsboro;'>";
 						_preHeader += "      <div class='row'>";
-						_preHeader += "         <div class='col-2'><label>DNI</label><br/><input type='number' placeholder='DNI' class='form-control onlyNumbers dniEspontanea' name='dniEspontanea' id='dniEspontanea'/></div>";
-						_preHeader += "         <div class='col-2'><label>Socio Mediya</label><br/><input type='number' placeholder='Nºde socio' class='form-control onlyNumbers nroSocioEspontanea' name='nroSocioEspontanea' id='nroSocioEspontanea'/></div>";
-						_preHeader += "         <div class='col-2 mt-2 pt-4'><a href='#' class='btn btn-primary btn-md btnEspontanea'>Espontánea</a></div>";
+						_preHeader+="         <div class='col-2'><label>DNI</label><br/><input type='number' placeholder='DNI' class='form-control onlyNumbers dniEspontanea' name='dniEspontanea' id='dniEspontanea'/></div>";
+						_preHeader+="         <div class='col-2'><label>Socio Mediya</label><br/><input type='number' placeholder='Nºde socio' class='form-control onlyNumbers nroSocioEspontanea' name='nroSocioEspontanea' id='nroSocioEspontanea'/></div>";
+						_preHeader += "         <div class='col-1 mt-2 pt-4'><a href='#' class='btn btn-info btn-md btnBuscarAtenciones'>Buscar</a></div>";
+						_preHeader += "         <div class='col-1 mt-2 pt-4'><a href='#' class='btn btn-primary btn-md btnEspontanea'>Espontánea</a></div>";
 						_preHeader += "         <div class='col-6 mt-1 pt-4 text-right'><a href='#' class='btn btn-light btn-sm btnRefresh'><span class='material-symbols-outlined'>refresh</span></a></div>";
 						_preHeader += "      </div>";
 						_preHeader += "   </div>";
@@ -141,6 +146,8 @@ var _F = {
 				_F.onSupervision(null);
 				break;
 			case "consultas":
+				$(".dniEspontanea").val("");
+				$(".nroSocioEspontanea").val("");
 				_F.onConsultas(null);
 				break;
 		}
@@ -267,6 +274,10 @@ var _F = {
 		});
 	},
 	onEditChargeCode: function (_this) {
+        if (_API.telemedicina.atendiendo!=1){
+			alert("Ud. se encuentra en descanso.  Debe marcar su estado como 'atendiendo' para poder continuar.");
+			return false;
+		}
 		var _id = _this.attr("data-id");
 		var _params = { "modo": 4, "id": _id, "idUser": _API.id_user_log };
 		$.get((_API._ROOT + "/html/editchargecode.html?" + _API._TS), function (_html) {
@@ -500,7 +511,7 @@ var _F = {
 		var _obra_social_plan = _this.attr("data-obra_social_plan");
 		var _nro_obra_social = _this.attr("data-nro_obra_social");
 		var _body = "";
-		_body += "<div id='message' name='message' class='shadow message p-2' style='width:100%;'>";
+		_body += "<div id='message' name='message' class='shadow message p-1' style='width:100%;'>";
 		_body += '<table width="100%">';
 		_body += '   <tr>';
 		_body += '      <td align="left"><img src="' + _F._logo_receta_left + '" width="60"/></td>';
@@ -533,7 +544,7 @@ var _F = {
 		_body += "<h4 class='noshare'></h4>"
 		_body += "<p class='pIndicacion'></p>";
 		_body += "<table width='100%'>";
-		_body += "   <tr><td align='left'><textarea class='form-control indicacion' rows='11' id='indicacion' name='indicacion' placeholder='Escriba aquí notas relacionadas con la receta'></textarea></td></tr>";
+		_body += "   <tr><td align='left'><textarea class='form-control indicacion' rows='6' id='indicacion' name='indicacion' placeholder='Escriba aquí notas relacionadas con la receta'></textarea></td></tr>";
 		_body += "</table>";
 		_body += "<hr/>";
 		_body += "<table width='100%'>";
@@ -569,6 +580,7 @@ var _F = {
 		_body += "</table>";
 		_API.onShowModalOverAll("modalOrden", "", _body).then(function (_ret) {
 			$(".wfooter").remove();
+			$(".card-modalall").removeClass("p-2").addClass("p-0");
 			$(".btn-cancel-modalall").attr("data-modal", "modalOrden");
 		});
 	},
@@ -806,6 +818,25 @@ var _F = {
 		$(".obra_social").val(_this.attr("data-os"));
 		$(".obra_social_plan").val(_this.attr("data-plan"))
 		$(".nro_obra_social").val(_this.attr("data-number"));
+	},
+	onBuscarAtenciones: function(_this) {
+		var _dni=$(".dniEspontanea").val();
+		var _idSocio=$(".nroSocioEspontanea").val();
+		if(_dni==""&&_idSocio=="") {alert("Debe indicar DNI o Nºde socio"); return false;}
+		_F.onConsultas(_this);
+		/*
+		_API.onWait(true);
+		var _params={"dni": _dni,"idSocio": _idSocio,"idUser": _API.id_user_log};
+		_API.method("telemedicina/atencionespontanea",_params).then(function(response) {
+			_API.log("atencionespontanea_>",response);
+			$(".shadowInput").attr("data-id",response.records[0]["id_ot"]);
+			_API.onWait(false);
+			_F.onEditChargeCode($(".shadowInput"));
+		}).catch(function(err) {
+			alert("No se ha podido procesar la atención espontánea.");
+			_API.onWait(false);
+		});
+		*/
 	},
 	onEspontanea: function (_this) {
 		var _dni = $(".dniEspontanea").val();
