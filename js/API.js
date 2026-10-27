@@ -572,9 +572,9 @@ var _API = {
             /* acceso con autenticación de usuario externo 
                debe hacerse llamada de autenticación inicial para lueg poder utilizar la atenticación externa,
                esto no es requerido cuando no se requiere de la autenticacion externa*/
-            //_API.authenticate().then(function () {
+            _API.authenticate().then(function () {
                 _API.onShowLoginModal();
-            //});
+            });
         }
     },
     loaderFile: function (_file) {
@@ -670,9 +670,11 @@ var _API = {
                         return false;
                     }
                     /*Para activar la autenticacion*/
-                    var data = {
-                        "id_user": 418603,//_API.authentication.userdata.id,
-                        "token_authentication": "TOKEN",//_API.authentication.userdata.token_authentication,
+                    var data={
+                        "id_user": _API.authentication.userdata.id,
+                        "token_authentication": _API.authentication.userdata.token_authentication,
+                        //"id_user": 418603,
+                        //"token_authentication": "TOKEN",
                         "id_app": _API.id_app_external,
                         "username": $(".Username").val(),
                         "password": $(".Password").val(),
