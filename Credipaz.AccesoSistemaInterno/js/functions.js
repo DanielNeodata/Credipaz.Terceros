@@ -20,13 +20,15 @@ var _F = {
 							$(".badgeSucursal").html(_API.sucursal);
 							$(".areaStatus").removeClass("blink");
 							clearInterval(_API._TIMER_ALERT);
-							setTimeout(function () { _F.onEstadoColaAtencion(); }, 1000);
-							_API._TIMER_ALERT = setInterval(function () { _F.onEstadoColaAtencion(); }, 10000);
+							if (_API.telemedicina.isDoctor != 0) {
+								setTimeout(function () { _F.onEstadoColaAtencion(); }, 1000);
+								_API._TIMER_ALERT = setInterval(function () { _F.onEstadoColaAtencion(); }, 10000);
+							}
 							_F.onDrawStatusDoctor();
 							_API.onMenuIntranet(".areaMenu");
 
-							_F.onNotificaciones();
-							setInterval(function() {_F.onNotificaciones();},600000);
+							//_F.onNotificaciones();
+							//setInterval(function() {_F.onNotificaciones();},600000);
 
 							/* Inicializar control de logout por idle state*/
 							var _inactivityTimeout=36000000;//1 hora

@@ -395,10 +395,12 @@ var _API = {
             if (keyCode !== 13) { return false; }
         }
         if (!_API.tools.validate(".dniCliente", true)) { return false; }
-        var _params = { "nroDocumento": $(".dniCliente").val() };
-        _API.method("credipaz/getdatacliente", _params).then(function (data) {
-            if (data.status == "OK" && data.message.records.length != 0) {
-                _API.onShowModalOverAll("modalDatosCliente", "", data.message.html).then(function (_ret) {
+        var _params={"nroDocumento": $(".dniCliente").val()};
+        _API.method("credipaz/getdatacliente",_params).then(function(data) {
+            console.log("credipaz/getdatacliente->");
+            console.log(data);
+            if (data.status == "OK" && data.records.length != 0) {
+                _API.onShowModalOverAll("modalDatosCliente", "", data.html).then(function (_ret) {
                     $(".btn-ok-modalall").remove();
                     $(".wfooter").addClass("text-center");
                     $(".btn-cancel-modalall").html("Cerrar").removeClass("btn-danger").addClass("btn-info").attr("data-modal", "modalDatosCliente");
@@ -570,9 +572,9 @@ var _API = {
             /* acceso con autenticación de usuario externo 
                debe hacerse llamada de autenticación inicial para lueg poder utilizar la atenticación externa,
                esto no es requerido cuando no se requiere de la autenticacion externa*/
-            _API.authenticate().then(function () {
+            //_API.authenticate().then(function () {
                 _API.onShowLoginModal();
-            });
+            //});
         }
     },
     loaderFile: function (_file) {
@@ -667,16 +669,19 @@ var _API = {
                         _this.prop("disabled", false).removeClass("disabled");
                         return false;
                     }
+                    /*Para activar la autenticacion*/
                     var data = {
-                        "id_user": _API.authentication.userdata.id,
-                        "token_authentication": _API.authentication.userdata.token_authentication,
+                        "id_user": 418603,//_API.authentication.userdata.id,
+                        "token_authentication": "TOKEN",//_API.authentication.userdata.token_authentication,
                         "id_app": _API.id_app_external,
                         "username": $(".Username").val(),
                         "password": $(".Password").val(),
                         "external_operator": _API.externalUserMode
                     };
                     _API.call("production/authenticateexternal", data)
-                        .then(function (response) {
+                        .then(function(response) {
+                            if (_API.authentication==null) {_API.authentication = response;}
+
                             _API.id_user_log=response.userdata.id;
                             _API.username_log=response.userdata.username;
                             _API.token_authentication_log=response.userdata.token_authentication;
