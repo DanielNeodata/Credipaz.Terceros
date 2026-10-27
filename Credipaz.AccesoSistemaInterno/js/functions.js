@@ -27,8 +27,8 @@ var _F = {
 							_F.onDrawStatusDoctor();
 							_API.onMenuIntranet(".areaMenu");
 
-							//_F.onNotificaciones();
-							//setInterval(function() {_F.onNotificaciones();},600000);
+							_F.onNotificaciones();
+							setInterval(function() {_F.onNotificaciones();},600000);
 
 							/* Inicializar control de logout por idle state*/
 							var _inactivityTimeout=36000000;//1 hora
