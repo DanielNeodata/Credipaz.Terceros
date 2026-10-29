@@ -259,6 +259,17 @@ var _API = {
     },
 
     /* Funciones con interface específica */
+    onToggleMenubar: function(_this){
+        if(_this.html()=="chevron_left"){
+            _this.html("chevron_right");
+            $(".barraMenu").fadeOut("fast");
+            $(".areaStatus").fadeOut("fast");
+        } else {
+            _this.html("chevron_left");
+            $(".barraMenu").fadeIn("fast");
+            $(".areaStatus").fadeIn("fast");
+        }
+    },
     onSettings: async function (_this) {
         _API.onWait(true);
         var _html = "";
@@ -334,7 +345,7 @@ var _API = {
         if (tblClass == "") { tblClass = "table table-borderless table-hover table-sm table-condensed" }
         if (tblStyle == "") { tblStyle = "width:100%;font-size:14px;"; }
         if (_preHeader != "") { _html += _preHeader; }
-        _html += "<table class='" + tblClass + "' style='" + tblStyle + "'>";
+        _html += "<table id='"+_id+"' class='" + tblClass + " " + _id + "' style='" + tblStyle + "'>";
         if (vHeaders.length > 0) {
             _html += "<thead class='thead-dark'>";
             _html += "<tr>";

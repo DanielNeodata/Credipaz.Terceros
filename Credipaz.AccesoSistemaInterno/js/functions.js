@@ -1,6 +1,11 @@
 /* Objeto con todas las funciones de la rama */
-var _F = {
-	_refresh_interval:15000,
+var _F={
+	_TMR_NOTIFY: 0,
+	_TMR_COLAATENCION: 0,
+	_inactivityTimeout: 36000000,
+	_refresh_interval: 30000,
+	_refresh_interval_notify: 60000,
+	_refresh_interval_colaatencion:60000,
 	_esperando: 0,
 	_interfaceActiva: "",
 	_logo_receta_left: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFFmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDggNzkuMTY0MDM2LCAyMDE5LzA4LzEzLTAxOjA2OjU3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjEuMCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDI0LTA0LTI5VDE4OjAwOjM2LTAzOjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyNC0wNS0wNFQxMTo0NToyOS0wMzowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyNC0wNS0wNFQxMTo0NToyOS0wMzowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpjYTEwZmJkZS03MWQzLWM1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",
@@ -19,22 +24,30 @@ var _F = {
 							$(".badgeUsername").html(_API.username_log);
 							$(".badgeSucursal").html(_API.sucursal);
 							$(".areaStatus").removeClass("blink");
-							clearInterval(_API._TIMER_ALERT);
-							if (_API.telemedicina.isDoctor != 0) {
-								setTimeout(function () { _F.onEstadoColaAtencion(); }, 1000);
-								_API._TIMER_ALERT = setInterval(function () { _F.onEstadoColaAtencion(); }, 10000);
-							}
-							_F.onDrawStatusDoctor();
+
+							/*Armado del meun de la intranet*/
 							_API.onMenuIntranet(".areaMenu");
-
 							_F.onNotificaciones();
-							setInterval(function() {_F.onNotificaciones();},600000);
+							/*Inicializar el controlador de notificaciones de la intranet*/
+							/*
+							_F.onNotificaciones().then(function(data) {
+								_F._TMR_NOTIFY=setTimeout(function() {_F.onNotificaciones();},_F._refresh_interval_notify);
+							}).catch(function(err) {
+								_F._TMR_NOTIFY=setTimeout(function() {_F.onNotificaciones();},_F._refresh_interval_notify);
+							});
+							*/
 
-							/* Inicializar control de logout por idle state*/
-							var _inactivityTimeout=36000000;//1 hora
+							/*Activa el control de la cola de atencion, si el usuario es un medico*/
+							if(_API.telemedicina.isDoctor!=0) {
+								clearInterval(_F._TMR_COLAATENCION);
+								_F.onEstadoColaAtencion();
+								_F._TMR_COLAATENCION=setInterval(function() {_F.onEstadoColaAtencion();},_F._refresh_interval_colaatencion);
+							}
+
+							/* Inicializar el control de logout por idle state*/
 							//10 horas en caso que sea médico
-							if(parseInt(_API.authentication.userdata.isDoctor)!=0){_inactivityTimeout=360000000;}
-							_API.inactivityOptions={"timeout": _inactivityTimeout,"mouse": true,"keyboard": true,"touch": true,"customEvents": "","triggerAll": true};
+							if(parseInt(_API.authentication.userdata.isDoctor)!=0) {_F._inactivityTimeout=(_F._inactivityTimeout*10);}
+							_API.inactivityOptions={"timeout": _F._inactivityTimeout,"mouse": true,"keyboard": true,"touch": true,"customEvents": "","triggerAll": true};
 				            $(document).inactivity(_API.inactivityOptions);
 
 							resolve(null);
@@ -75,9 +88,9 @@ var _F = {
 		_html += "</div>";
 		_API.onLoadAreaResultado(_html);
 		_F.onBuildArea(1, "En Espera");
-		_F.onBuildArea(2, "Siendo atendidos");
-		_F.onBuildArea(3, "Últimas atenciones");
-		_F._TIMER_REFRESH = setInterval(function () { _F.onMonitoreo(null); }, _F._refresh_interval);
+		_F.onBuildArea(2,"Siendo atendidos");
+		_F.onBuildArea(3,"Últimas atenciones");
+	    if (_API.telemedicina.isDoctor != 0) {_F._TIMER_REFRESH = setTimeout(function () { _F.onMonitoreo(null); }, _F._refresh_interval);}
 	},
 	onSupervision: function (_this) {
 		clearInterval(_F._TIMER_REFRESH);
@@ -99,7 +112,7 @@ var _F = {
 					}
 					_API.onLoadAreaResultado(_html);
 				}
-				_F._TIMER_REFRESH = setInterval(function () { _F.onSupervision(null); }, _F._refresh_interval);
+				if(_API.telemedicina.isDoctor!=0) {_F._TIMER_REFRESH= setTimeout(function () { _F.onSupervision(null); }, _F._refresh_interval);}
 			});
 	},
 	onConsultas: function (_this) {
@@ -125,18 +138,19 @@ var _F = {
 						_preHeader += "      <div class='row'>";
 						_preHeader+="         <div class='col-2'><label>DNI</label><br/><input type='number' placeholder='DNI' class='form-control onlyNumbers dniEspontanea' name='dniEspontanea' id='dniEspontanea'/></div>";
 						_preHeader+="         <div class='col-2'><label>Socio Mediya</label><br/><input type='number' placeholder='Nºde socio' class='form-control onlyNumbers nroSocioEspontanea' name='nroSocioEspontanea' id='nroSocioEspontanea'/></div>";
-						_preHeader += "         <div class='col-1 mt-2 pt-4'><a href='#' class='btn btn-info btn-md btnBuscarAtenciones'>Buscar</a></div>";
-						_preHeader += "         <div class='col-1 mt-2 pt-4'><a href='#' class='btn btn-primary btn-md btnEspontanea'>Espontánea</a></div>";
-						_preHeader += "         <div class='col-6 mt-1 pt-4 text-right'><a href='#' class='btn btn-light btn-sm btnRefresh'><span class='material-symbols-outlined'>refresh</span></a></div>";
+						_preHeader += "         <div class='col-2 mt-2 pt-4'><a href='#' class='btn btn-info btn-md btnBuscarAtenciones'>Buscar</a></div>";
+						_preHeader += "         <div class='col-2 mt-2 pt-4'><a href='#' class='btn btn-primary btn-md btnEspontanea'>Espontánea</a></div>";
+						_preHeader += "         <div class='col-1 mt-1 pt-4 text-right'><a href='#' class='btn btn-light btn-sm btnRefresh'><span class='material-symbols-outlined'>refresh</span></a></div>";
 						_preHeader += "      </div>";
-						_preHeader += "   </div>";
-						_html = _API.onBuildTable(("tblConsultas"), "Consultas", data.records, vHeaders, vColumns, vRules, "", "", _preHeader);
+						_preHeader+="   </div>";
+						_html=_API.onBuildTable("tblConsultas","Consultas",data.records,vHeaders,vColumns,vRules,"","",_preHeader);
 					} else {
 						_html = _API.onNoTablaForTable("");
 					}
 					_API.onLoadAreaResultado(_html);
+					$("#tblConsultas tr td:nth-child(7):contains('EN ESPERA')").closest('tr').css("background-color", "lightgreen");
 				}
-				_F._TIMER_REFRESH = setInterval(function () { _F.onConsultas(null); }, _F._refresh_interval);
+				if(_API.telemedicina.isDoctor!=0) {_F._TIMER_REFRESH= setTimeout(function () { _F.onConsultas(null); }, _F._refresh_interval);}
 			});
 	},
 	onRefresh: function () {
@@ -154,51 +168,63 @@ var _F = {
 				break;
 		}
 	},
-	onNotificaciones: function () {
-		$.fn.ticker.defaults = {
-			random: false,
-			itemSpeed: 10000,
-			cursorSpeed: 10,
-			pauseOnHover: true,
-			finishOnHover: false,
-			cursorOne: '_',
-			cursorTwo: '<div class="spinner-grow spinner-grow-sm text-dark" role="status"></div>',
-			fade: true,
-			fadeInSpeed: 5000,
-			fadeOutSpeed: 1500
-		};
-		_API.call("credipaz/notificacionesIntranet", {}).then(function (_notif) {
-			var _html = "<div class='ticker text-left p-0 m-0'>";
-			_html += "<b class='pr-2'>Notificaciones</b>";
-			_html += "<ul>";
-			$.each(_notif.records, function (i, item) {
-				var _title=item["description"];
-				var _msg = item["details"];
-				var _script="";
-				switch (item["code"]) {
-					case "":
-						_html+="<li>"+_title+" <a href='#' class='btn btn-sm btn-primary btnVerNotificacion p-0 m-0 ml-2 px-2' data-html='"+_API.tools.string_to_b64(_msg)+"'>ver más</a></li>";
-						break;
-					case "alert-primary":
-					case "alert-secondary":
-					case "alert-light":
-					case "alert-dark":
-					case "alert-success":
-					case "alert-info":
-					case "alert-warning":
-					case "alert-danger":
-						_API.onAlert({"message": (_title+_msg), "class": item["code"] });
-						break;
-					case "eval":
-						eval(_msg);
-						break;
+	onNotificaciones: function() {
+		return new Promise(
+			function(resolve,reject) {
+				try {
+					clearInterval(_F._TMR_NOTIFY);
+					$.fn.ticker.defaults={
+						random: false,
+						itemSpeed: 10000,
+						cursorSpeed: 10,
+						pauseOnHover: true,
+						finishOnHover: false,
+						cursorOne: '_',
+						cursorTwo: '<div class="spinner-grow spinner-grow-sm text-dark" role="status"></div>',
+						fade: true,
+						fadeInSpeed: 5000,
+						fadeOutSpeed: 1500
+					};
+					_API.call("credipaz/notificacionesIntranet",{}).then(function(_notif) {
+						var _html="<div class='ticker text-left p-0 m-0'>";
+						_html+="<b class='pr-2'>Notificaciones</b>";
+						_html+="<ul>";
+						$.each(_notif.records,function(i,item) {
+							var _title=item["description"];
+							var _msg=item["details"];
+							var _script="";
+							switch(item["code"]) {
+								case "":
+									_html+="<li>"+_title+" <a href='#' class='btn btn-sm btn-primary btnVerNotificacion p-0 m-0 ml-2 px-2' data-html='"+_API.tools.string_to_b64(_msg)+"'>ver más</a></li>";
+									break;
+								case "alert-primary":
+								case "alert-secondary":
+								case "alert-light":
+								case "alert-dark":
+								case "alert-success":
+								case "alert-info":
+								case "alert-warning":
+								case "alert-danger":
+									_API.onAlert({"message": (_title+_msg),"class": item["code"]});
+									break;
+								case "eval":
+									eval(_msg);
+									break;
+							}
+						});
+						_html+="</ul>";
+						_html+="</div>";
+						$(".areaNews").html(_html);
+						$('.ticker').ticker();
+						resolve(true);
+					}).catch(function(err) {
+						reject(err);
+					});
+				} catch(rex) {
+					reject(rex);
 				}
-			});
-			_html += "</ul>";
-			_html += "</div>";
-			$(".areaNews").html(_html);
-			$('.ticker').ticker();
-		});
+			}
+        );
 	},
 	onVerNotificacion: function (_this) {
 		var _html = _API.tools.b64_to_string(_this.attr("data-html"));
@@ -206,6 +232,7 @@ var _F = {
 			$(".wfooter").remove();
 		    $(".btn-cancel-modal").html("<b>x</b>");
 			$(".btn-cancel-modal").attr("data-modal", "modalNotificacion");
+			_F.onNotificaciones();
 		});
 	},
 	onCancelTelemedicina: function (_this) {
@@ -282,14 +309,12 @@ var _F = {
 		}
 		var _id = _this.attr("data-id");
 		var _params = { "modo": 4, "id": _id, "idUser": _API.id_user_log };
-		$.get((_API._ROOT + "/html/editchargecode.html?" + _API._TS), function (_html) {
-			_API.onShowModal("modalEditChargeCode", "", _html, "modal-xl").then(function (_ret) {
-				_API.method("telemedicina/monitoreo", _params)
-					.then(function (data) {
-
-						_API.log("data->", data);
-
-						$(".wfooter").remove();
+		$.get((_API._ROOT+"/html/editchargecode.html?"+_API._TS),function(_html) {
+			_API.onShowModal("modalEditChargeCode","",_html,"").then(function(_ret) {
+				$(".modal-content").attr("style","position: fixed; left: 0px; top: 0px; width: 100vw; height: 100vh;max-height:100vh !important;");
+   	  	 	    $(".wfooter").remove();
+				_API.method("telemedicina/monitoreo",_params)
+					.then(function(data) {
 						$(".btn-cancel-modal").attr("data-modal", "modalEditChargeCode");
 						$(".btnGrabarAtencion").attr("data-modal", "modalEditChargeCode");
 						$(".btnGrabarAtencion").attr("data-id", _id);
@@ -439,6 +464,17 @@ var _F = {
 		$(".tTipoSocio").html(_rec.Tipo);
 		$(".tNumeroPlan").html(_rec.Plan);
 		$(".tCredencialSwiss").html(_rec.NroCredencial);
+		$(".btnBuildReceta").attr("data-fechanacimiento",_rec.FechaNacimiento);
+		$(".btnBuildReceta").attr("data-nombre",_rec.name);
+		$(".btnBuildReceta").attr("data-apellido",_rec.surname);
+		$(".btnBuildReceta").attr("data-dni",_rec.NroDocumento);
+		$(".btnBuildReceta").attr("data-sexo",_rec.sexo);
+		$(".btnBuildReceta").attr("data-panswiss",_rec.NroCredencial);
+		$(".btnBuildOrden").attr("data-nombre_paciente",_rec.Nombre);
+		$(".btnBuildOrden").attr("data-nro_documento",_rec.NroDocumento);
+		$(".btnBuildOrden").attr("data-nro_club_redondo",_rec.NroCredencial);
+		$(".btnBuildOrden").attr("data-nro_swiss",_rec.NroCredencial);
+		$(".btnBuildOrden").attr("data-obra_social",_rec.NroCredencial);
 	},
 	onAmbulancia: function (_this) {
 		var _id = _this.attr("data-id");
@@ -611,13 +647,13 @@ var _F = {
 				_html += "    </div>";
 				_html += "    <button type='button' data-modal='' class='close btn-cancel-modalall' style='color:red;font-size:42px;position:absolute;right:15px;top:2px;z-index:9999999;'>&times;</button>";
 				_html += "    <div class='modal-body p-0 m-0'>";
-				_html += "       <iframe src='" + response.url + "' style='width:100%;height:1000px;border:solid 0px red;'></iframe>"
+				_html += "       <iframe src='" + response.url + "' style='width:100%;height:1200px;border:solid 0px red;'></iframe>"
 				_html += "    </div>";
 				_html += "</div>";
 				_API.onShowModalOverAll("modalFarmalink", "", _html).then(function (_ret) {
 					$(".wfooter").remove();
 					$(".btn-cancel-modalall").attr("data-modal", "modalFarmalink");
-					$("#modalFarmalink").attr("style", "position:absolute;z-index:999999;top:0px;left:0px;width:100%;-webkit-transform:translate(0%,0%);transform:translate(0%,0%);");
+					$("#modalFarmalink").attr("style", "position:absolute;z-index:999999;top:0px;left:0px;width:100vw;height:100vh;overflow:auto;");
 					_API.onWait(false);
 				});
 			} else {
@@ -691,7 +727,7 @@ var _F = {
 			var _isPDF = (_json.type_media == "pdf");
 			var _html = "<div class='shadow mb-2 p-1'>";
 			if (_isPDF) {
-				_html += "<iframe src='" + _json.message + "' style='border:solid 0px red;height:640px;width:100%;'></iframe>";
+				_html += "<iframe src='" + _json.message + "' style='border:solid 0px red;height:840px;width:100%;'></iframe>";
 			} else {
 				_bFill = true;
 				_html += _json.message;
@@ -966,7 +1002,7 @@ var _F = {
 		};
 	},
 	onVideo: function (_this) {
-		/*NeoVideo implementation! */
+		/* NeoVideo implementation! */
 		_this.fadeOut("slow");
 		var _dataToken = _this.attr("data-token");
 		_NEOVIDEO._id_application = 6;
@@ -985,28 +1021,33 @@ var _F = {
 			$('[name ^= "jitsiConferenceFrame"]').css({ "height": _NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.height, "width": _NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.width });
 			$(_NEOVIDEO._CONFIG_INIT_VIDEO_DEFAULTS.target).removeClass("d-none").fadeIn("fast");
 		}).catch(function (err) { });
-
 	},
-	onEstadoColaAtencion: function () {
-		var _params = { "idUser": _API.id_user_log };
-		_API.call("telemedicina/estadocolaatencion", _params).then(function (response) {
-			_API.telemedicina.atendiendo = parseInt(response.records[0].activo);
-			_F.onDrawStatusDoctor();
-			var _total = parseInt(response.records[0].total);
-			$(".conDemora").html("").addClass("d-none");
-			$(".enEspera").html("Nadie en espera").removeClass("blink").removeClass("badge-dark").removeClass("badge-danger").addClass("badge-success");
-			if (_total > 0) {
-				$(".enEspera").html(_total + " en espera").removeClass("badge-success").addClass("badge-danger");
-				$(".conDemora").html(response.records[0].elapsed).removeClass("d-none");
-				if (_F._esperando < _total) {
-					_F._esperando = _total;
-					$("#ringerAlertas").attr("src", "audio/vintage.mp3");
-					$(".enEspera").addClass("blink");
+	onEstadoColaAtencion: function() {
+		return new Promise(
+			function(resolve,reject) {
+				try {
+					var _params={"idUser": _API.id_user_log};
+					_API.call("telemedicina/estadocolaatencion",_params).then(function(response) {
+						_API.telemedicina.atendiendo=parseInt(response.records[0].activo);
+						_F.onDrawStatusDoctor();
+						var _total=parseInt(response.records[0].total);
+						$(".conDemora").html("").addClass("d-none");
+						$(".enEspera").html("Nadie en espera").removeClass("blink").removeClass("badge-dark").removeClass("badge-danger").addClass("badge-success");
+						if(_total>0) {
+							$(".enEspera").html(_total+" en espera").removeClass("badge-success").addClass("badge-danger");
+							$(".conDemora").html(response.records[0].elapsed).removeClass("d-none");
+							if(_API.telemedicina.atendiendo!=0) {$("#ringerAlertas").attr("src","audio/vintage.mp3");}
+							$(".enEspera").addClass("blink");
+						}
+						resolve(true);
+					}).catch(function(error) {
+						reject(error);
+					});
+				} catch(err) {
+					reject(err);
 				}
 			}
-		}).catch(function (error) {
-			
-		});
+		);
 	},
 	onDrawStatusDoctor: function () {
 		if (_API.telemedicina.isDoctor != 1) {

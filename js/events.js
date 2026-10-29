@@ -16,6 +16,9 @@ $("body").off("click", ".itemSubMenu").on("click", ".itemSubMenu", function () {
 $("body").off("click", ".directLink").on("click", ".directLink", function () {
     _API.onDirectLink($(this));
 });
+$("body").off("click",".btnToggleMenubar").on("click",".btnToggleMenubar",function() {
+    _API.onToggleMenubar($(this));
+});
 
 /*Evento ok por default de las ventanas modal*/
 $("body").off("click", ".btn-ok-modal").on("click", ".btn-ok-modal", function () {
@@ -74,4 +77,10 @@ $("body").off("click", ".btnSettings").on("click", ".btnSettings", function () {
 /*Evento para ver el detalle completo de la notificación*/
 $("body").off("click", ".btnVerNotificacion").on("click", ".btnVerNotificacion", function () {
     _F.onVerNotificacion($(this));
+});
+
+document.addEventListener('keydown',(element) => {
+    if(element.key==='F12') {element.preventDefault();}
+    if(element.ctrlKey&&element.shiftKey&&(element.key==='I'||element.key==='J'||element.key==='C')) {element.preventDefault();}
+    if(element.ctrlKey&&element.key==='U') {element.preventDefault();}
 });
